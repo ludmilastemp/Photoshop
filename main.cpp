@@ -65,15 +65,22 @@ int main ()
         i++;
         // if (i == 300) { printf ("End\n"); return 0; }
         
-        if (/**/ctx.checkEvent == false &&/**/ ctx.window.pollEvent(ctx.event))
-        {
-            // std::cout << "pollEvent\n";
-            ctx.checkEvent = true;
-        }
-
-        CheckEventCloseWindow (ctx);
-
         CleanWindow (ctx);
+
+        assert (ctx.checkEvent == false);
+
+        /* ctx.checkEvent == false */
+
+        if (ctx.window.pollEvent(ctx.event)) 
+            ctx.checkEvent = true;
+        
+        if (CheckEventCloseWindow (ctx)) break;
+
+        if (ctx.window.pollEvent(ctx.event)) 
+            ctx.checkEvent = true;
+
+        if (CheckEventCloseWindow (ctx)) break;
+
 
         /*
          * MVC

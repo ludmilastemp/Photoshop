@@ -31,13 +31,15 @@ bool IsWindowOpen (GraphicsCtx& ctx)
     return ctx.window.isOpen();
 }
 
-void CheckEventCloseWindow (GraphicsCtx& ctx)
+bool CheckEventCloseWindow (GraphicsCtx& ctx)
 {
     if (ctx.checkEvent == true && ctx.event.type == sf::Event::Closed)
     {
         std::cout << "close window\n";
         ctx.window.close();
+        return 1;
     }
+    return 0;
 }
 
 void DisplayWindow (GraphicsCtx& ctx)

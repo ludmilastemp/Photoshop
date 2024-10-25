@@ -6,7 +6,7 @@
 #include "../vectors/vectorDec.hpp"
 
 bool IsWindowOpen          (GraphicsCtx& ctx);
-void CheckEventCloseWindow (GraphicsCtx& ctx);
+bool CheckEventCloseWindow (GraphicsCtx& ctx);
 void DisplayWindow         (GraphicsCtx& ctx);
 void CleanWindow           (GraphicsCtx& ctx);
 

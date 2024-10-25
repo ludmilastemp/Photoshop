@@ -15,7 +15,7 @@ public:
     }
 
     virtual void active (sf::Event event) = 0;
-    // virtual void stop   () {}
+    virtual void stop   () {}
 };
 
 #endif /* STL_TOOL */

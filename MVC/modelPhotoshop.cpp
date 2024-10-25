@@ -11,8 +11,8 @@ ModelPhotoshop::ModelPhotoshop ()
 
 void ModelPhotoshop::setActiveTool (int tool)
 {
-    // if (0 <= activeTool && activeTool <= tools.size())
-    //     (*tools[activeTool]).stop();
+    if (0 <= activeTool && activeTool <= tools.size())
+        (*tools[activeTool]).stop();
     UpdateImage ();
     if (tool >= -1 && tool <= tools.size())
         activeTool = tool;
