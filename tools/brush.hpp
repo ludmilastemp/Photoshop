@@ -31,7 +31,6 @@ public:
         int y = position.y - kHeightCanvasCorner;
 
         modelPhotoshop.setPixel ({x, y}, Color (0, 1, 1, 1), size, 0);
-        
     }
 };
 
