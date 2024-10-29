@@ -24,28 +24,14 @@ public:
         if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
             return;
 
-        int x = event.mouseMove.x - kWidthCanvasCorner;
-        int y = event.mouseMove.y - kHeightCanvasCorner;
+        // int x = event.mouseMove.x - kWidthCanvasCorner;
+        // int y = event.mouseMove.y - kHeightCanvasCorner;
+        sf::Vector2i position = sf::Mouse::getPosition(ctx.window);
+        int x = position.x - kWidthCanvasCorner;
+        int y = position.y - kHeightCanvasCorner;
 
-        if (0 <= x && x < kWidthCanvas && 
-            0 <= y && y < kHeightCanvas)
-        {
-            for (int r_x = -size / 2; r_x < size / 2; r_x++)
-            {
-                for (int r_y = -size / 2; r_y < size / 2; r_y++)
-                {
-                    if (r_x * r_x + r_y * r_y <= size)
-                    {
-                        sf::Color color = 
-                            modelPhotoshop.systemState.background.image.getPixel (x + r_x, y + r_y);
-                        
-                        modelPhotoshop.setPixel ({x + r_x, y + r_y}, 
-                            // Color (0, 0, 0, 0));
-                            Color (color.r / 255.0, color.g / 255.0, color.b / 255.0));
-                    }
-                }
-            }
-        }
+        modelPhotoshop.setPixel ({x, y}, Color (0, 0, 0, 0), size, 0);
+
     }
 };
 

@@ -18,8 +18,10 @@ void Picture::setPixel (const VectorDec& coord, Color color)
 {
     if (0 <= coord.x && coord.x < kWidthCanvas && 
         0 <= coord.y && coord.y < kHeightCanvas)
+    {
         image.setPixel (coord.x, coord.y, 
             sf::Color (color.r * 255, color.g * 255, color.b * 255, color.a * 255));
+    }
 }
 
 void Picture::overlay (const Picture& from)
@@ -29,6 +31,7 @@ void Picture::overlay (const Picture& from)
         for (int y = 0; y < kHeightCanvas; y++)
         {
             color_t a = from.image.getPixel(x, y).a / 255.0;
+            if (a == 0) continue;
 
             image.setPixel (x, y, sf::Color (
                 image.getPixel(x, y).r * (1 - a) + from.image.getPixel(x, y).r * a, 

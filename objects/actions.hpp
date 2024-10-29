@@ -54,6 +54,23 @@ public:
     }
 };
 
+class ActionLine : public Action
+{
+private:
+    ModelPhotoshop& modelPhotoshop;
+
+public:
+    ActionLine (ModelPhotoshop& init_modelPhotoshop)
+        : modelPhotoshop(init_modelPhotoshop)
+    {}
+
+    virtual void call () override
+    {
+        std::cout << "setActiveTool 2\n";
+        modelPhotoshop.setActiveTool (2);
+    }
+};
+
 // class ActionAddMolecule : public Action
 // {
 // private:

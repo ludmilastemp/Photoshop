@@ -8,6 +8,7 @@
 #include "MVC/viewPhotoshop.hpp"
 #include "tools/brush.hpp"
 #include "tools/eraser.hpp"
+#include "tools/line.hpp"
 
 using namespace std;
 
@@ -29,8 +30,11 @@ int main ()
  */
     ToolBrush  brush  (modelPhotoshop, ctx);
     ToolEraser eraser (modelPhotoshop, ctx);
+    ToolLine   line   (modelPhotoshop, ctx);
+
     modelPhotoshop.addTool (brush);
     modelPhotoshop.addTool (eraser);
+    modelPhotoshop.addTool (line);
 
 /*
  * MVC для кнопок
@@ -44,12 +48,15 @@ int main ()
     ActionNone    actionNone   {};
     ActionBrush   actionBrush  {modelPhotoshop};
     ActionEraser  actionEraser {modelPhotoshop};
+    ActionLine    actionLine   {modelPhotoshop};
 
-    Button buttonBrush  {{kWidthIcon, kHeightIcon}, {25, 100}, "img/brush.png", actionBrush};
+    Button buttonBrush  {{kWidthIcon, kHeightIcon}, {25, 100}, "img/brush.png",  actionBrush};
     Button buttonEraser {{kWidthIcon, kHeightIcon}, {25, 160}, "img/eraser.png", actionEraser};
+    Button buttonLine   {{kWidthIcon, kHeightIcon}, {25, 220}, "img/line.png",   actionLine};
 
     modelButton.addButton (buttonBrush);
     modelButton.addButton (buttonEraser);
+    modelButton.addButton (buttonLine);
 
 /*
  * Создание контроллера для photoshop
@@ -65,22 +72,17 @@ int main ()
         i++;
         // if (i == 300) { printf ("End\n"); return 0; }
         
-        CleanWindow (ctx);
-
         assert (ctx.checkEvent == false);
 
-        /* ctx.checkEvent == false */
-
         if (ctx.window.pollEvent(ctx.event)) 
             ctx.checkEvent = true;
-        
         if (CheckEventCloseWindow (ctx)) break;
 
         if (ctx.window.pollEvent(ctx.event)) 
             ctx.checkEvent = true;
-
         if (CheckEventCloseWindow (ctx)) break;
 
+        CleanWindow (ctx);
 
         /*
          * MVC

@@ -26,7 +26,7 @@ public:
     void update (sf::Event event);
     void setActiveTool (int tool);
     void addTool (Tool& tool);
-    void setPixel (VectorDec coord, Color color);
+    void setPixel (VectorDec coord, Color color, int size = 1, int layer = -1);
 
     void UpdateImage ();
 };

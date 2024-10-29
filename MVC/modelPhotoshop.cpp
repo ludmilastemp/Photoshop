@@ -11,11 +11,13 @@ ModelPhotoshop::ModelPhotoshop ()
 
 void ModelPhotoshop::setActiveTool (int tool)
 {
-    if (0 <= activeTool && activeTool <= tools.size())
+    if (0 <= activeTool && activeTool < tools.size())
         (*tools[activeTool]).stop();
-    UpdateImage ();
-    if (tool >= -1 && tool <= tools.size())
+
+    if (-1 <= tool && tool < tools.size())
         activeTool = tool;
+    else 
+        std::cout << "UNKNOWN TOOL\n";
 }
 
 void ModelPhotoshop::addTool (Tool& tool)
@@ -23,9 +25,31 @@ void ModelPhotoshop::addTool (Tool& tool)
     tools.push_back (&tool);
 }
 
-void ModelPhotoshop::setPixel (VectorDec coord, Color color)
+static Picture& getLayer (SystemState& systemState, int layer)
 {
-    systemState.tmp.setPixel ({coord.x, coord.y}, color);
+    if (layer == -1) 
+        return systemState.tmp;
+    if (layer == 0) 
+        return systemState.base; 
+    return systemState.tmp;
+}
+
+void ModelPhotoshop::setPixel (VectorDec coord, Color color, int size, int layer)
+{
+    Picture& p = getLayer (systemState, layer);
+
+    for (int r_x = -size / 2; r_x < size / 2; r_x++)
+    {
+        for (int r_y = -size / 2; r_y < size / 2; r_y++)
+        {
+            if (r_x * r_x + r_y * r_y <= size          &&
+                0 <= coord.x + r_x && coord.x + r_x < kWidthCanvas && 
+                0 <= coord.y + r_y && coord.y + r_y < kHeightCanvas)
+            {
+                p.setPixel ({coord.x + r_x, coord.y + r_y}, color);
+            }
+        }
+    }
 }
 
 void ModelPhotoshop::UpdateImage ()
@@ -51,6 +75,7 @@ void ModelPhotoshop::update (sf::Event event)
         (*tools[activeTool])(event);
     }
 
+    systemState.base.update();
     systemState.tmp.update();
 }
 

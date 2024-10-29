@@ -16,7 +16,7 @@ public:
         background ({kWidthCanvas,       kHeightCanvas}, 
                     {kWidthCanvasCorner, kHeightCanvasCorner}, "img/cat.png"),
         base       ({kWidthCanvas,       kHeightCanvas}, 
-                    {kWidthCanvasCorner, kHeightCanvasCorner}, "img/cat.png"),
+                    {kWidthCanvasCorner, kHeightCanvasCorner}),
         tmp        ({kWidthCanvas,       kHeightCanvas}, 
                     {kWidthCanvasCorner, kHeightCanvasCorner})
     {}
