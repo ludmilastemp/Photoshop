@@ -11,7 +11,7 @@ public:
     Picture base;
     Picture tmp;
 
-    SystemState ()
+    SystemState (Scene& main_scene)
         : 
         background ({kWidthCanvas,       kHeightCanvas}, 
                     {kWidthCanvasCorner, kHeightCanvasCorner}, "img/cat.png"),
@@ -19,7 +19,11 @@ public:
                     {kWidthCanvasCorner, kHeightCanvasCorner}),
         tmp        ({kWidthCanvas,       kHeightCanvas}, 
                     {kWidthCanvasCorner, kHeightCanvasCorner})
-    {}
+    {
+        main_scene.addObject (background);
+        main_scene.addObject (base);
+        main_scene.addObject (tmp);
+    }
 
 };
 

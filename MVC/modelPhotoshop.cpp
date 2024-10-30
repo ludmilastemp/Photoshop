@@ -2,8 +2,8 @@
 
 /**************************************************************************/
 
-ModelPhotoshop::ModelPhotoshop ()
-    : systemState(), 
+ModelPhotoshop::ModelPhotoshop (Scene& main_scene)
+    : systemState(main_scene), 
     activeTool (-1)
 {}
 

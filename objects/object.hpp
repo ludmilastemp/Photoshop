@@ -6,8 +6,6 @@
 
 // enum IsDraw 
 
-class Scene;
-
 class Object
 {
 public:
@@ -16,8 +14,6 @@ public:
     sf::Sprite  sprite;
     sf::Texture texture;
     sf::Image   image;
-
-    // Scene* scene;
 
     Object (const VectorDec& size, const VectorDec& corner)
         : isDraw(1), 
@@ -43,5 +39,37 @@ public:
 
     virtual ~Object () = default; 
 };
+
+class Scene
+{
+public:
+    bool isDraw;
+    std::vector <Object*> objects;
+    std::vector <Scene*>  scenes;
+
+    void addObject (Object& object)
+    {
+        objects.push_back(&object);
+    }
+
+    void addScene (Scene& scene)
+    {
+        scenes.push_back(&scene);
+    }
+
+    void draw (GraphicsCtx& ctx)
+    {
+        for (int i = 0; i < objects.size(); i++)
+        {
+            ctx.window.draw (objects[i]->sprite);
+        }
+
+        for (int i = 0; i < scenes.size(); i++)
+        {
+            scenes[i]->draw (ctx);
+        }
+    }
+};
+
 
 #endif /* STL_OBJECT */

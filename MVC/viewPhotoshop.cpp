@@ -2,21 +2,19 @@
 
 /**************************************************************************/
 
-ViewPhotoshop::ViewPhotoshop (SystemState& init_systemState)
-    :systemState (&init_systemState)
+ViewPhotoshop::ViewPhotoshop (Scene& init_main_scene)
+    :main_scene(init_main_scene)
 {}
 
 /**************************************************************************/
 
 void ViewPhotoshop::update (GraphicsCtx& ctx)
 {
-    // CleanWindow (ctx);
+    CleanWindow (ctx);
 
-    ctx.window.draw (systemState->background.sprite);
-    ctx.window.draw (systemState->base.sprite);
-    ctx.window.draw (systemState->tmp.sprite);
+    main_scene.draw(ctx);
 
-    // DisplayWindow(ctx);    
+    DisplayWindow(ctx);    
 }
 
 /**************************************************************************/

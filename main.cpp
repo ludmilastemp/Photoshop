@@ -19,11 +19,13 @@ int main ()
 
     GraphicsCtx ctx {};
 
+    Scene main_scene {};
+
 /*
  * MVC photoshop
  */
-    ModelPhotoshop modelPhotoshop {};
-    ViewPhotoshop  viewPhotoshop  {modelPhotoshop.systemState};
+    ModelPhotoshop modelPhotoshop {main_scene};
+    ViewPhotoshop  viewPhotoshop  {main_scene};
 
 /*
  * Добавление тулов
@@ -40,7 +42,6 @@ int main ()
  * MVC для кнопок
  */
     ModelButton modelButton {};
-    ViewButton  viewButton  {&modelButton.buttons}; 
 
 /*
  * Создание кнопок
@@ -58,10 +59,27 @@ int main ()
     modelButton.addButton (buttonEraser);
     modelButton.addButton (buttonLine);
 
+    Scene scene_tools {};
+    scene_tools.addObject (buttonBrush);
+    scene_tools.addObject (buttonEraser);
+    scene_tools.addObject (buttonLine);
+    main_scene.addScene (scene_tools);
+
+    Button buttonColorIcon  {{kWidthIcon, kHeightIcon}, {725, 100}, "img/colorwheel_mini.png", actionNone};
+    Button buttonColor      {{150, 150},                {550, 100}, "img/colorwheel.png", actionNone};
+
+    modelButton.addButton (buttonColorIcon);
+    modelButton.addButton (buttonColor);
+
+    Scene scene_parameters {};
+    scene_parameters.addObject (buttonColorIcon);
+    scene_parameters.addObject (buttonColor);
+    main_scene.addScene (scene_parameters);
+
 /*
  * Создание контроллера для photoshop
  */
-    ControllerPhotoshop controllerPhotoshop {modelButton, viewButton};
+    ControllerPhotoshop controllerPhotoshop {modelButton};
 
 /*
  * Начало программы
@@ -81,21 +99,16 @@ int main ()
         if (ctx.window.pollEvent(ctx.event)) 
             ctx.checkEvent = true;
         if (CheckEventCloseWindow (ctx)) break;
-
-        CleanWindow (ctx);
-
+        
         /*
          * MVC
          */ 
             controllerPhotoshop (ctx); 
             modelPhotoshop (ctx.event);
-            viewPhotoshop (ctx);   
-
-        DisplayWindow(ctx);                                                                                                sf::sleep (sf::seconds(0.01));
+            viewPhotoshop (ctx);                                                                                              sf::sleep (sf::seconds(0.01));
     }
 
     printf ("End\n");
 
     return 0;
-
 }

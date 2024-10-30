@@ -39,72 +39,26 @@ public:
         int x = position.x - kWidthCanvasCorner;
         int y = position.y - kHeightCanvasCorner;
 
-        if (0 <= x && x < kWidthCanvas && 
-            0 <= y && y < kHeightCanvas)
+        if (x_start == -1 && y_start == -1)
         {
-            if (x_start == -1 && y_start == -1)
-            {
-                x_start = x;
-                y_start = y;
-                std::cout << x << " " << y << "\n";
-                return;
-            }
+            x_start = x;
+            y_start = y;
+            return;
+        }
 
-            modelPhotoshop.systemState.tmp.clean();
-            Color color {0, 0, 0, 1};
+        modelPhotoshop.systemState.tmp.clean();
+        Color color {0, 0, 0, 1};
 
-            int x_draw = x_start;
-            int y_draw = y_start;
+        int x_draw = x_start;
+        int y_draw = y_start;
 
-            if (abs(x - x_start) < abs(y - y_start))
-            {
-                int A = 2 * abs(x - x_start);
-                int B = A - 2 * abs(y - y_start);
-                int P = A - abs(y - y_start);
+        if (abs(x - x_start) < abs(y - y_start))
+        {
+            int A = 2 * abs(x - x_start);
+            int B = A - 2 * abs(y - y_start);
+            int P = A - abs(y - y_start);
 
-                for (y_draw = y_start; y_draw <= y; y_draw++)
-                {
-                    if (P < 0)
-                    {
-                        P += A;
-                    }
-                    else if (P >= 0)
-                    {
-                        if (x - x_start > 0)
-                            x_draw++;
-                        else 
-                            x_draw--;
-                        P += B;
-                    }
-                    
-                    modelPhotoshop.setPixel ({x_draw, y_draw}, color, size);
-                }
-                x_draw = x;
-                for (y_draw = y; y_draw <= y_start; y_draw++)
-                {
-                    if (P < 0)
-                    {
-                        P += A;
-                    }
-                    else if (P >= 0)
-                    {
-                        if (x - x_start > 0)
-                            x_draw--;
-                        else 
-                            x_draw++;
-                        P += B;
-                    }
-                    
-                    modelPhotoshop.setPixel ({x_draw, y_draw}, color, size);
-                }
-                return;
-            }
-
-
-            int A = 2 * abs(y - y_start);
-            int B = A - 2 * abs(x - x_start);
-            int P = A - abs(x - x_start);
-            for (x_draw = x_start; x_draw <= x; x_draw++)
+            for (y_draw = y_start; y_draw <= y; y_draw++)
             {
                 if (P < 0)
                 {
@@ -112,17 +66,17 @@ public:
                 }
                 else if (P >= 0)
                 {
-                    if (y - y_start > 0)
-                        y_draw++;
+                    if (x - x_start > 0)
+                        x_draw++;
                     else 
-                        y_draw--;
+                        x_draw--;
                     P += B;
                 }
-
+                
                 modelPhotoshop.setPixel ({x_draw, y_draw}, color, size);
             }
-            y_draw = y;
-            for (x_draw = x; x_draw <= x_start; x_draw++)
+            x_draw = x;
+            for (y_draw = y; y_draw <= y_start; y_draw++)
             {
                 if (P < 0)
                 {
@@ -130,17 +84,58 @@ public:
                 }
                 else if (P >= 0)
                 {
-                    if (y - y_start > 0)
-                        y_draw--;
+                    if (x - x_start > 0)
+                        x_draw--;
                     else 
-                        y_draw++;
+                        x_draw++;
                     P += B;
                 }
-
+                
                 modelPhotoshop.setPixel ({x_draw, y_draw}, color, size);
             }
             return;
         }
+
+
+        int A = 2 * abs(y - y_start);
+        int B = A - 2 * abs(x - x_start);
+        int P = A - abs(x - x_start);
+        for (x_draw = x_start; x_draw <= x; x_draw++)
+        {
+            if (P < 0)
+            {
+                P += A;
+            }
+            else if (P >= 0)
+            {
+                if (y - y_start > 0)
+                    y_draw++;
+                else 
+                    y_draw--;
+                P += B;
+            }
+
+            modelPhotoshop.setPixel ({x_draw, y_draw}, color, size);
+        }
+        y_draw = y;
+        for (x_draw = x; x_draw <= x_start; x_draw++)
+        {
+            if (P < 0)
+            {
+                P += A;
+            }
+            else if (P >= 0)
+            {
+                if (y - y_start > 0)
+                    y_draw--;
+                else 
+                    y_draw++;
+                P += B;
+            }
+
+            modelPhotoshop.setPixel ({x_draw, y_draw}, color, size);
+        }
+        return;
     }
 
     virtual void stop () override

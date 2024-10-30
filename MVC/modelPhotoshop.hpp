@@ -16,7 +16,7 @@ public:
     std::vector<Tool*> tools; 
     int activeTool;
 
-    ModelPhotoshop ();
+    ModelPhotoshop (Scene& main_scene);
 
     void operator() (sf::Event event)
     {

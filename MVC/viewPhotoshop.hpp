@@ -7,9 +7,9 @@
 class ViewPhotoshop
 {
 public:
-    SystemState* systemState;
+    Scene& main_scene;
 
-    ViewPhotoshop (SystemState& systemState);
+    ViewPhotoshop (Scene& main_scene);
 
     void operator() (GraphicsCtx& ctx)
     {

@@ -2,8 +2,8 @@
 
 /**************************************************************************/
 
-ControllerPhotoshop::ControllerPhotoshop (ModelButton& init_modelButton, ViewButton& init_viewButton)
-    : modelButton(init_modelButton), viewButton(init_viewButton)
+ControllerPhotoshop::ControllerPhotoshop (ModelButton& init_modelButton)
+    : modelButton(init_modelButton)
 {}
 
 /**************************************************************************/
@@ -21,7 +21,6 @@ void ControllerPhotoshop::update (GraphicsCtx& ctx)
     }
 
     ctx.checkEvent = false;
-    viewButton (ctx);
 }
 
 /**************************************************************************/

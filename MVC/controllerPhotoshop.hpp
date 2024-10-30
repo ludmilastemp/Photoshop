@@ -2,15 +2,13 @@
 #define STL_CONTROLLER_PHOTOSHOP
 
 #include "MVC_Button/modelButton.hpp"
-#include "MVC_Button/viewButton.hpp"
 
 class ControllerPhotoshop
 {
 public:
     ModelButton& modelButton;
-    ViewButton&  viewButton;
 
-    ControllerPhotoshop (ModelButton& modelButton, ViewButton&  viewButton);
+    ControllerPhotoshop (ModelButton& modelButton);
 
     void operator() (GraphicsCtx& ctx) 
     {

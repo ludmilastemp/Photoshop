@@ -5,7 +5,6 @@ a.out: tmp/main.o		                \
 		tmp/MVC/modelPhotoshop.o          \
 		tmp/MVC/viewPhotoshop.o           \
 		tmp/MVC/MVC_Button/modelButton.o  \
-		tmp/MVC/MVC_Button/viewButton.o   \
 		tmp/objects/button.o              \
 		tmp/objects/picture.o             \
 		tmp/vectors/vectorDec.o           \
@@ -17,7 +16,6 @@ a.out: tmp/main.o		                \
 		tmp/MVC/modelPhotoshop.o          \
 		tmp/MVC/viewPhotoshop.o           \
 		tmp/MVC/MVC_Button/modelButton.o  \
-		tmp/MVC/MVC_Button/viewButton.o   \
 		tmp/objects/button.o              \
 		tmp/objects/picture.o             \
 		tmp/vectors/vectorDec.o           \
@@ -46,7 +44,6 @@ tmp/GrLib/color.o: GrLib/color.cpp \
 tmp/MVC/controllerPhotoshop.o: MVC/controllerPhotoshop.cpp \
 		MVC/controllerPhotoshop.hpp \
 		MVC/MVC_Button/modelButton.hpp \
-		MVC/MVC_Button/viewButton.hpp \
 		objects/button.hpp 
 	g++ -c MVC/controllerPhotoshop.cpp -o tmp/MVC/controllerPhotoshop.o
 
@@ -73,11 +70,6 @@ tmp/MVC/MVC_Button/modelButton.o: MVC/MVC_Button/modelButton.cpp \
 		MVC/MVC_Button/modelButton.hpp \
 		objects/button.hpp 
 	g++ -c MVC/MVC_Button/modelButton.cpp -o tmp/MVC/MVC_Button/modelButton.o
-
-tmp/MVC/MVC_Button/viewButton.o: MVC/MVC_Button/viewButton.cpp \
-		MVC/MVC_Button/viewButton.hpp \
-		objects/button.hpp 
-	g++ -c MVC/MVC_Button/viewButton.cpp -o tmp/MVC/MVC_Button/viewButton.o
 
 tmp/objects/button.o: objects/button.cpp \
 		objects/button.hpp \
