@@ -7,24 +7,27 @@ ModelButton::ModelButton ()
 
 /**************************************************************************/
 
-void ModelButton::addButton (Button button)
+void ModelButton::addButton (Button& button)
 {
-    buttons.push_back (button);
+    buttons.push_back (&button);
 }
 
-void ModelButton::update (sf::Vector2i pos)
+bool ModelButton::update (VectorDec pos, sf::Event event)
 {
     for (int i = 0; i < buttons.size(); i++)
     {
-        Button& button = buttons[i];
-        if (IsButton (pos, button))
+        Button& button = *(buttons[i]);
+        if (button.isDraw && 
+            IsButton (pos, button))
         {
             for (size_t act = 0; act < button.actions.size(); act++)
             {
-                (*button.actions[act])(); // отдельный метод
+                (*button.actions[act])(event); // отдельный метод
             }
+            return true;
         }
     }
+    return false;
 }
 
 /**************************************************************************/

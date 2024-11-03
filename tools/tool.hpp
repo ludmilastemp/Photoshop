@@ -15,6 +15,8 @@ public:
     }
 
     virtual void active (sf::Event event) = 0;
+    virtual void setColor (Color& color) {}
+    virtual void setSize  (int size)    {}
     virtual void stop   () {}
 };
 

@@ -16,7 +16,7 @@ public:
     ToolEraser (ModelPhotoshop& init_modelPhotoshop, GraphicsCtx& init_ctx)
         :modelPhotoshop (init_modelPhotoshop), 
         ctx (init_ctx),
-        size (300)
+        size (18)
     {}
 
     virtual void active (sf::Event event) override
@@ -32,6 +32,12 @@ public:
 
         modelPhotoshop.setPixel ({x, y}, Color (0, 0, 0, 0), size, 0);
     }
+
+    virtual void setSize (int new_size) override
+    {
+        size = new_size;
+    }
+
 };
 
 #endif /* STL_ERASER */

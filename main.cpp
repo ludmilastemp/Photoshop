@@ -6,6 +6,7 @@
 #include "MVC/controllerPhotoshop.hpp"
 #include "MVC/modelPhotoshop.hpp"
 #include "MVC/viewPhotoshop.hpp"
+#include "objects/parameterManager.hpp"
 #include "tools/brush.hpp"
 #include "tools/eraser.hpp"
 #include "tools/line.hpp"
@@ -44,7 +45,7 @@ int main ()
     ModelButton modelButton {};
 
 /*
- * Создание кнопок
+ * Создание кнопок для tools
  */
     ActionNone    actionNone   {};
     ActionBrush   actionBrush  {modelPhotoshop};
@@ -65,15 +66,48 @@ int main ()
     scene_tools.addObject (buttonLine);
     main_scene.addScene (scene_tools);
 
-    Button buttonColorIcon  {{kWidthIcon, kHeightIcon}, {725, 100}, "img/colorwheel_mini.png", actionNone};
-    Button buttonColor      {{150, 150},                {550, 100}, "img/colorwheel.png", actionNone};
+/*
+ * Добавление параметров
+ */
+    ParameterManager parameterManager;
 
-    modelButton.addButton (buttonColorIcon);
+    Picture pictureColor {{150, 200}, {550, 100}, "img/colorwheel.png"};
+    ActionColor actionColor (modelPhotoshop, pictureColor);
+    Button buttonColor {{150, 150}, {550, 100}, "img/colorwheel.png", actionColor};
     modelButton.addButton (buttonColor);
+
+    Scene scene_parameter_color {};
+    scene_parameter_color.addObject (buttonColor);
+    scene_parameter_color.addObject (pictureColor);
+    scene_parameter_color.setIsDraw (false);
+    main_scene.addScene (scene_parameter_color);
+
+    Picture pictureSize {{150, 200}, {550, 100}};
+    ActionSize actionSize (modelPhotoshop, pictureSize);
+    Button buttonSize {{150, 200}, {550, 100}, "img/size.png", actionSize};
+    modelButton.addButton (buttonSize);
+
+    Scene scene_parameter_size {};
+    scene_parameter_size.addObject (buttonSize);
+    scene_parameter_size.addObject (pictureSize);
+    scene_parameter_size.setIsDraw (false);
+    parameterManager.addScene (scene_parameter_size);
+    main_scene.addScene (scene_parameter_size);
+
+/*
+ * Создание кнопок для parameters
+ */
+    ActionColorIcon actionColorIcon {parameterManager, scene_parameter_color};
+    ActionSizeIcon  actionSizeIcon  {parameterManager, scene_parameter_size};
+
+    Button buttonColorIcon {{kWidthIcon, kHeightIcon}, {725, 100}, "img/colorwheel_icon.png", actionColorIcon};
+    Button buttonSizeIcon  {{kWidthIcon, kHeightIcon}, {725, 160}, "img/size_icon.png",       actionSizeIcon};
+    modelButton.addButton (buttonColorIcon);
+    modelButton.addButton (buttonSizeIcon);
 
     Scene scene_parameters {};
     scene_parameters.addObject (buttonColorIcon);
-    scene_parameters.addObject (buttonColor);
+    scene_parameters.addObject (buttonSizeIcon);
     main_scene.addScene (scene_parameters);
 
 /*
@@ -89,23 +123,19 @@ int main ()
     {
         i++;
         // if (i == 300) { printf ("End\n"); return 0; }
-        
-        assert (ctx.checkEvent == false);
 
-        if (ctx.window.pollEvent(ctx.event)) 
+        while (ctx.window.pollEvent(ctx.event)) 
             ctx.checkEvent = true;
+
+        if (ctx.checkEvent == false) continue;
         if (CheckEventCloseWindow (ctx)) break;
 
-        if (ctx.window.pollEvent(ctx.event)) 
-            ctx.checkEvent = true;
-        if (CheckEventCloseWindow (ctx)) break;
-        
         /*
          * MVC
          */ 
-            controllerPhotoshop (ctx); 
-            modelPhotoshop (ctx.event);
-            viewPhotoshop (ctx);                                                                                              sf::sleep (sf::seconds(0.01));
+            if (controllerPhotoshop (ctx) == false)
+                modelPhotoshop (ctx.event);
+            viewPhotoshop (ctx);                 
     }
 
     printf ("End\n");

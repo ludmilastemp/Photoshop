@@ -6,17 +6,17 @@
 class ModelButton
 {
 public:
-    std::vector <Button> buttons;
+    std::vector <Button*> buttons;
 
     ModelButton ();
 
-    void operator() (sf::Vector2i pos)
+    bool operator() (VectorDec pos, sf::Event event)
     {
-        update(pos);
+        return update(pos, event);
     }
 
-    void addButton (Button button); 
-    void update (sf::Vector2i pos);
+    void addButton (Button& button); 
+    bool update (VectorDec pos, sf::Event event);
 };
 
 #endif /* STL_MODEL_BUTTON */

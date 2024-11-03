@@ -10,13 +10,14 @@ private:
     ModelPhotoshop& modelPhotoshop;
     GraphicsCtx&    ctx;
     int size;
+    Color color;
 
 public:
 
     ToolBrush (ModelPhotoshop& init_modelPhotoshop, GraphicsCtx& init_ctx)
         :modelPhotoshop (init_modelPhotoshop), 
         ctx (init_ctx),
-        size (200)
+        size (15), color (0, 1, 1, 1)
     {}
 
     virtual void active (sf::Event event) override
@@ -30,8 +31,19 @@ public:
         int x = position.x - kWidthCanvasCorner;
         int y = position.y - kHeightCanvasCorner;
 
-        modelPhotoshop.setPixel ({x, y}, Color (0, 1, 1, 1), size, 0);
+        modelPhotoshop.setPixel ({x, y}, color, size, 0);
     }
+
+    virtual void setColor (Color& new_color) override
+    {
+        color = new_color;
+    }
+
+    virtual void setSize (int new_size) override
+    {
+        size = new_size;
+    }
+
 };
 
 #endif /* STL_BRUSH */

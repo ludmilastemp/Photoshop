@@ -38,11 +38,11 @@ void ModelPhotoshop::setPixel (VectorDec coord, Color color, int size, int layer
 {
     Picture& p = getLayer (systemState, layer);
 
-    for (int r_x = -size / 2; r_x < size / 2; r_x++)
+    for (int r_x = -size; r_x < size; r_x++)
     {
-        for (int r_y = -size / 2; r_y < size / 2; r_y++)
+        for (int r_y = -size; r_y < size; r_y++)
         {
-            if (r_x * r_x + r_y * r_y <= size          &&
+            if (r_x * r_x + r_y * r_y <= size * size      &&
                 0 <= coord.x + r_x && coord.x + r_x < kWidthCanvas && 
                 0 <= coord.y + r_y && coord.y + r_y < kHeightCanvas)
             {
@@ -50,6 +50,18 @@ void ModelPhotoshop::setPixel (VectorDec coord, Color color, int size, int layer
             }
         }
     }
+}
+
+void ModelPhotoshop::setColor (Color color)
+{
+    if (0 <= activeTool && activeTool < tools.size())
+        (*tools[activeTool]).setColor(color);
+}
+
+void ModelPhotoshop::setSize (int size)
+{
+    if (0 <= activeTool && activeTool < tools.size())
+        (*tools[activeTool]).setSize(size);
 }
 
 void ModelPhotoshop::UpdateImage ()
@@ -62,14 +74,6 @@ void ModelPhotoshop::UpdateImage ()
 
 void ModelPhotoshop::update (sf::Event event)
 {
-    static int x = 0;
-    static int y = 0;
-
-    if (y == x) { x++; y = 0; }
-    
-    // setPixel ({x + 330, y + 220}, Color(0, 1, 1, 0.3));
-    y++;
-
     if (0 <= activeTool && activeTool < tools.size())
     {
         (*tools[activeTool])(event);

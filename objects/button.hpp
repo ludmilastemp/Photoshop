@@ -3,7 +3,9 @@
 
 #include <cassert>
 #include "object.hpp"
-#include "actions.hpp"
+#include "actionsTool.hpp"
+#include "actionsParameter.hpp"
+#include "actionsParameterIcon.hpp"
 #include "../vectors/vectorDec.hpp"
 
 class Button : public Object
@@ -23,6 +25,6 @@ public:
     }
 };
 
-bool IsButton (const sf::Vector2i& pos, const Button& button);
+bool IsButton (const VectorDec& pos, const Button& button);
 
 #endif /* STL_BUTTON */

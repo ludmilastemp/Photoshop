@@ -15,7 +15,7 @@ Button::Button (const VectorDec& init_size, const VectorDec& init_corner, const 
 
 /**************************************************************************/
 
-bool IsButton (const sf::Vector2i& pos, const Button& button)
+bool IsButton (const VectorDec& pos, const Button& button)
 {
     return 
         button.corner.x <= pos.x && 

@@ -47,6 +47,8 @@ public:
     std::vector <Object*> objects;
     std::vector <Scene*>  scenes;
 
+    Scene () : isDraw(1) {}
+
     void addObject (Object& object)
     {
         objects.push_back(&object);
@@ -57,8 +59,27 @@ public:
         scenes.push_back(&scene);
     }
 
+    void setIsDraw (bool newDraw)
+    {
+        isDraw = newDraw;
+        for (int i = 0; i < objects.size(); i++)
+        {
+            objects[i]->isDraw = newDraw;
+        }
+
+        for (int i = 0; i < scenes.size(); i++)
+        {
+            scenes[i]->isDraw = newDraw;
+        }
+    }
+
     void draw (GraphicsCtx& ctx)
     {
+        if (!isDraw) 
+        {
+            return;
+        }
+        
         for (int i = 0; i < objects.size(); i++)
         {
             ctx.window.draw (objects[i]->sprite);

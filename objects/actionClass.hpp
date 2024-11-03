@@ -12,7 +12,16 @@ public:
         call();
     }
 
-    virtual void call() = 0;
+    void operator() (sf::Event event)
+    {
+        call(event);
+    }
+
+    virtual void call() {}
+    virtual void call(sf::Event event) 
+    {
+        call ();
+    }
 };
 
 /**************************************************************************/

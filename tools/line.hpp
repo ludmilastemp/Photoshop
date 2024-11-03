@@ -10,6 +10,7 @@ private:
     ModelPhotoshop& modelPhotoshop;
     GraphicsCtx&    ctx;
     int size;
+    Color color;
     int x_start;
     int y_start;
 
@@ -19,6 +20,7 @@ public:
         :modelPhotoshop (init_modelPhotoshop), 
         ctx (init_ctx),
         size (2), 
+        color (0, 0, 0, 1),
         x_start(-1), 
         y_start(-1)
     {}
@@ -47,7 +49,6 @@ public:
         }
 
         modelPhotoshop.systemState.tmp.clean();
-        Color color {0, 0, 0, 1};
 
         int x_draw = x_start;
         int y_draw = y_start;
@@ -136,6 +137,16 @@ public:
             modelPhotoshop.setPixel ({x_draw, y_draw}, color, size);
         }
         return;
+    }
+
+    virtual void setColor (Color& new_color) override
+    {
+        color = new_color;
+    }
+
+    virtual void setSize (int new_size) override
+    {
+        size = new_size;
     }
 
     virtual void stop () override
