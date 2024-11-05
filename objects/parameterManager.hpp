@@ -6,17 +6,19 @@
 class ParameterManager
 {
 public:
-    std::vector <Scene*> scenes; //?
-    Scene* activeScene;
+    std::vector <Scene*> scenes; 
+    int activeScene;
 
     ParameterManager () 
-        :activeScene (nullptr)
+        :activeScene (-1)
     {}
 
     void addScene (Scene& scene);
-    void activate (Scene& scene);
+    void activate (int scene);
     void deActivate ();
     void reActivate ();
+
+    size_t getSize () { return scenes.size(); }
 };
 
 #endif /* STL_PARAMETERMANAGER */

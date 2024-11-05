@@ -2,12 +2,12 @@
 #define STL_LINE
 
 #include "tool.hpp"
-#include "../MVC/modelPhotoshop.hpp"
+#include "../MVC/modelCanvas.hpp"
 
 class ToolLine : public Tool
 {
 private:
-    ModelPhotoshop& modelPhotoshop;
+    ModelCanvas& modelCanvas;
     GraphicsCtx&    ctx;
     int size;
     Color color;
@@ -16,8 +16,8 @@ private:
 
 public:
 
-    ToolLine (ModelPhotoshop& init_modelPhotoshop, GraphicsCtx& init_ctx)
-        :modelPhotoshop (init_modelPhotoshop), 
+    ToolLine (ModelCanvas& init_modelPhotoshop, GraphicsCtx& init_ctx)
+        :modelCanvas (init_modelPhotoshop), 
         ctx (init_ctx),
         size (5), 
         color (1, 0, 1, 1),
@@ -29,7 +29,7 @@ public:
     {
         if (!event.getMousePressed ())
         {
-            modelPhotoshop.UpdateImage ();
+            modelCanvas.UpdateImage ();
             x_start = -1;
             y_start = -1;
             return;
@@ -45,7 +45,7 @@ public:
             return;
         }
 
-        modelPhotoshop.systemState.tmp.clean();
+        modelCanvas.systemState.tmp.clean();
 
         int x_draw = x_start;
         int y_draw = y_start;
@@ -71,7 +71,7 @@ public:
                     P += B;
                 }
                 
-                modelPhotoshop.setPixel ({x_draw, y_draw}, color, size);
+                modelCanvas.setPixel ({x_draw, y_draw}, color, size);
             }
             x_draw = x;
             for (y_draw = y; y_draw <= y_start; y_draw++)
@@ -89,7 +89,7 @@ public:
                     P += B;
                 }
                 
-                modelPhotoshop.setPixel ({x_draw, y_draw}, color, size);
+                modelCanvas.setPixel ({x_draw, y_draw}, color, size);
             }
             return;
         }
@@ -113,7 +113,7 @@ public:
                 P += B;
             }
 
-            modelPhotoshop.setPixel ({x_draw, y_draw}, color, size);
+            modelCanvas.setPixel ({x_draw, y_draw}, color, size);
         }
         y_draw = y;
         for (x_draw = x; x_draw <= x_start; x_draw++)
@@ -131,7 +131,7 @@ public:
                 P += B;
             }
 
-            modelPhotoshop.setPixel ({x_draw, y_draw}, color, size);
+            modelCanvas.setPixel ({x_draw, y_draw}, color, size);
         }
         return;
     }
@@ -158,7 +158,7 @@ public:
 
     virtual void stop () override
     {
-        modelPhotoshop.UpdateImage ();
+        modelCanvas.UpdateImage ();
         x_start = -1;
         y_start = -1;
     }

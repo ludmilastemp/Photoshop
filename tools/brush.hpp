@@ -2,20 +2,20 @@
 #define STL_BRUSH
 
 #include "tool.hpp"
-#include "../MVC/modelPhotoshop.hpp"
+#include "../MVC/modelCanvas.hpp"
 
 class ToolBrush : public Tool
 {
 private:
-    ModelPhotoshop& modelPhotoshop;
+    ModelCanvas& modelCanvas;
     GraphicsCtx&    ctx;
     int size;
     Color color;
 
 public:
 
-    ToolBrush (ModelPhotoshop& init_modelPhotoshop, GraphicsCtx& init_ctx)
-        :modelPhotoshop (init_modelPhotoshop), 
+    ToolBrush (ModelCanvas& init_modelPhotoshop, GraphicsCtx& init_ctx)
+        :modelCanvas (init_modelPhotoshop), 
         ctx (init_ctx),
         size (15), color (0, 1, 1, 1)
     {}
@@ -28,7 +28,7 @@ public:
         int x = event.getCoord().x - kWidthCanvasCorner;
         int y = event.getCoord().y - kHeightCanvasCorner;
 
-        modelPhotoshop.setPixel ({x, y}, color, size, 0);
+        modelCanvas.setPixel ({x, y}, color, size, 0);
     }
 
     virtual void setColor (Color& new_color) override

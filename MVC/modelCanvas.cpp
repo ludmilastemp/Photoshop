@@ -2,20 +2,20 @@
 
 /**************************************************************************/
 
-ModelPhotoshop::ModelPhotoshop (Scene& main_scene)
+ModelCanvas::ModelCanvas (Scene& main_scene)
     : systemState(main_scene)
 {}
 
 /**************************************************************************/
 
-void ModelPhotoshop::setActiveTool (int tool)
+void ModelCanvas::setActiveTool (int tool)
 {
     toolbar.activate (tool);
 
     parameterManager.reActivate();
 }
 
-void ModelPhotoshop::addTool (Tool& tool)
+void ModelCanvas::addTool (Tool& tool)
 {
     toolbar.add (tool);
 }
@@ -29,7 +29,7 @@ static Picture& getLayer (SystemState& systemState, int layer)
     return systemState.tmp;
 }
 
-void ModelPhotoshop::setPixel (VectorDec coord, Color color, int size, int layer)
+void ModelCanvas::setPixel (VectorDec coord, Color color, int size, int layer)
 {
     Picture& p = getLayer (systemState, layer);
 
@@ -47,27 +47,27 @@ void ModelPhotoshop::setPixel (VectorDec coord, Color color, int size, int layer
     }
 }
 
-void ModelPhotoshop::setColor (Color color)
+void ModelCanvas::setColor (Color color)
 {
     toolbar.setToolColor (color);
 }
 
-void ModelPhotoshop::setSize (int size)
+void ModelCanvas::setSize (int size)
 {
     toolbar.setToolSize (size);
 }
 
-Color ModelPhotoshop::getColor ()
+Color ModelCanvas::getColor ()
 {
     return toolbar.getToolColor ();
 }
 
-int ModelPhotoshop::getSize ()
+int ModelCanvas::getSize ()
 {
     return toolbar.getToolSize ();
 }
 
-void ModelPhotoshop::UpdateImage ()
+void ModelCanvas::UpdateImage ()
 {
     systemState.base.overlay(systemState.tmp);
     systemState.tmp.clean();
@@ -75,7 +75,7 @@ void ModelPhotoshop::UpdateImage ()
 
 /**************************************************************************/
 
-void ModelPhotoshop::update (Event& event)
+void ModelCanvas::update (Event& event)
 {
     if (event.getType () == -1)
         event.setType (Event::event_model);

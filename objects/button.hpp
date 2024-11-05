@@ -3,7 +3,7 @@
 
 #include <cassert>
 #include "object.hpp"
-#include "actionsTool.hpp"
+#include "actionsToolbar.hpp"
 #include "actionsParameter.hpp"
 #include "actionsParameterIcon.hpp"
 #include "../vectors/vectorDec.hpp"
@@ -16,7 +16,9 @@ public:
 
     std::vector <Action*> actions; 
 
-    Button (const VectorDec& size, const VectorDec& corner, const char* png, Action& action);
+    Button (const VectorDec& size, const VectorDec& corner, Action& action);
+    Button (const VectorDec& size, const VectorDec& corner, Action& action, const char* png);
+    Button (const VectorDec& size, const VectorDec& corner, const char* png);
     
     void addAction (Action* action)
     {

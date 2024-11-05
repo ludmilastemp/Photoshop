@@ -8,40 +8,20 @@
 
 /**************************************************************************/
 
-class ActionColorIcon : public Action
+class ActionIcon : public Action
 {
 private:
     ParameterManager& parameterManager;
-    Scene& scene;
+    int scene;
 
 public:
-    ActionColorIcon (ParameterManager& init_parameterManager, Scene& init_scene)
+    ActionIcon (ParameterManager& init_parameterManager, int init_scene)
         : parameterManager (init_parameterManager), scene(init_scene)
     {}
 
     virtual void call () override
     {
-        if (scene.getIsDraw () == true)
-            parameterManager.deActivate ();
-        else
-            parameterManager.activate (scene);
-    }
-};
-
-class ActionSizeIcon : public Action
-{
-private:
-    ParameterManager& parameterManager;
-    Scene& scene;
-
-public:
-    ActionSizeIcon (ParameterManager& init_parameterManager, Scene& init_scene)
-        : parameterManager (init_parameterManager), scene(init_scene)
-    {}
-
-    virtual void call () override
-    {
-        if (scene.getIsDraw () == true)
+        if (parameterManager.scenes[scene]->getIsDraw () == true)
             parameterManager.deActivate ();
         else
             parameterManager.activate (scene);

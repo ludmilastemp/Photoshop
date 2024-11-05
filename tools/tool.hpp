@@ -2,6 +2,7 @@
 #define STL_TOOL
 
 #include "../GrLib/GrLibCtx.hpp"
+#include "../GrLib/color.hpp"
 
 class Tool 
 {

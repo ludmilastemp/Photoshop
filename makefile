@@ -1,14 +1,15 @@
 a.out: tmp/main.o		                \
 		tmp/GrLib/GrLib.o                 \
 		tmp/GrLib/color.o                 \
-		tmp/MVC/controllerPhotoshop.o     \
-		tmp/MVC/modelPhotoshop.o          \
+		tmp/MVC/controllerCanvas.o     \
+		tmp/MVC/modelCanvas.o          \
 		tmp/MVC/viewPhotoshop.o           \
 		tmp/MVC/MVC_Button/modelButton.o  \
 		tmp/objects/button.o              \
 		tmp/objects/picture.o             \
 		tmp/objects/parameterManager.o    \
 		tmp/vectors/vectorDec.o           \
+		tmp/objects/toolbar.o             \
 		tools/brush.hpp                   \
 		tools/eraser.hpp                  \
 		tools/line.hpp                    \
@@ -16,13 +17,14 @@ a.out: tmp/main.o		                \
 	g++ tmp/main.o		                \
 		tmp/GrLib/GrLib.o                 \
 		tmp/GrLib/color.o                 \
-		tmp/MVC/controllerPhotoshop.o     \
-		tmp/MVC/modelPhotoshop.o          \
+		tmp/MVC/controllerCanvas.o     \
+		tmp/MVC/modelCanvas.o          \
 		tmp/MVC/viewPhotoshop.o           \
 		tmp/MVC/MVC_Button/modelButton.o  \
 		tmp/objects/button.o              \
 		tmp/objects/picture.o             \
 		tmp/objects/parameterManager.o    \
+		tmp/objects/toolbar.o               \
 		tmp/vectors/vectorDec.o           \
 		-lsfml-graphics -lsfml-window -lsfml-system \
 
@@ -31,12 +33,13 @@ tmp/main.o: main.cpp \
 		GrLib/GrLibCtx.hpp \
 		GrLib/color.hpp \
 		MVC/systemState.hpp \
-		MVC/controllerPhotoshop.hpp \
 		MVC/modelPhotoshop.hpp \
+		MVC/controllerCanvas.hpp \
+		MVC/modelCanvas.hpp \
 		MVC/viewPhotoshop.hpp \
 		MVC/MVC_Button/modelButton.hpp \
 		objects/actionClass.hpp \
-		objects/actionsTool.hpp \
+		objects/actionsToolbar.hpp \
 		objects/actionsParameter.hpp \
 		objects/actionsParameterIcon.hpp \
 		objects/object.hpp \
@@ -44,6 +47,7 @@ tmp/main.o: main.cpp \
 		objects/picture.hpp \
 		objects/parameterManager.hpp \
 		tools/tool.hpp \
+		objects/toolbar.hpp \
 		tools/brush.hpp                   \
 		tools/eraser.hpp                  \
 		tools/line.hpp                    \
@@ -60,16 +64,16 @@ tmp/GrLib/color.o: GrLib/color.cpp \
 		GrLib/color.hpp 
 	g++ -c GrLib/color.cpp -o tmp/GrLib/color.o
 
-tmp/MVC/controllerPhotoshop.o: MVC/controllerPhotoshop.cpp \
+tmp/MVC/controllerCanvas.o: MVC/controllerCanvas.cpp \
 		GrLib/GrLibCtx.hpp \
 		GrLib/GrLib.hpp \
 		GrLib/color.hpp \
 		MVC/systemState.hpp \
-		MVC/controllerPhotoshop.hpp \
-		MVC/modelPhotoshop.hpp \
+		MVC/controllerCanvas.hpp \
+		MVC/modelCanvas.hpp \
 		MVC/MVC_Button/modelButton.hpp \
 		objects/actionClass.hpp \
-		objects/actionsTool.hpp \
+		objects/actionsToolbar.hpp \
 		objects/actionsParameter.hpp \
 		objects/actionsParameterIcon.hpp \
 		objects/object.hpp \
@@ -77,21 +81,23 @@ tmp/MVC/controllerPhotoshop.o: MVC/controllerPhotoshop.cpp \
 		objects/picture.hpp \
 		objects/parameterManager.hpp \
 		tools/tool.hpp \
+		objects/toolbar.hpp \
 		vectors/vectorDec.hpp 
-	g++ -c MVC/controllerPhotoshop.cpp -o tmp/MVC/controllerPhotoshop.o
+	g++ -c MVC/controllerCanvas.cpp -o tmp/MVC/controllerCanvas.o
 
-tmp/MVC/modelPhotoshop.o: MVC/modelPhotoshop.cpp \
+tmp/MVC/modelCanvas.o: MVC/modelCanvas.cpp \
 		GrLib/GrLibCtx.hpp \
 		GrLib/GrLib.hpp \
 		GrLib/color.hpp \
 		MVC/systemState.hpp \
-		MVC/modelPhotoshop.hpp \
+		MVC/modelCanvas.hpp \
 		objects/object.hpp \
 		objects/picture.hpp \
 		objects/parameterManager.hpp \
 		tools/tool.hpp \
+		objects/toolbar.hpp \
 		vectors/vectorDec.hpp 
-	g++ -c MVC/modelPhotoshop.cpp -o tmp/MVC/modelPhotoshop.o
+	g++ -c MVC/modelCanvas.cpp -o tmp/MVC/modelCanvas.o
 
 tmp/MVC/viewPhotoshop.o: MVC/viewPhotoshop.cpp \
 		GrLib/GrLibCtx.hpp \
@@ -109,10 +115,10 @@ tmp/MVC/MVC_Button/modelButton.o: MVC/MVC_Button/modelButton.cpp \
 		GrLib/GrLib.hpp \
 		GrLib/color.hpp \
 		MVC/systemState.hpp \
-		MVC/modelPhotoshop.hpp \
+		MVC/modelCanvas.hpp \
 		MVC/MVC_Button/modelButton.hpp \
 		objects/actionClass.hpp \
-		objects/actionsTool.hpp \
+		objects/actionsToolbar.hpp \
 		objects/actionsParameter.hpp \
 		objects/actionsParameterIcon.hpp \
 		objects/object.hpp \
@@ -120,6 +126,7 @@ tmp/MVC/MVC_Button/modelButton.o: MVC/MVC_Button/modelButton.cpp \
 		objects/picture.hpp \
 		objects/parameterManager.hpp \
 		tools/tool.hpp \
+		objects/toolbar.hpp \
 		vectors/vectorDec.hpp 
 	g++ -c MVC/MVC_Button/modelButton.cpp -o tmp/MVC/MVC_Button/modelButton.o
 
@@ -128,9 +135,9 @@ tmp/objects/button.o: objects/button.cpp \
 		GrLib/GrLib.hpp \
 		GrLib/color.hpp \
 		MVC/systemState.hpp \
-		MVC/modelPhotoshop.hpp \
+		MVC/modelCanvas.hpp \
 		objects/actionClass.hpp \
-		objects/actionsTool.hpp \
+		objects/actionsToolbar.hpp \
 		objects/actionsParameter.hpp \
 		objects/actionsParameterIcon.hpp \
 		objects/object.hpp \
@@ -138,6 +145,7 @@ tmp/objects/button.o: objects/button.cpp \
 		objects/picture.hpp \
 		objects/parameterManager.hpp \
 		tools/tool.hpp \
+		objects/toolbar.hpp \
 		vectors/vectorDec.hpp 
 	g++ -c objects/button.cpp -o tmp/objects/button.o
 
@@ -161,6 +169,15 @@ tmp/vectors/vectorDec.o: vectors/vectorDec.cpp \
 		vectors/vectorDec.hpp 
 	g++ -c vectors/vectorDec.cpp -o tmp/vectors/vectorDec.o
 
+tmp/objects/toolbar.o: objects/toolbar.cpp \
+		GrLib/GrLibCtx.hpp \
+		GrLib/color.hpp \
+		objects/object.hpp \
+		tools/tool.hpp \
+		objects/toolbar.hpp \
+		vectors/vectorDec.hpp 
+	g++ -c objects/toolbar.cpp -o tmp/objects/toolbar.o
+
 
 
 
@@ -168,8 +185,8 @@ tmp/vectors/vectorDec.o: vectors/vectorDec.cpp \
 #g++ main.cpp		                \
 		GrLib/GrLib.cpp                 \
 		GrLib/color.cpp                 \
-		MVC/controllerPhotoshop.cpp     \
-		MVC/modelPhotoshop.cpp          \
+		MVC/controllerCanvas.cpp     \
+		MVC/modelCanvas.cpp          \
 		MVC/viewPhotoshop.cpp           \
 		MVC/MVC_Button/modelButton.cpp  \
 		MVC/MVC_Button/viewButton.cpp   \
@@ -179,7 +196,7 @@ tmp/vectors/vectorDec.o: vectors/vectorDec.cpp \
 		-lsfml-graphics -lsfml-window -lsfml-system \
 \
 \
-g++ main.cpp GrLib/GrLib.cpp GrLib/color.cpp MVC/controllerPhotoshop.cpp MVC/modelPhotoshop.cpp MVC/viewPhotoshop.cpp MVC/MVC_Button/modelButton.cpp objects/button.cpp objects/picture.cpp vectors/vectorDec.cpp -lsfml-graphics -lsfml-window -lsfml-system \
+g++ main.cpp GrLib/GrLib.cpp GrLib/color.cpp MVC/controllerCanvas.cpp MVC/modelCanvas.cpp MVC/viewPhotoshop.cpp MVC/MVC_Button/modelButton.cpp objects/button.cpp objects/picture.cpp vectors/vectorDec.cpp -lsfml-graphics -lsfml-window -lsfml-system \
 \
 		\
 		objects/molecule.cpp      		\
