@@ -12,12 +12,18 @@ ModelPhotoshop::ModelPhotoshop (Scene& main_scene)
 void ModelPhotoshop::setActiveTool (int tool)
 {
     if (0 <= activeTool && activeTool < tools.size())
+    {
         (*tools[activeTool]).stop();
+    }
 
     if (-1 <= tool && tool < tools.size())
+    {
         activeTool = tool;
+    }
     else 
         std::cout << "UNKNOWN TOOL\n";
+    
+    parameterManager.reActivate();
 }
 
 void ModelPhotoshop::addTool (Tool& tool)
@@ -46,7 +52,7 @@ void ModelPhotoshop::setPixel (VectorDec coord, Color color, int size, int layer
                 0 <= coord.x + r_x && coord.x + r_x < kWidthCanvas && 
                 0 <= coord.y + r_y && coord.y + r_y < kHeightCanvas)
             {
-                p.setPixel ({coord.x + r_x, coord.y + r_y}, color);
+                p.setPixelPictureTmp ({coord.x + r_x, coord.y + r_y}, color);
             }
         }
     }
@@ -64,6 +70,20 @@ void ModelPhotoshop::setSize (int size)
         (*tools[activeTool]).setSize(size);
 }
 
+Color ModelPhotoshop::getColor ()
+{
+    if (0 <= activeTool && activeTool < tools.size())
+        return (*tools[activeTool]).getColor();
+    return {1, 1, 1, 1};
+}
+
+int ModelPhotoshop::getSize ()
+{
+    if (0 <= activeTool && activeTool < tools.size())
+        return (*tools[activeTool]).getSize();
+    return 0;
+}
+
 void ModelPhotoshop::UpdateImage ()
 {
     systemState.base.overlay(systemState.tmp);
@@ -72,8 +92,12 @@ void ModelPhotoshop::UpdateImage ()
 
 /**************************************************************************/
 
-void ModelPhotoshop::update (sf::Event event)
+void ModelPhotoshop::update (Event& event)
 {
+    if (event.getType () == -1)
+        event.setType (Event::event_model);
+    if (event.getType () != Event::event_model) return;
+
     if (0 <= activeTool && activeTool < tools.size())
     {
         (*tools[activeTool])(event);

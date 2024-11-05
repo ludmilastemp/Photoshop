@@ -6,7 +6,6 @@
 #include "MVC/controllerPhotoshop.hpp"
 #include "MVC/modelPhotoshop.hpp"
 #include "MVC/viewPhotoshop.hpp"
-#include "objects/parameterManager.hpp"
 #include "tools/brush.hpp"
 #include "tools/eraser.hpp"
 #include "tools/line.hpp"
@@ -16,10 +15,8 @@ using namespace std;
 int main ()
 {
     printf ("Start\n");
-    int i = 0;
 
     GraphicsCtx ctx {};
-
     Scene main_scene {};
 
 /*
@@ -69,8 +66,6 @@ int main ()
 /*
  * Добавление параметров
  */
-    ParameterManager parameterManager;
-
     Picture pictureColor {{150, 200}, {550, 100}, "img/colorwheel.png"};
     ActionColor actionColor (modelPhotoshop, pictureColor);
     Button buttonColor {{150, 150}, {550, 100}, "img/colorwheel.png", actionColor};
@@ -91,14 +86,13 @@ int main ()
     scene_parameter_size.addObject (buttonSize);
     scene_parameter_size.addObject (pictureSize);
     scene_parameter_size.setIsDraw (false);
-    parameterManager.addScene (scene_parameter_size);
     main_scene.addScene (scene_parameter_size);
 
 /*
  * Создание кнопок для parameters
  */
-    ActionColorIcon actionColorIcon {parameterManager, scene_parameter_color};
-    ActionSizeIcon  actionSizeIcon  {parameterManager, scene_parameter_size};
+    ActionColorIcon actionColorIcon {modelPhotoshop.parameterManager, scene_parameter_color};
+    ActionSizeIcon  actionSizeIcon  {modelPhotoshop.parameterManager, scene_parameter_size};
 
     Button buttonColorIcon {{kWidthIcon, kHeightIcon}, {725, 100}, "img/colorwheel_icon.png", actionColorIcon};
     Button buttonSizeIcon  {{kWidthIcon, kHeightIcon}, {725, 160}, "img/size_icon.png",       actionSizeIcon};
@@ -121,21 +115,15 @@ int main ()
 
     while (IsWindowOpen(ctx))
     {
-        i++;
-        // if (i == 300) { printf ("End\n"); return 0; }
-
-        while (ctx.window.pollEvent(ctx.event)) 
-            ctx.checkEvent = true;
-
-        if (ctx.checkEvent == false) continue;
+        if (ctx.event () == false) continue;
         if (CheckEventCloseWindow (ctx)) break;
 
         /*
          * MVC
          */ 
-            if (controllerPhotoshop (ctx) == false)
-                modelPhotoshop (ctx.event);
-            viewPhotoshop (ctx);                 
+            controllerPhotoshop (ctx);
+            modelPhotoshop (ctx.event);
+            viewPhotoshop (ctx);   
     }
 
     printf ("End\n");

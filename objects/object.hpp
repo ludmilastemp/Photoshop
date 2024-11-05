@@ -2,19 +2,18 @@
 #define STL_OBJECT
 
 #include "../GrLib/GrLibCtx.hpp"
+#include "../GrLib/color.hpp"
 #include "../vectors/vectorDec.hpp"
-
-// enum IsDraw 
 
 class Object
 {
-public:
+private:
     bool isDraw;
-
     sf::Sprite  sprite;
     sf::Texture texture;
     sf::Image   image;
 
+public:
     Object (const VectorDec& size, const VectorDec& corner)
         : isDraw(1), 
         sprite(), texture(), image()
@@ -38,15 +37,39 @@ public:
     }
 
     virtual ~Object () = default; 
+
+    void            setIsDrawSimple (bool newDraw)        { isDraw = newDraw; }
+    virtual void    setIsDraw       (bool newDraw)        { setIsDrawSimple (newDraw); }
+    bool            getIsDraw       ()              const { return isDraw; }
+    VectorDecUint32 getPosition     ()                    { return {(uint32_t)sprite.getPosition().x, (uint32_t)sprite.getPosition().y}; }
+
+    void setPixel (int x, int y, Color color_)
+    {
+        Color color = color_ * 255;
+        sf::Color c = {(uint8_t)color.r, (uint8_t)color.g, (uint8_t)color.b, (uint8_t)color.a};
+        image.setPixel (x, y, c);
+    }
+
+    Color getPixel (int x, int y) const
+    {
+        sf::Color c = image.getPixel (x, y);
+        return Color (c.r, c.g, c.b, c.a) / 255;
+    }
+
+    VectorDecUint32 getSize () const { return {image.getSize().x, image.getSize().y};}
+    void            update () { texture.update (image); }
+    void            draw (GraphicsCtx& ctx) const { ctx.window.draw (sprite); }
+
 };
 
 class Scene
 {
-public:
+private:
     bool isDraw;
     std::vector <Object*> objects;
     std::vector <Scene*>  scenes;
 
+public:
     Scene () : isDraw(1) {}
 
     void addObject (Object& object)
@@ -64,12 +87,12 @@ public:
         isDraw = newDraw;
         for (int i = 0; i < objects.size(); i++)
         {
-            objects[i]->isDraw = newDraw;
+            objects[i]->setIsDraw (newDraw);
         }
 
         for (int i = 0; i < scenes.size(); i++)
         {
-            scenes[i]->isDraw = newDraw;
+            scenes[i]->setIsDraw (newDraw);
         }
     }
 
@@ -82,7 +105,7 @@ public:
         
         for (int i = 0; i < objects.size(); i++)
         {
-            ctx.window.draw (objects[i]->sprite);
+            objects[i]->draw (ctx);
         }
 
         for (int i = 0; i < scenes.size(); i++)
@@ -90,6 +113,8 @@ public:
             scenes[i]->draw (ctx);
         }
     }
+
+    bool getIsDraw () { return isDraw; }
 };
 
 

@@ -19,15 +19,15 @@ public:
     ToolLine (ModelPhotoshop& init_modelPhotoshop, GraphicsCtx& init_ctx)
         :modelPhotoshop (init_modelPhotoshop), 
         ctx (init_ctx),
-        size (2), 
-        color (0, 0, 0, 1),
+        size (5), 
+        color (1, 0, 1, 1),
         x_start(-1), 
         y_start(-1)
     {}
 
-    virtual void active (sf::Event event) override
+    virtual void active (Event event) override
     {
-        if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        if (!event.getMousePressed ())
         {
             modelPhotoshop.UpdateImage ();
             x_start = -1;
@@ -35,11 +35,8 @@ public:
             return;
         }
 
-        // int x = event.mouseMove.x - kWidthCanvasCorner;
-        // int y = event.mouseMove.y - kHeightCanvasCorner;
-        sf::Vector2i position = sf::Mouse::getPosition(ctx.window);
-        int x = position.x - kWidthCanvasCorner;
-        int y = position.y - kHeightCanvasCorner;
+        int x = event.getCoord().x - kWidthCanvasCorner;
+        int y = event.getCoord().y - kHeightCanvasCorner;
 
         if (x_start == -1 && y_start == -1)
         {
@@ -147,6 +144,16 @@ public:
     virtual void setSize (int new_size) override
     {
         size = new_size;
+    }
+
+    virtual Color getColor () override
+    {
+        return color;
+    }
+
+    virtual int getSize () override
+    {
+        return size;
     }
 
     virtual void stop () override

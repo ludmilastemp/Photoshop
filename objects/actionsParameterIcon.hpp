@@ -21,7 +21,7 @@ public:
 
     virtual void call () override
     {
-        if (scene.isDraw == true)
+        if (scene.getIsDraw () == true)
             parameterManager.deActivate ();
         else
             parameterManager.activate (scene);
@@ -41,46 +41,12 @@ public:
 
     virtual void call () override
     {
-        if (scene.isDraw == true)
+        if (scene.getIsDraw () == true)
             parameterManager.deActivate ();
         else
             parameterManager.activate (scene);
     }
 };
-
-// class ActionEraser : public Action
-// {
-// private:
-//     ModelPhotoshop& modelPhotoshop;
-
-// public:
-//     ActionEraser (ModelPhotoshop& init_modelPhotoshop)
-//         : modelPhotoshop(init_modelPhotoshop)
-//     {}
-
-//     virtual void call () override
-//     {
-//         std::cout << "setActiveTool 1\n";
-//         modelPhotoshop.setActiveTool (1);
-//     }
-// };
-
-// class ActionLine : public Action
-// {
-// private:
-//     ModelPhotoshop& modelPhotoshop;
-
-// public:
-//     ActionLine (ModelPhotoshop& init_modelPhotoshop)
-//         : modelPhotoshop(init_modelPhotoshop)
-//     {}
-
-//     virtual void call () override
-//     {
-//         std::cout << "setActiveTool 2\n";
-//         modelPhotoshop.setActiveTool (2);
-//     }
-// };
 
 /**************************************************************************/
 

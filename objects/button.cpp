@@ -13,6 +13,19 @@ Button::Button (const VectorDec& init_size, const VectorDec& init_corner, const 
 
 /**************************************************************************/
 
+void Button::setIsDraw (bool newDraw) 
+{
+    setIsDrawSimple (newDraw);
+
+    if (newDraw)
+    {
+        for (size_t act = 0; act < actions.size(); act++)
+        {
+            actions[act]->active();
+        }
+    }
+}
+
 /**************************************************************************/
 
 bool IsButton (const VectorDec& pos, const Button& button)

@@ -16,19 +16,16 @@ public:
     ToolEraser (ModelPhotoshop& init_modelPhotoshop, GraphicsCtx& init_ctx)
         :modelPhotoshop (init_modelPhotoshop), 
         ctx (init_ctx),
-        size (18)
+        size (28)
     {}
 
-    virtual void active (sf::Event event) override
+    virtual void active (Event event) override
     {
-        if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        if (!event.getMousePressed ())
             return;
 
-        // int x = event.mouseMove.x - kWidthCanvasCorner;
-        // int y = event.mouseMove.y - kHeightCanvasCorner;
-        sf::Vector2i position = sf::Mouse::getPosition(ctx.window);
-        int x = position.x - kWidthCanvasCorner;
-        int y = position.y - kHeightCanvasCorner;
+        int x = event.getCoord().x - kWidthCanvasCorner;
+        int y = event.getCoord().y - kHeightCanvasCorner;
 
         modelPhotoshop.setPixel ({x, y}, Color (0, 0, 0, 0), size, 0);
     }
@@ -38,6 +35,10 @@ public:
         size = new_size;
     }
 
+    virtual int getSize () override
+    {
+        return size;
+    }
 };
 
 #endif /* STL_ERASER */

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "systemState.hpp"
+#include "../objects/parameterManager.hpp"
 #include "../GrLib/color.hpp"
 #include "../tools/tool.hpp"
 #include "../vectors/vectorDec.hpp"
@@ -12,23 +13,26 @@ class ModelPhotoshop
 {
 public:
     SystemState systemState;
+    ParameterManager parameterManager;
     
     std::vector<Tool*> tools; 
     int activeTool;
 
     ModelPhotoshop (Scene& main_scene);
 
-    void operator() (sf::Event event)
+    void operator() (Event& event)
     {
         update (event);
     }
 
-    void update (sf::Event event);
+    void update (Event& event);
     void setActiveTool (int tool);
-    void addTool (Tool& tool);
+    void addTool  (Tool& tool);
     void setPixel (VectorDec coord, Color color, int size = 1, int layer = -1);
     void setColor (Color color);
     void setSize  (int size);
+    int getSize   ();
+    Color getColor ();
 
     void UpdateImage ();
 };

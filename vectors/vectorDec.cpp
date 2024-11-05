@@ -68,3 +68,39 @@ VectorDec PerpendicularVector (const VectorDec& v)
 }
 
 /**************************************************************************/
+
+/**************************************************************************/
+
+VectorDecUint32::VectorDecUint32 (uint32_t x_init, uint32_t y_init) 
+    : x(x_init), y(y_init)
+{}
+
+VectorDecUint32::VectorDecUint32 (const VectorDecUint32& vDec) 
+    : x(vDec.x), y(vDec.y)
+{}
+
+/**************************************************************************/
+
+VectorDecUint32 VectorDecUint32::operator+ (const VectorDecUint32& v2) const
+{
+    return VectorDecUint32 {x + v2.x, y + v2.y};
+}
+
+VectorDecUint32 VectorDecUint32::operator- (const VectorDecUint32& v2) const
+{
+    assert (x >= v2.x);
+    assert (y >= v2.y);
+    return VectorDecUint32 {x - v2.x, y - v2.y};
+}
+
+VectorDecUint32 VectorDecUint32::operator* (const int mul) const
+{
+    return VectorDecUint32 {x * mul, y * mul};
+}
+
+VectorDecUint32 VectorDecUint32::operator/ (const int mul) const
+{
+    return VectorDecUint32 {x / mul, y / mul};
+}
+
+/**************************************************************************/

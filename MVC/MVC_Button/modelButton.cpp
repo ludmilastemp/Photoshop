@@ -12,12 +12,12 @@ void ModelButton::addButton (Button& button)
     buttons.push_back (&button);
 }
 
-bool ModelButton::update (VectorDec pos, sf::Event event)
+bool ModelButton::update (VectorDec pos, Event event)
 {
     for (int i = 0; i < buttons.size(); i++)
     {
         Button& button = *(buttons[i]);
-        if (button.isDraw && 
+        if (button.getIsDraw () && 
             IsButton (pos, button))
         {
             for (size_t act = 0; act < button.actions.size(); act++)

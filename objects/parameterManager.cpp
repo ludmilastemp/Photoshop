@@ -10,8 +10,8 @@ void ParameterManager::addScene (Scene& scene)
 void ParameterManager::activate (Scene& scene)
 {
     deActivate ();
-    scene.setIsDraw (true);
     activeScene = &scene;
+    scene.setIsDraw (true);
 }
 
 void ParameterManager::deActivate ()
@@ -19,6 +19,18 @@ void ParameterManager::deActivate ()
     if (activeScene != nullptr)
         activeScene->setIsDraw (false);
     activeScene = nullptr;
+}
+
+void ParameterManager::reActivate ()
+{
+    if (activeScene == nullptr)
+        return;
+
+    Scene* scene = activeScene;
+    scene->setIsDraw (false);
+    deActivate ();
+    activeScene = scene;
+    scene->setIsDraw (true);
 }
 
 /**************************************************************************/

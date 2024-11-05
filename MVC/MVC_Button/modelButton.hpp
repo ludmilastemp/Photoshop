@@ -10,13 +10,13 @@ public:
 
     ModelButton ();
 
-    bool operator() (VectorDec pos, sf::Event event)
+    bool operator() (VectorDec pos, Event event)
     {
         return update(pos, event);
     }
 
     void addButton (Button& button); 
-    bool update (VectorDec pos, sf::Event event);
+    bool update (VectorDec pos, Event event);
 };
 
 #endif /* STL_MODEL_BUTTON */

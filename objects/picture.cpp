@@ -1,5 +1,7 @@
 #include "picture.hpp"
 
+#include <cassert>
+
 /**************************************************************************/
 
 Picture::Picture (const VectorDec& init_size, const VectorDec& init_corner)
@@ -14,47 +16,40 @@ Picture::Picture (const VectorDec& init_size, const VectorDec& init_corner, cons
 
 /**************************************************************************/
 
-void Picture::setPixel (const VectorDec& coord, Color color)
+void Picture::setPixelPictureTmp (const VectorDec& coord, Color color)
 {
-    if (0 <= coord.x && coord.x < image.getSize().x && 
-        0 <= coord.y && coord.y < image.getSize().y)
+    if (0 <= coord.x && coord.x < getSize().x && 
+        0 <= coord.y && coord.y < getSize().y)
     {
-        image.setPixel (coord.x, coord.y, 
-            sf::Color (color.r * 255, color.g * 255, color.b * 255, color.a * 255));
+        setPixel (coord.x, coord.y, color);
     }
 }
 
 void Picture::overlay (const Picture& from)
 {
-    for (int x = 0; x < image.getSize().x; x++)
+    for (int x = 0; x < getSize().x; x++)
     {
-        for (int y = 0; y < image.getSize().y; y++)
+        for (int y = 0; y < getSize().y; y++)
         {
-            color_t a = from.image.getPixel(x, y).a / 255.0;
+            color_t a = from.getPixel(x, y).a;
             if (a == 0) continue;
 
-            image.setPixel (x, y, sf::Color (
-                image.getPixel(x, y).r * (1 - a) + from.image.getPixel(x, y).r * a, 
-                image.getPixel(x, y).g * (1 - a) + from.image.getPixel(x, y).g * a, 
-                image.getPixel(x, y).b * (1 - a) + from.image.getPixel(x, y).b * a));
+            setPixel (x, y, {
+                getPixel(x, y).r * (1 - a) + from.getPixel(x, y).r * a, 
+                getPixel(x, y).g * (1 - a) + from.getPixel(x, y).g * a, 
+                getPixel(x, y).b * (1 - a) + from.getPixel(x, y).b * a, 1});
         }
     }
-    
     update();
-}
-
-void Picture::update ()
-{
-    texture.update (image);
 }
 
 void Picture::clean ()
 {
-    for (int x = 0; x < image.getSize().x; x++)
+    for (int x = 0; x < getSize().x; x++)
     {
-        for (int y = 0; y < image.getSize().y; y++)
+        for (int y = 0; y < getSize().y; y++)
         {
-            image.setPixel (x, y, sf::Color (0, 0, 0, 0));
+            setPixel (x, y, {0, 0, 0, 0});
         }
     }
     update ();

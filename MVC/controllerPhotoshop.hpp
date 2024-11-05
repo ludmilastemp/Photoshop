@@ -10,12 +10,12 @@ public:
 
     ControllerPhotoshop (ModelButton& modelButton);
 
-    bool operator() (GraphicsCtx& ctx) 
+    void operator() (GraphicsCtx& ctx) 
     {
         return update (ctx);
     }
 
-    bool update (GraphicsCtx& ctx);
+    void update (GraphicsCtx& ctx);
 };
 
 #endif /* STL_CONTROLLER_PHOTOSHOP */

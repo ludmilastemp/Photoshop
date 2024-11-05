@@ -6,7 +6,7 @@
 
 GraphicsCtx::GraphicsCtx ()
     :window(sf::VideoMode(kWidthWindow * 2, kHeightWindow * 2), "SFML works!"), 
-    event(), checkEvent(false)
+    event (window)
 {}
 
 /**************************************************************************/
@@ -33,7 +33,7 @@ bool IsWindowOpen (GraphicsCtx& ctx)
 
 bool CheckEventCloseWindow (GraphicsCtx& ctx)
 {
-    if (ctx.checkEvent == true && ctx.event.type == sf::Event::Closed)
+    if (ctx.event.getWindowClose ())
     {
         std::cout << "close window\n";
         ctx.window.close();

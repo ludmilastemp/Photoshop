@@ -23,6 +23,8 @@ public:
         assert (action);
         actions.push_back (action);
     }
+
+    virtual void setIsDraw (bool newDraw) override;
 };
 
 bool IsButton (const VectorDec& pos, const Button& button);

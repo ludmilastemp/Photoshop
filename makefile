@@ -44,6 +44,9 @@ tmp/main.o: main.cpp \
 		objects/picture.hpp \
 		objects/parameterManager.hpp \
 		tools/tool.hpp \
+		tools/brush.hpp                   \
+		tools/eraser.hpp                  \
+		tools/line.hpp                    \
 		vectors/vectorDec.hpp 
 	g++ -c main.cpp -o tmp/main.o
 
@@ -85,6 +88,7 @@ tmp/MVC/modelPhotoshop.o: MVC/modelPhotoshop.cpp \
 		MVC/modelPhotoshop.hpp \
 		objects/object.hpp \
 		objects/picture.hpp \
+		objects/parameterManager.hpp \
 		tools/tool.hpp \
 		vectors/vectorDec.hpp 
 	g++ -c MVC/modelPhotoshop.cpp -o tmp/MVC/modelPhotoshop.o
@@ -148,6 +152,7 @@ tmp/objects/picture.o: objects/picture.cpp \
 tmp/objects/parameterManager.o: objects/parameterManager.cpp \
 		objects/parameterManager.hpp \
 		GrLib/GrLibCtx.hpp \
+		GrLib/color.hpp \
 		objects/object.hpp \
 		vectors/vectorDec.hpp 
 	g++ -c objects/parameterManager.cpp -o tmp/objects/parameterManager.o

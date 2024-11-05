@@ -8,23 +8,16 @@ ControllerPhotoshop::ControllerPhotoshop (ModelButton& init_modelButton)
 
 /**************************************************************************/
 
-bool ControllerPhotoshop::update (GraphicsCtx& ctx)
+void ControllerPhotoshop::update (GraphicsCtx& ctx)
 {
-    if (ctx.checkEvent == true &&
-        ctx.event.type == sf::Event::MouseButtonPressed &&
-        ctx.event.mouseButton.button == sf::Mouse::Left)
+    if ((ctx.event.getType () == -1 || ctx.event.getType () == Event::event_controller) &&
+        ctx.event.getMousePressed ())
     {
-        // printf ("Mouse button pressed\n");
-        VectorDec pos = {
-            ctx.event.mouseButton.x,
-            ctx.event.mouseButton.y };
+        VectorDec pos = ctx.event.getCoord();
 
-        ctx.checkEvent = false;
-        return modelButton (pos, ctx.event);
+        if (modelButton (pos, ctx.event))
+            ctx.event.setType (Event::event_controller);
     }
-
-    ctx.checkEvent = false;
-    return false;
 }
 
 /**************************************************************************/
