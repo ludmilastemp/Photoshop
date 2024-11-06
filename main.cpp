@@ -43,9 +43,11 @@ int main ()
  */
     ActionColor actionColor (modelCanvas);
     ActionSize  actionSize  (modelCanvas);
+    ActionScale actionScale (modelCanvas);
 
     modelPhotoshop.addParameter (actionColor, {150, 150}, "img/colorwheel.png", "img/colorwheel_icon.png");
     modelPhotoshop.addParameter (actionSize,  {150, 200}, "img/size.png",       "img/size_icon.png");
+    modelPhotoshop.addParameter (actionScale, {600, 400}, "img/scale2.png",     "img/1.png");
 
 /*
  * Начало программы

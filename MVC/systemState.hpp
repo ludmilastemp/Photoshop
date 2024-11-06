@@ -14,7 +14,7 @@ public:
     SystemState (Scene& main_scene)
         : 
         background ({kWidthCanvas,       kHeightCanvas}, 
-                    {kWidthCanvasCorner, kHeightCanvasCorner}, "img/love.png"),
+                    {kWidthCanvasCorner, kHeightCanvasCorner}, "img/cat.png"),
         base       ({kWidthCanvas,       kHeightCanvas}, 
                     {kWidthCanvasCorner, kHeightCanvasCorner}),
         tmp        ({kWidthCanvas,       kHeightCanvas}, 

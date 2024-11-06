@@ -121,6 +121,61 @@ public:
     }
 };
 
+class ActionScale : public ActionParam
+{
+private:
+    ModelCanvas& modelCanvas;
+    Picture* pictureCurrent;
+
+public:
+    ActionScale (ModelCanvas& init_modelPhotoshop)
+        : modelCanvas(init_modelPhotoshop)
+    { }
+
+    void drawState (int size)
+    {
+        // pictureCurrent->clean ();
+        // for (int r_x = 0; r_x < size; r_x++)
+        // {
+        //     int r_y = sqrt (size * size - r_x * r_x);
+        //     pictureCurrent->setPixel (75 + r_x, 75 + r_y, {0, 0, 0, 1});
+        //     pictureCurrent->setPixel (75 + r_x, 75 - r_y, {0, 0, 0, 1});
+        //     pictureCurrent->setPixel (75 - r_x, 75 + r_y, {0, 0, 0, 1});
+        //     pictureCurrent->setPixel (75 - r_x, 75 - r_y, {0, 0, 0, 1});
+        //     pictureCurrent->setPixel (75 + r_y, 75 + r_x, {0, 0, 0, 1});
+        //     pictureCurrent->setPixel (75 + r_y, 75 - r_x, {0, 0, 0, 1});
+        //     pictureCurrent->setPixel (75 - r_y, 75 + r_x, {0, 0, 0, 1});
+        //     pictureCurrent->setPixel (75 - r_y, 75 - r_x, {0, 0, 0, 1});
+        // }
+        // pictureCurrent->update ();
+    }
+
+    virtual void setPictureCurrent (Picture& picture) override
+    {
+        pictureCurrent = &picture;
+    }
+
+    virtual void active () override
+    {
+        // int size = modelCanvas.getSize ();
+        // drawState (size);
+    }
+
+    virtual void call (Event event) override
+    {
+        // VectorDecUint32 corner = pictureCurrent->getPosition();
+        // VectorDec pos = {event.getCoord().x - (int)corner.x, event.getCoord().y - (int)corner.y};
+
+        // if (15 <= pos.x && pos.x <= 140 && 
+        //     0  <= pos.y && pos.y <= 200)
+        // {
+        //     int size = (int)(1.0 * (pos.x - 15) / 125 * (60 - 1) + 1);
+        //     drawState (size);
+        //     modelCanvas.setSize (size);
+        // }
+    }
+};
+
 /**************************************************************************/
 
 #endif /* STL_ACTIONSPARAMETER */

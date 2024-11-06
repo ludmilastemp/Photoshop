@@ -16,9 +16,6 @@ public:
     SystemState systemState;
     Toolbar toolbar;
     ParameterManager parameterManager;
-    
-    // std::vector<Tool*> tools; 
-    // int activeTool;
 
     ModelCanvas (Scene& main_scene);
 
