@@ -4,8 +4,6 @@
 #include <cassert>
 #include "object.hpp"
 #include "actionsToolbar.hpp"
-#include "actionsParameter.hpp"
-#include "actionsParameterIcon.hpp"
 #include "../vectors/vectorDec.hpp"
 
 class Button : public Object

@@ -9,6 +9,8 @@
 #include "tools/brush.hpp"
 #include "tools/eraser.hpp"
 #include "tools/line.hpp"
+#include "objects/actionsParameter.hpp"
+#include "objects/actionsParameterIcon.hpp"
 
 using namespace std;
 
@@ -45,9 +47,9 @@ int main ()
     ActionSize  actionSize  (modelCanvas);
     ActionScale actionScale (modelCanvas);
 
-    modelPhotoshop.addParameter (actionColor, {150, 150}, "img/colorwheel.png", "img/colorwheel_icon.png");
-    modelPhotoshop.addParameter (actionSize,  {150, 200}, "img/size.png",       "img/size_icon.png");
-    modelPhotoshop.addParameter (actionScale, {600, 400}, "img/scale2.png",     "img/1.png");
+    modelPhotoshop.addParameter (actionColor, "img/colorwheel_icon.png");
+    modelPhotoshop.addParameter (actionSize,  "img/size_icon.png");
+    modelPhotoshop.addParameter (actionScale, "img/1.png");
 
 /*
  * Начало программы

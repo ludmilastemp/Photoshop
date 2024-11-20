@@ -3,7 +3,7 @@
 /**************************************************************************/
 
 ModelCanvas::ModelCanvas (Scene& main_scene)
-    : systemState(main_scene)
+    : systemState(main_scene), scale(1), x_canvas(0), y_canvas(0)
 {}
 
 /**************************************************************************/
@@ -31,30 +31,25 @@ static Picture& getLayer (SystemState& systemState, int layer)
 
 void ModelCanvas::setPixel (VectorDec coord, Color color, int size, int layer)
 {
+    coord.x /= scale;
+    coord.y /= scale;
+    coord.x += x_canvas;
+    coord.y += y_canvas;
+
     Picture& p = getLayer (systemState, layer);
 
     for (int r_x = -size; r_x < size; r_x++)
     {
         for (int r_y = -size; r_y < size; r_y++)
         {
-            if (r_x * r_x + r_y * r_y <= size * size      &&
+            if (r_x * r_x + r_y * r_y <= size * size               &&
                 0 <= coord.x + r_x && coord.x + r_x < kWidthCanvas && 
                 0 <= coord.y + r_y && coord.y + r_y < kHeightCanvas)
             {
-                p.setPixelPictureTmp ({coord.x + r_x, coord.y + r_y}, color);
+                p.setPixel (coord.x + r_x, coord.y + r_y, color);
             }
         }
     }
-}
-
-void ModelCanvas::setColor (Color color)
-{
-    toolbar.setToolColor (color);
-}
-
-void ModelCanvas::setSize (int size)
-{
-    toolbar.setToolSize (size);
 }
 
 Color ModelCanvas::getColor ()
@@ -62,9 +57,62 @@ Color ModelCanvas::getColor ()
     return toolbar.getToolColor ();
 }
 
+void ModelCanvas::setColor (Color color)
+{
+    toolbar.setToolColor (color);
+}
+
 int ModelCanvas::getSize ()
 {
     return toolbar.getToolSize ();
+}
+
+void ModelCanvas::setSize (int size)
+{
+    toolbar.setToolSize (size);
+}
+
+int ModelCanvas::getShiftX ()
+{
+    return x_canvas;
+}
+
+void ModelCanvas::setShiftX (int shiftX)
+{
+    x_canvas = shiftX;
+
+    systemState.background.setScale (scale, x_canvas, y_canvas);
+    systemState.base      .setScale (scale, x_canvas, y_canvas);
+    systemState.tmp       .setScale (scale, x_canvas, y_canvas);
+}
+
+int ModelCanvas::getShiftY ()
+{
+    return y_canvas;
+}
+
+void ModelCanvas::setShiftY (int shiftY)
+{
+    y_canvas = shiftY;
+
+    systemState.background.setScale (scale, x_canvas, y_canvas);
+    systemState.base      .setScale (scale, x_canvas, y_canvas);
+    systemState.tmp       .setScale (scale, x_canvas, y_canvas);
+}
+
+double ModelCanvas::getScale ()
+{
+    return scale;
+}
+
+void ModelCanvas::setScale (double new_scale)
+{
+    scale = new_scale;
+    printf ("set scale %lg\n", scale);
+
+    systemState.background.setScale (scale, x_canvas, y_canvas);
+    systemState.base      .setScale (scale, x_canvas, y_canvas);
+    systemState.tmp       .setScale (scale, x_canvas, y_canvas);
 }
 
 void ModelCanvas::UpdateImage ()

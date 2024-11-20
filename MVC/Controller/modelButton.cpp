@@ -20,6 +20,7 @@ bool ModelButton::update (VectorDec pos, Event event)
         if (button.getIsDraw () && 
             IsButton (pos, button))
         {
+            // printf ("i = %d\n", i);
             for (size_t act = 0; act < button.actions.size(); act++)
             {
                 (*button.actions[act])(event); // отдельный метод

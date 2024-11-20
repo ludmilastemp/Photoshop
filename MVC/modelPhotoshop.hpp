@@ -40,17 +40,14 @@ public:
         nTool++;
     }
 
-    void addParameter (ActionParam& action, VectorDec size, const char* png, const char* pngIcon)
+    void addParameter (Action& action, const char* pngIcon)
     {
-        Picture* picture = new Picture {size, {700 - size.x, 100}, png};
-        action.setPictureCurrent (*picture);
-        Button* button = new Button {size, {700 - size.x, 100}, action, png};
-        modelButton.addButton (*button);
+        std::vector<void*> buttons;
+        Scene* sceneParameter = action.create (&buttons);
 
-        Scene* sceneParameter = new Scene {};
-        sceneParameter->addObject (*button);
-        sceneParameter->addObject (*picture);
-        sceneParameter->setIsDraw (false);
+        for (int i = 0; i < buttons.size(); i++)
+            modelButton.addButton (*(Button*)buttons[i]);
+
         main_scene.addScene (*sceneParameter);
         modelCanvas.parameterManager.addScene (*sceneParameter);
 

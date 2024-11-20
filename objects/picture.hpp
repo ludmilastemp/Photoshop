@@ -12,7 +12,6 @@ public:
     Picture (const VectorDec& init_size, const VectorDec& init_corner);
     Picture (const VectorDec& init_size, const VectorDec& init_corner, const char* png);
     
-    void setPixelPictureTmp (const VectorDec& coord, Color color);
     void overlay (const Picture& from); 
     void clean (); 
 }; 

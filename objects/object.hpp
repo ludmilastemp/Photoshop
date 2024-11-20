@@ -45,9 +45,13 @@ public:
 
     void setPixel (int x, int y, Color color_)
     {
-        Color color = color_ * 255;
-        sf::Color c = {(uint8_t)color.r, (uint8_t)color.g, (uint8_t)color.b, (uint8_t)color.a};
-        image.setPixel (x, y, c);
+        if (0 <= x && x < image.getSize().x && 
+            0 <= y && y < image.getSize().y)
+        {
+            Color color = color_ * 255;
+            sf::Color c = {(uint8_t)color.r, (uint8_t)color.g, (uint8_t)color.b, (uint8_t)color.a};
+            image.setPixel (x, y, c);
+        }
     }
 
     Color getPixel (int x, int y) const
@@ -58,6 +62,13 @@ public:
 
     VectorDecUint32 getSize () const { return {image.getSize().x, image.getSize().y};}
     void            update () { texture.update (image); }
+    void            setScale (double scale, int x, int y) 
+    { 
+        sf::Rect<int> rect {x, y, (int)(1.0 * 600 / scale), (int)(1.0 * 400 / scale)};
+        sprite.setTexture     (texture);
+        sprite.setTextureRect (rect);
+        sprite.setScale (scale, scale);
+    }
     void            draw (GraphicsCtx& ctx) const { ctx.window.draw (sprite); }
 
 };

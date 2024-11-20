@@ -16,15 +16,6 @@ Picture::Picture (const VectorDec& init_size, const VectorDec& init_corner, cons
 
 /**************************************************************************/
 
-void Picture::setPixelPictureTmp (const VectorDec& coord, Color color)
-{
-    if (0 <= coord.x && coord.x < getSize().x && 
-        0 <= coord.y && coord.y < getSize().y)
-    {
-        setPixel (coord.x, coord.y, color);
-    }
-}
-
 void Picture::overlay (const Picture& from)
 {
     for (int x = 0; x < getSize().x; x++)

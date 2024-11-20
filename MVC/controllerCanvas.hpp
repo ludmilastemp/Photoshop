@@ -1,7 +1,7 @@
 #ifndef STL_CONTROLLER_CANVAS
 #define STL_CONTROLLER_CANVAS
 
-#include "MVC_Button/modelButton.hpp"
+#include "Controller/modelButton.hpp"
 
 class ControllerCanvas
 {

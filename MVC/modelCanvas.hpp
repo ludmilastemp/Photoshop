@@ -3,12 +3,12 @@
 
 #include <vector>
 #include "systemState.hpp"
-#include "../objects/parameterManager.hpp"
+#include "../GrLib/GrLib.hpp" ///
 #include "../GrLib/color.hpp"
 #include "../objects/toolbar.hpp"
+#include "../objects/parameterManager.hpp"
 #include "../tools/tool.hpp" //
 #include "../vectors/vectorDec.hpp"
-#include "../GrLib/GrLib.hpp" ///
 
 class ModelCanvas
 {
@@ -16,6 +16,10 @@ public:
     SystemState systemState;
     Toolbar toolbar;
     ParameterManager parameterManager;
+    
+    double scale;
+    int x_canvas;
+    int y_canvas;
 
     ModelCanvas (Scene& main_scene);
 
@@ -28,10 +32,16 @@ public:
     void addTool  (Tool& tool);
     void setActiveTool (int tool);
     void setPixel (VectorDec coord, Color color, int size = 1, int layer = -1);
-    void setColor (Color color);
-    void setSize  (int size);
-    int getSize   ();
-    Color getColor ();
+    Color  getColor  ();   
+    void   setColor  (Color color);
+    int    getSize   (); 
+    void   setSize   (int size);
+    int    getShiftX ();
+    void   setShiftX (int shiftX);
+    int    getShiftY ();
+    void   setShiftY (int shiftY);
+    double getScale  ();
+    void   setScale  (double scale);
 
     void UpdateImage ();
 };

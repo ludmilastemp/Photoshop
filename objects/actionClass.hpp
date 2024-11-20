@@ -1,6 +1,9 @@
 #ifndef STL_ACTIONSCLASS
 #define STL_ACTIONSCLASS
 
+#include <vector>
+#include "object.hpp"
+
 class Action // функтор
 {
 public:
@@ -23,6 +26,7 @@ public:
         call ();
     }
 
+    virtual Scene* create (std::vector<void*>* buttons) { return nullptr; }
     virtual void active() {}
 };
 
