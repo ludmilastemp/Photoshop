@@ -23,11 +23,11 @@ public:
     {
         int y = event.getCoord().y - corner.y;
 
-        if (y / 60 < modelCanvas.toolbar.getSize() && 
-            y % 60 <= 50)
+        if (y / (kHeightIcon + kOffsetIcon) < modelCanvas.toolbar.getSize() && 
+            y % (kHeightIcon + kOffsetIcon) <= kHeightIcon)
         {
-            printf ("setActiveTool %d\n", y / 60);
-            modelCanvas.setActiveTool (y / 60);
+            printf ("setActiveTool %d\n", y / (kHeightIcon + kOffsetIcon));
+            modelCanvas.setActiveTool (y / (kHeightIcon + kOffsetIcon));
         }
     }
 };
@@ -47,10 +47,10 @@ public:
     {
         int y = event.getCoord().y - corner.y;
 
-        if (y / 60 < modelCanvas.parameterManager.getSize() && 
-            y % 60 <= 50)
+        if (y / (kHeightIcon + kOffsetIcon) < modelCanvas.parameterManager.getSize() && 
+            y % (kHeightIcon + kOffsetIcon) <= kHeightIcon)
         {
-            int scene = y / 60;
+            int scene = y / (kHeightIcon + kOffsetIcon);
             if (modelCanvas.parameterManager.scenes[scene]->getIsDraw () == true)
                 modelCanvas.parameterManager.deActivate ();
             else

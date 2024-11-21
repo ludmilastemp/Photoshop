@@ -64,7 +64,7 @@ public:
     void            update () { texture.update (image); }
     void            setScale (double scale, int x, int y) 
     { 
-        sf::Rect<int> rect {x, y, (int)(1.0 * 600 / scale), (int)(1.0 * 400 / scale)};
+        sf::Rect<int> rect {x, y, (int)(1.0 * kWidthCanvas / scale), (int)(1.0 * kHeightCanvas / scale)};
         sprite.setTexture     (texture);
         sprite.setTextureRect (rect);
         sprite.setScale (scale, scale);

@@ -5,7 +5,7 @@
 
 
 GraphicsCtx::GraphicsCtx ()
-    :window(sf::VideoMode(kWidthWindow * 2, kHeightWindow * 2), "SFML works!"), 
+    :window(sf::VideoMode(kHalfWidthWindow * 2, kHalfHeightWindow * 2), "SFML works!"), 
     event (window)
 {}
 
@@ -18,8 +18,8 @@ GraphicsCtx::GraphicsCtx ()
 // {
 //     sf::Vertex line[] =
 //     {
-//         sf::Vertex(sf::Vector2f(kWidthWindow + n.getX(), kHeightWindow - n.getY())),
-//         sf::Vertex(sf::Vector2f(kWidthWindow + n.getX() + v.getX(), kHeightWindow - n.getY() - v.getY()))
+//         sf::Vertex(sf::Vector2f(kHalfWidthWindow + n.getX(), kHalfHeightWindow - n.getY())),
+//         sf::Vertex(sf::Vector2f(kHalfWidthWindow + n.getX() + v.getX(), kHalfHeightWindow - n.getY() - v.getY()))
 //     };
 
 //     ctx.window.draw(line, 100, sf::Lines);

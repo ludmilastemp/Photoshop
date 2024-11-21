@@ -44,9 +44,9 @@ public:
         VectorDec size = {150, 150};
         const char* png = "img/colorwheel.png";
 
-        pictureBackground = new Picture {size, {700 - size.x, 100}, png};
-        pictureCurrent    = new Picture {size, {700 - size.x, 100}};
-        Button* button = new Button {size, {700 - size.x, 100}, *this, png};
+        pictureBackground = new Picture {size, {kCanvasXEnd - size.x, kCanvasYBegin}, png};
+        pictureCurrent    = new Picture {size, {kCanvasXEnd - size.x, kCanvasYBegin}};
+        Button* button = new Button {size, {kCanvasXEnd - size.x, kCanvasYBegin}, *this, png};
         buttons->push_back (button);
 
         Scene* sceneParameter = new Scene {};
@@ -107,9 +107,9 @@ public:
         VectorDec size = {150, 200};
         const char* png = "img/size.png";
 
-        pictureBackground = new Picture {size, {700 - size.x, 100}, png};
-        pictureCurrent    = new Picture {size, {700 - size.x, 100}};
-        Button* button = new Button {size, {700 - size.x, 100}, *this};
+        pictureBackground = new Picture {size, {kCanvasXEnd - size.x, kCanvasYBegin}, png};
+        pictureCurrent    = new Picture {size, {kCanvasXEnd - size.x, kCanvasYBegin}};
+        Button* button = new Button {size, {kCanvasXEnd - size.x, kCanvasYBegin}, *this};
         buttons->push_back (button);
 
         Scene* sceneParameter = new Scene {};
@@ -152,12 +152,56 @@ public:
         : modelCanvas(init_modelPhotoshop)
     { }
 
+    void drawState (int pos, int length)
+    {
+        printf ("%d %d\n", pos, length);
+        length -= 5;
+        pictureCurrent->clean ();
+        int centerY = pos - length;
+        for (int r_x = -6; r_x < 6; r_x++)
+        {
+            for (int r_y = -5; r_y < 5; r_y++)
+            {
+                if (r_x * r_x + r_y * r_y <= 30)
+                {
+                    if (590 <= 594     + r_x && 594     + r_x <= 598 && 
+                        10  <= centerY + r_y && centerY + r_y <= 390)
+                        pictureCurrent->setPixel (594 + r_x, centerY + r_y, {0.45, 0.45, 0.45, 1});
+                }
+            }
+        }
+        centerY = pos + length;
+        for (int r_x = -6; r_x < 6; r_x++)
+        {
+            for (int r_y = -5; r_y < 5; r_y++)
+            {
+                if (r_x * r_x + r_y * r_y <= 30)
+                {
+                    if (590 <= 594     + r_x && 594     + r_x <= 598 && 
+                        10  <= centerY + r_y && centerY + r_y <= 390)
+                        pictureCurrent->setPixel (594 + r_x, centerY + r_y, {0.45, 0.45, 0.45, 1});
+                }
+            }
+        }
+        centerY = pos;
+        for (int r_x = -6; r_x < 6; r_x++)
+        {
+            for (int r_y = -length; r_y < length; r_y++)
+            {
+                if (590 <= 594     + r_x && 594     + r_x <= 598 && 
+                    10  <= centerY + r_y && centerY + r_y <= 390)
+                    pictureCurrent->setPixel (594 + r_x, centerY + r_y, {0.45, 0.45, 0.45, 1});
+            }
+        }
+        pictureCurrent->update ();
+    }
+
     virtual Scene* create(std::vector<void*>* buttons) override
     {
         VectorDec size  = {600, 400};
 
-        pictureCurrent = new Picture {size, {700 - size.x, 100}};
-        Button* button = new Button {{10, 380}, {700 - 9, 100 + 10}, *this};
+        pictureCurrent = new Picture {size, {kCanvasXEnd - size.x, kCanvasYBegin}};
+        Button* button = new Button {{10, 380}, {kCanvasXEnd - 9, kCanvasYBegin + 10}, *this};
         buttons->push_back (button);
 
         Scene* sceneParameter = new Scene {};
@@ -172,18 +216,40 @@ public:
         VectorDecUint32 corner = pictureCurrent->getPosition();
         VectorDec pos = {event.getCoord().x - (int)corner.x, event.getCoord().y - (int)corner.y};
 
-        if (591 <= pos.x && pos.x <= 600 && 
+        if (590 <= pos.x && pos.x <= 600 && 
             10  <= pos.y && pos.y <= 390)
         {} else return;
 
-        int shiftY = 0;
+        int y = pos.y - 10;
+
         double scale = modelCanvas.getScale ();
+        int length = 600 / scale / 2;
+        int shiftY = 0;
         if (scale > 1.0) 
         {            
-            shiftY = 1.0 * (400 - 1.0 * 400 / scale) * (pos.y - 10) / 380;
+            if (y < length) 
+            {
+                shiftY = 0;
+                drawState (length, length);
+            }
+            else if (y > 380 - length) 
+            {
+                shiftY = 400 - 400 / scale;
+                drawState (380 - length, length);
+            }
+            else
+            {
+                y -= length;
+                shiftY = 1.0 * (400 - 1.0 * 400 / scale) * y / (380 - length * 2);
+                drawState (pos.y, length);
+            }
+        }
+        else
+        {
+            length = (390 - 10) / 2;
+            drawState (10 + length, length);
         }
         modelCanvas.setShiftY (shiftY);
-        // drawState (scale);
     }
 };
 
@@ -202,8 +268,8 @@ public:
     {
         VectorDec size  = {600, 400};
 
-        pictureCurrent = new Picture {size, {700 - size.x, 100}};
-        Button* button = new Button {{580, 10},  {100 + 10, 500 - 10}, *this};
+        pictureCurrent = new Picture {size, {kCanvasXEnd - size.x, kCanvasYBegin}};
+        Button* button = new Button {{580, 10},  {kCanvasYBegin + 10, 500 - 10}, *this};
         buttons->push_back (button);
 
         Scene* sceneParameter = new Scene {};
@@ -254,8 +320,8 @@ public:
         VectorDec size  = {600, 400};
         const char* png = "img/scale2.png";
 
-        pictureCurrent = new Picture {size, {700 - size.x, 100}, png};
-        Button* button = new Button {{140, 160}, {100 + 448, 100}, *this};
+        pictureCurrent = new Picture {size, {kCanvasXEnd - size.x, kCanvasYBegin}, png};
+        Button* button = new Button {{140, 160}, {kCanvasXBegin + 448, kCanvasYBegin}, *this};
         buttons->push_back (button);
 
         Scene* sceneParameter = new Scene {};
