@@ -1,18 +1,14 @@
 #ifndef STL_TOOLBAR
 #define STL_TOOLBAR
 
+#include "manager.hpp"
 #include "../tools/tool.hpp"
-#include "object.hpp"
 
-class Toolbar : public Scene
+class Toolbar : public Manager<Tool>
 {
-private:
-    std::vector <Tool*> tools; 
-    int activeTool;
-
 public:
     Toolbar () 
-        :activeTool (-1)
+        :Manager ()
     {}
 
     void operator() (Event& event)
@@ -21,11 +17,6 @@ public:
     }
 
     void update (Event& event);
-
-    void add        (Tool& tool);
-    void activate   (int tool);
-    void deActivate ();
-    size_t getSize () { return tools.size(); }
 
     void setToolColor  (Color color);
     void setToolSize   (int size);

@@ -1,14 +1,14 @@
-#ifndef STL_CONTROLLER_CANVAS
-#define STL_CONTROLLER_CANVAS
+#ifndef STL_CONTROLLER_PHOTOSHOP
+#define STL_CONTROLLER_PHOTOSHOP
 
 #include "Controller/modelButton.hpp"
 
-class ControllerCanvas
+class ControllerPhotoshop
 {
 public:
     ModelButton& modelButton;
 
-    ControllerCanvas (ModelButton& modelButton);
+    ControllerPhotoshop (ModelButton& modelButton);
 
     void operator() (GraphicsCtx& ctx) 
     {
@@ -18,4 +18,4 @@ public:
     void update (GraphicsCtx& ctx);
 };
 
-#endif /* STL_CONTROLLER_CANVAS */
+#endif /* STL_CONTROLLER_PHOTOSHOP */

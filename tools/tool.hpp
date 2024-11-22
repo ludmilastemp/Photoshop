@@ -20,7 +20,8 @@ public:
     virtual void setSize  (int size)    {}
     virtual Color getColor () { return {1, 1, 1, 1}; }
     virtual int   getSize  () { return 0; }
-    virtual void stop   () {}
+    virtual void  activate () {}
+    virtual void  deActivate () {}
 };
 
 #endif /* STL_TOOL */

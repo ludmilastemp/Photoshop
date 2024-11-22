@@ -51,7 +51,7 @@ public:
             y % (kHeightIcon + kOffsetIcon) <= kHeightIcon)
         {
             int scene = y / (kHeightIcon + kOffsetIcon);
-            if (modelCanvas.parameterManager.scenes[scene]->getIsDraw () == true)
+            if (modelCanvas.parameterManager.objects[scene]->getIsDraw () == true)
                 modelCanvas.parameterManager.deActivate ();
             else
                 modelCanvas.parameterManager.activate (scene);

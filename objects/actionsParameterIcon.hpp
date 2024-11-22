@@ -21,7 +21,7 @@ public:
 
     virtual void call () override
     {
-        if (parameterManager.scenes[scene]->getIsDraw () == true)
+        if (parameterManager.objects[scene]->getIsDraw () == true)
             parameterManager.deActivate ();
         else
             parameterManager.activate (scene);

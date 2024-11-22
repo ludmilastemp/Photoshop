@@ -125,6 +125,16 @@ public:
         }
     }
 
+    void activate ()
+    {
+        setIsDraw (true);
+    }
+
+    void deActivate ()
+    {
+        setIsDraw (false);
+    }
+
     bool getIsDraw () { return isDraw; }
 };
 

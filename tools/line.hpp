@@ -156,7 +156,7 @@ public:
         return size;
     }
 
-    virtual void stop () override
+    virtual void deActivate () override
     {
         modelCanvas.UpdateImage ();
         x_start = -1;

@@ -1,24 +1,8 @@
-#ifndef STL_PARAMETERMANAGER
-#define STL_PARAMETERMANAGER
+#ifndef STL_PARAMETER_MANAGER
+#define STL_PARAMETER_MANAGER
 
-#include "object.hpp"
+#include "manager.hpp"
 
-class ParameterManager
-{
-public:
-    std::vector <Scene*> scenes; 
-    int activeScene;
+using ParameterManager = Manager<Scene>;
 
-    ParameterManager () 
-        :activeScene (-1)
-    {}
-
-    void addScene (Scene& scene);
-    void activate (int scene);
-    void deActivate ();
-    void reActivate ();
-
-    size_t getSize () { return scenes.size(); }
-};
-
-#endif /* STL_PARAMETERMANAGER */
+#endif /* STL_PARAMETER_MANAGER */

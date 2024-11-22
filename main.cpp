@@ -4,7 +4,7 @@
 
 #include "GrLib/GrLib.hpp"
 #include "MVC/modelPhotoshop.hpp"
-#include "MVC/controllerCanvas.hpp"
+#include "MVC/controllerPhotoshop.hpp"
 #include "MVC/viewPhotoshop.hpp"
 #include "tools/brush.hpp"
 #include "tools/eraser.hpp"
@@ -27,7 +27,7 @@ int main ()
     ModelPhotoshop modelPhotoshop {main_scene};
     ViewPhotoshop  viewPhotoshop  {main_scene};
     ModelCanvas&   modelCanvas = modelPhotoshop.modelCanvas;
-    ControllerCanvas controllerCanvas {modelPhotoshop.modelButton};
+    ControllerPhotoshop controllerPhotoshop {modelPhotoshop.modelButton};
 
 /*
  * Добавление тулов
@@ -63,7 +63,7 @@ int main ()
         /*
          * MVC
          */ 
-            controllerCanvas (ctx);
+            controllerPhotoshop (ctx);
             modelCanvas (ctx.event);
             viewPhotoshop (ctx);   
     }

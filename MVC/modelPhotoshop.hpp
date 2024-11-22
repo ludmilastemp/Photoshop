@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "modelCanvas.hpp"
-#include "controllerCanvas.hpp"
+#include "controllerPhotoshop.hpp"
 
 class ModelPhotoshop
 {
@@ -11,11 +11,11 @@ public:
     ModelCanvas modelCanvas;
     ModelButton modelButton;
     Scene& main_scene;
-    size_t nTool;
-    size_t nParameters;
+    size_t nTool = 0;
+    size_t nParameters = 0;
 
     ModelPhotoshop (Scene& init_main_scene)
-        : modelCanvas (init_main_scene), main_scene(init_main_scene), nTool (0)
+        : modelCanvas (init_main_scene), main_scene(init_main_scene), nTool (0), nParameters (0)
     {
         /*
         * Создание кнопки для tools
@@ -49,7 +49,7 @@ public:
             modelButton.addButton (*(Button*)buttons[i]);
 
         main_scene.addScene (*sceneParameter);
-        modelCanvas.parameterManager.addScene (*sceneParameter);
+        modelCanvas.parameterManager.add (*sceneParameter);
 
         Button* buttonIcon = new Button {{kWidthIcon, kHeightIcon}, {kWidthParameterManagerCorner, kHeightParameterManagerCorner + (int)nParameters * (kHeightIcon + kOffsetIcon)}, pngIcon};
         main_scene.addObject (*buttonIcon);
