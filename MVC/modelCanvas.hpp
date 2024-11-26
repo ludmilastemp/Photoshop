@@ -3,10 +3,10 @@
 
 #include <vector>
 #include "systemState.hpp"
+#include "Managers/toolbar.hpp"
+#include "Managers/parameterManager.hpp"
 #include "../GrLib/GrLib.hpp" ///
 #include "../GrLib/color.hpp"
-#include "../objects/toolbar.hpp"
-#include "../objects/parameterManager.hpp"
 #include "../tools/tool.hpp" //
 #include "../vectors/vectorDec.hpp"
 

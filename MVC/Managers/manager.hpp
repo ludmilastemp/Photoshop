@@ -1,7 +1,7 @@
 #ifndef STL_MANAGER
 #define STL_MANAGER
 
-#include "object.hpp"
+#include "../../objects/object.hpp"
 
 template <class T>
 class Manager

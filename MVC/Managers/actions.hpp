@@ -1,10 +1,10 @@
-#ifndef STL_ACTIONSTOOL
-#define STL_ACTIONSTOOL
+#ifndef STL_ACTIONS_MANAGERS
+#define STL_ACTIONS_MANAGERS
 
 #include <cstdlib>
-#include "actionClass.hpp"
+#include "../../objects/actionClass.hpp"
 
-#include "../MVC/modelCanvas.hpp"
+#include "../modelCanvas.hpp"
 
 /**************************************************************************/
 
@@ -26,8 +26,19 @@ public:
         if (y / (kHeightIcon + kOffsetIcon) < modelCanvas.toolbar.getSize() && 
             y % (kHeightIcon + kOffsetIcon) <= kHeightIcon)
         {
-            printf ("setActiveTool %d\n", y / (kHeightIcon + kOffsetIcon));
-            modelCanvas.setActiveTool (y / (kHeightIcon + kOffsetIcon));
+            int object = y / (kHeightIcon + kOffsetIcon);
+            printf ("setActiveTool %d\n", object);
+            if (modelCanvas.toolbar.activeObject == object)
+            {
+                modelCanvas.setActiveTool (-1);
+            }
+            else
+            {
+                modelCanvas.setActiveTool (object);
+            }
+
+            // modelCanvas.toolbar.activate (object);
+            // modelCanvas.parameterManager.reActivate();
         }
     }
 };
@@ -50,15 +61,19 @@ public:
         if (y / (kHeightIcon + kOffsetIcon) < modelCanvas.parameterManager.getSize() && 
             y % (kHeightIcon + kOffsetIcon) <= kHeightIcon)
         {
-            int scene = y / (kHeightIcon + kOffsetIcon);
-            if (modelCanvas.parameterManager.objects[scene]->getIsDraw () == true)
+            int object = y / (kHeightIcon + kOffsetIcon);
+            if (modelCanvas.parameterManager.activeObject == object)
+            {
                 modelCanvas.parameterManager.deActivate ();
+            }
             else
-                modelCanvas.parameterManager.activate (scene);
+            {
+                modelCanvas.parameterManager.activate (object);
+            }
         }
     }
 };
 
 /**************************************************************************/
 
-#endif /* STL_ACTIONSTOOL */
+#endif /* STL_ACTIONS_MANAGERS */

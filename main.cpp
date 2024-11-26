@@ -6,11 +6,13 @@
 #include "MVC/modelPhotoshop.hpp"
 #include "MVC/controllerPhotoshop.hpp"
 #include "MVC/viewPhotoshop.hpp"
+// #include "objects/actionsParameterIcon.hpp"
 #include "tools/brush.hpp"
 #include "tools/eraser.hpp"
 #include "tools/line.hpp"
-#include "objects/actionsParameter.hpp"
-#include "objects/actionsParameterIcon.hpp"
+#include "parameters/color.hpp"
+#include "parameters/size.hpp"
+#include "parameters/scale.hpp"
 
 using namespace std;
 

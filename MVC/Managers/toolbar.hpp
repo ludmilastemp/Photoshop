@@ -2,7 +2,7 @@
 #define STL_TOOLBAR
 
 #include "manager.hpp"
-#include "../tools/tool.hpp"
+#include "../../tools/tool.hpp"
 
 class Toolbar : public Manager<Tool>
 {
@@ -18,9 +18,9 @@ public:
 
     void update (Event& event);
 
-    void setToolColor  (Color color);
-    void setToolSize   (int size);
-    int  getToolSize   ();
+    void  setToolColor  (Color color);
+    void  setToolSize   (int size);
+    int   getToolSize   ();
     Color getToolColor ();
 };
 
