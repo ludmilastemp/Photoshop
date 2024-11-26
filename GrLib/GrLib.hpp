@@ -1,7 +1,6 @@
 #ifndef STL_GrLib
 #define STL_GrLib
 
-#include <iostream> //
 #include "GrLibCtx.hpp"
 #include "../vectors/vectorDec.hpp"
 

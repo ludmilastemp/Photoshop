@@ -2,7 +2,7 @@
 #define STL_VIEW_PHOTOSHOP
 
 #include "systemState.hpp"
-#include "../GrLib/GrLib.hpp" 
+#include "../GrLib/GrLib.hpp"
 
 class ViewPhotoshop
 {

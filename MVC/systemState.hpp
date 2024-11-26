@@ -1,7 +1,6 @@
 #ifndef STL_SYSTEM_STATE
 #define STL_SYSTEM_STATE
 
-#include "../GrLib/GrLibCtx.hpp"
 #include "../objects/picture.hpp"
 
 class SystemState

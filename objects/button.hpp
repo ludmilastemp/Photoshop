@@ -3,8 +3,7 @@
 
 #include <cassert>
 #include "object.hpp"
-#include "../MVC/Managers/actions.hpp"
-#include "../vectors/vectorDec.hpp"
+#include "actionClass.hpp"
 
 class Button : public Object
 {

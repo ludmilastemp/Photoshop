@@ -35,7 +35,6 @@ bool CheckEventCloseWindow (GraphicsCtx& ctx)
 {
     if (ctx.event.getWindowClose ())
     {
-        std::cout << "close window\n";
         ctx.window.close();
         return 1;
     }

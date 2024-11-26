@@ -2,11 +2,9 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "GrLib/GrLib.hpp"
 #include "MVC/modelPhotoshop.hpp"
 #include "MVC/controllerPhotoshop.hpp"
 #include "MVC/viewPhotoshop.hpp"
-// #include "objects/actionsParameterIcon.hpp"
 #include "tools/brush.hpp"
 #include "tools/eraser.hpp"
 #include "tools/line.hpp"

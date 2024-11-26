@@ -2,7 +2,6 @@
 #define STL_PICTURE
 
 #include "object.hpp"
-#include "../GrLib/color.hpp"
 
 class Picture : public Object
 {

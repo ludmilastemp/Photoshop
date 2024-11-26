@@ -5,16 +5,13 @@
 #include "systemState.hpp"
 #include "Managers/toolbar.hpp"
 #include "Managers/parameterManager.hpp"
-#include "../GrLib/GrLib.hpp" ///
 #include "../GrLib/color.hpp"
-#include "../tools/tool.hpp" //
-#include "../vectors/vectorDec.hpp"
 
 class ModelCanvas
 {
 public:
-    SystemState systemState;
-    Toolbar toolbar;
+    SystemState      systemState;
+    Toolbar          toolbar;
     ParameterManager parameterManager;
     
     double scale;
@@ -28,10 +25,10 @@ public:
         update (event);
     }
 
-    void update (Event& event);
-    void addTool  (Tool& tool);
-    void setActiveTool (int tool);
-    void setPixel (VectorDec coord, Color color, int size = 1, int layer = -1);
+    void   update        (Event& event);
+    void   addTool       (Tool& tool);
+    void   setActiveTool (int tool);
+    void   setPixel  (VectorDec coord, Color color, int size = 1, int layer = -1);
     Color  getColor  ();   
     void   setColor  (Color color);
     int    getSize   (); 

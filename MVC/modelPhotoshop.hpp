@@ -4,6 +4,7 @@
 #include <vector>
 #include "modelCanvas.hpp"
 #include "controllerPhotoshop.hpp"
+#include "Managers/actions.hpp"
 
 class ModelPhotoshop
 {
