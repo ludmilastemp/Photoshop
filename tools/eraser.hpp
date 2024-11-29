@@ -19,7 +19,7 @@ public:
         size (28)
     {}
 
-    virtual void active (Event event) override
+    virtual void apply (Event event) override
     {
         if (!event.getMousePressed ())
             return;

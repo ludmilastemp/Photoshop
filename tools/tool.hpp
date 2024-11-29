@@ -12,10 +12,10 @@ public:
 
     void operator() (Event event)
     {
-        active (event);
+        apply (event);
     }
 
-    virtual void active (Event event) = 0;
+    virtual void apply (Event event) = 0;
     virtual void setColor (Color& color) {}
     virtual void setSize  (int size)    {}
     virtual Color getColor () { return {1, 1, 1, 1}; }

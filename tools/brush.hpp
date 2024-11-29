@@ -20,7 +20,7 @@ public:
         size (15), color (0, 1, 1, 1)
     {}
 
-    virtual void active (Event event) override
+    virtual void apply (Event event) override
     {
         if (!event.getMousePressed ())
             return;
