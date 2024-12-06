@@ -16,7 +16,7 @@ public:
     size_t nParameters = 0;
 
     ModelPhotoshop (Scene& init_main_scene)
-        : modelCanvas (init_main_scene), main_scene(init_main_scene), nTool (0), nParameters (0)
+        : modelCanvas (init_main_scene), main_scene(init_main_scene)
     {
         /*
         * Создание кнопки для tools

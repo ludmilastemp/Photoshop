@@ -81,8 +81,7 @@ public:
 
     virtual void call (Event event) override
     {        
-        VectorDecUint32 corner = pictureCurrent->getPosition();
-        VectorDec pos = {event.getCoord().x - (int)corner.x, event.getCoord().y - (int)corner.y};
+        VectorDec pos = {event.getCoord().x, event.getCoord().y};
 
         if (590 <= pos.x && pos.x <= 600 && 
             10  <= pos.y && pos.y <= 390)
@@ -149,8 +148,7 @@ public:
 
     virtual void call (Event event) override
     {        
-        VectorDecUint32 corner = pictureCurrent->getPosition();
-        VectorDec pos = {event.getCoord().x - (int)corner.x, event.getCoord().y - (int)corner.y};
+        VectorDec pos = {event.getCoord().x, event.getCoord().y};
 
         if (10  <= pos.x && pos.x <= 590 && 
             390 <= pos.y && pos.y <= 400)
@@ -207,8 +205,7 @@ public:
 
     virtual void call (Event event) override
     {
-        VectorDecUint32 corner = pictureCurrent->getPosition();
-        VectorDec pos = {event.getCoord().x - (int)corner.x, event.getCoord().y - (int)corner.y};
+        VectorDec pos = {event.getCoord().x, event.getCoord().y};
 
         if (450 <= pos.x && pos.x <= 515 && 
             0   <= pos.y && pos.y <= 70)

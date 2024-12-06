@@ -16,7 +16,6 @@ public:
 
     size_t getSize () { return objects.size(); }
 
-
     void add (T& object)
     {
         objects.push_back(&object);
@@ -24,7 +23,7 @@ public:
     
     void activate (int object)
     {
-        deActivate ();
+        deactivate ();
 
         if (-1 <= object && object < objects.size())
         {
@@ -33,11 +32,11 @@ public:
         }
     }
 
-    void deActivate ()
+    void deactivate ()
     {
         if (0 <= activeObject && activeObject < objects.size())
         {
-            objects[activeObject]->deActivate ();
+            objects[activeObject]->deactivate ();
         }
         activeObject = -1;
     }
@@ -47,7 +46,7 @@ public:
         if (0 <= activeObject && activeObject < objects.size())
         {
             int object = activeObject;
-            deActivate ();
+            deactivate ();
             activate (object);
         }
     }

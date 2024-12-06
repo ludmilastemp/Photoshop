@@ -3,11 +3,11 @@
 
 #include "../GrLib/GrLibCtx.hpp"
 #include "../GrLib/color.hpp"
+#include "../objects/object.hpp"
 
 class Tool 
 {
 public:
-
     virtual ~Tool () = default;
 
     void operator() (Event event)
@@ -21,7 +21,7 @@ public:
     virtual Color getColor () { return {1, 1, 1, 1}; }
     virtual int   getSize  () { return 0; }
     virtual void  activate () {}
-    virtual void  deActivate () {}
+    virtual void  deactivate () {}
 };
 
 #endif /* STL_TOOL */

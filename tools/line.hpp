@@ -35,8 +35,8 @@ public:
             return;
         }
 
-        int x = event.getCoord().x - kWidthCanvasCorner;
-        int y = event.getCoord().y - kHeightCanvasCorner;
+        int x = event.getCoord().x;
+        int y = event.getCoord().y;
 
         if (x_start == -1 && y_start == -1)
         {
@@ -71,7 +71,7 @@ public:
                     P += B;
                 }
                 
-                modelCanvas.setPixel ({x_draw, y_draw}, color, size);
+                modelCanvas.setPixel ({x_draw, y_draw}, color, size, kLaterTmp);
             }
             x_draw = x;
             for (y_draw = y; y_draw <= y_start; y_draw++)
@@ -89,7 +89,7 @@ public:
                     P += B;
                 }
                 
-                modelCanvas.setPixel ({x_draw, y_draw}, color, size);
+                modelCanvas.setPixel ({x_draw, y_draw}, color, size, kLaterTmp);
             }
             return;
         }
@@ -113,7 +113,7 @@ public:
                 P += B;
             }
 
-            modelCanvas.setPixel ({x_draw, y_draw}, color, size);
+            modelCanvas.setPixel ({x_draw, y_draw}, color, size, kLaterTmp);
         }
         y_draw = y;
         for (x_draw = x; x_draw <= x_start; x_draw++)
@@ -131,7 +131,7 @@ public:
                 P += B;
             }
 
-            modelCanvas.setPixel ({x_draw, y_draw}, color, size);
+            modelCanvas.setPixel ({x_draw, y_draw}, color, size, kLaterTmp);
         }
         return;
     }
@@ -156,7 +156,7 @@ public:
         return size;
     }
 
-    virtual void deActivate () override
+    virtual void deactivate () override
     {
         modelCanvas.UpdateImage ();
         x_start = -1;

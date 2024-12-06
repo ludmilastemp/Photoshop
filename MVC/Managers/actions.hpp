@@ -21,7 +21,7 @@ public:
 
     virtual void call (Event event) override
     {
-        int y = event.getCoord().y - corner.y;
+        int y = event.getCoord().y;
 
         if (y / (kHeightIcon + kOffsetIcon) < modelCanvas.toolbar.getSize() && 
             y % (kHeightIcon + kOffsetIcon) <= kHeightIcon)
@@ -36,9 +36,6 @@ public:
             {
                 modelCanvas.setActiveTool (object);
             }
-
-            // modelCanvas.toolbar.activate (object);
-            // modelCanvas.parameterManager.reActivate();
         }
     }
 };
@@ -56,7 +53,7 @@ public:
 
     virtual void call (Event event) override
     {
-        int y = event.getCoord().y - corner.y;
+        int y = event.getCoord().y;
 
         if (y / (kHeightIcon + kOffsetIcon) < modelCanvas.parameterManager.getSize() && 
             y % (kHeightIcon + kOffsetIcon) <= kHeightIcon)
@@ -64,7 +61,7 @@ public:
             int object = y / (kHeightIcon + kOffsetIcon);
             if (modelCanvas.parameterManager.activeObject == object)
             {
-                modelCanvas.parameterManager.deActivate ();
+                modelCanvas.parameterManager.deactivate ();
             }
             else
             {

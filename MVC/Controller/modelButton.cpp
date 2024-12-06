@@ -21,6 +21,8 @@ bool ModelButton::update (VectorDec pos, Event event)
             IsButton (pos, button))
         {
             // printf ("i = %d\n", i);
+            event.coord.x -= button.corner.x;
+            event.coord.y -= button.corner.y;
             for (size_t act = 0; act < button.actions.size(); act++)
             {
                 (*button.actions[act])(event); // отдельный метод

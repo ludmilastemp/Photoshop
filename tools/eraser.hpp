@@ -24,10 +24,10 @@ public:
         if (!event.getMousePressed ())
             return;
 
-        int x = event.getCoord().x - kWidthCanvasCorner;
-        int y = event.getCoord().y - kHeightCanvasCorner;
+        int x = event.getCoord().x;
+        int y = event.getCoord().y;
 
-        modelCanvas.setPixel ({x, y}, Color (0, 0, 0, 0), size, 0);
+        modelCanvas.setPixel ({x, y}, Color (0, 0, 0, 0), size, kLaterActive);
     }
 
     virtual void setSize (int new_size) override

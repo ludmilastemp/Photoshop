@@ -14,8 +14,8 @@ private:
 
 public:
 
-    ToolBrush (ModelCanvas& init_modelPhotoshop, GraphicsCtx& init_ctx)
-        :modelCanvas (init_modelPhotoshop), 
+    ToolBrush (ModelCanvas& init_modelCanvas, GraphicsCtx& init_ctx)
+        :modelCanvas (init_modelCanvas), 
         ctx (init_ctx),
         size (15), color (0, 1, 1, 1)
     {}
@@ -25,10 +25,10 @@ public:
         if (!event.getMousePressed ())
             return;
 
-        int x = event.getCoord().x - kWidthCanvasCorner;
-        int y = event.getCoord().y - kHeightCanvasCorner;
+        int x = event.getCoord().x;
+        int y = event.getCoord().y;
 
-        modelCanvas.setPixel ({x, y}, color, size, 0);
+        modelCanvas.setPixel ({x, y}, color, size, kLaterActive);
     }
 
     virtual void setColor (Color& new_color) override

@@ -46,7 +46,7 @@ public:
 
         pictureBackground = new Picture {size, {kCanvasXEnd - size.x, kCanvasYBegin}, png};
         pictureCurrent    = new Picture {size, {kCanvasXEnd - size.x, kCanvasYBegin}};
-        Button* button = new Button {size, {kCanvasXEnd - size.x, kCanvasYBegin}, *this};
+        Button* button    = new Button {size, {kCanvasXEnd - size.x, kCanvasYBegin}, *this};
         buttons->push_back (button);
 
         Scene* sceneParameter = new Scene {};
@@ -65,8 +65,7 @@ public:
 
     virtual void call (Event event) override
     {
-        VectorDecUint32 corner = pictureCurrent->getPosition();
-        VectorDec pos = {event.getCoord().x - (int)corner.x, event.getCoord().y - (int)corner.y};
+        VectorDec pos = {event.getCoord().x, event.getCoord().y};
 
         if (15 <= pos.x && pos.x <= 140 && 
             0  <= pos.y && pos.y <= 200)

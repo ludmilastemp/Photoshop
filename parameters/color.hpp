@@ -16,8 +16,6 @@ private:
     Picture* pictureCurrent;
     Picture* pictureBackground;
     int size = 30;
-    const int min_size = 1;
-    const int max_size = 60;
 
 public:
     ActionColor (ModelCanvas& init_modelPhotoshop)
@@ -46,7 +44,7 @@ public:
 
         pictureBackground = new Picture {size, {kCanvasXEnd - size.x, kCanvasYBegin}, png};
         pictureCurrent    = new Picture {size, {kCanvasXEnd - size.x, kCanvasYBegin}};
-        Button* button = new Button {size, {kCanvasXEnd - size.x, kCanvasYBegin}, *this, png};
+        Button* button    = new Button {size, {kCanvasXEnd - size.x, kCanvasYBegin}, *this, png};
         buttons->push_back (button);
 
         Scene* sceneParameter = new Scene {};
@@ -65,8 +63,7 @@ public:
 
     virtual void call (Event event) override
     {
-        VectorDecUint32 corner = pictureBackground->getPosition();       
-        Color color = pictureBackground->getPixel (event.getCoord().x - corner.x, event.getCoord().y - corner.y);
+        Color color = pictureBackground->getPixel (event.getCoord().x, event.getCoord().y);
         drawState (color);
         modelCanvas.setColor (color);
     }

@@ -14,15 +14,14 @@ private:
     int type;
     bool windowClose;
     bool mousePressed;
-    VectorDec coord;
 public:
+    VectorDec coord;
 
     enum
     {
         event_controller = 1,
         event_model      = 2,
     };
-
 
     Event (sf::RenderWindow& init_window)
         :window(init_window), windowClose(false), mousePressed(false), type(-1)

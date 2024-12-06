@@ -12,6 +12,15 @@
 #include "parameters/size.hpp"
 #include "parameters/scale.hpp"
 
+#include "Standard/PsSPI-impl.hpp"
+
+StlPsSPI* tmp_psspi = nullptr;
+
+PsSPI* getPsSPI ()
+{
+    return (PsSPI*)tmp_psspi;
+}
+
 using namespace std;
 
 int main ()
@@ -51,12 +60,19 @@ int main ()
     modelPhotoshop.addParameter (actionSize,  "img/size_icon.png");
     modelPhotoshop.addParameter (actionScale, "img/1.png");
 
+    StlPsSPI psspi {modelPhotoshop, modelCanvas, ctx};
+    tmp_psspi = &psspi;
+
+    // loadPlugin ();
+
 /*
  * Начало программы
  */
 
+    int i = 0;
     while (IsWindowOpen(ctx))
     {
+        // if (i++ == 1000) loadPlugin ();
         if (ctx.event () == false) continue;
         if (CheckEventCloseWindow (ctx)) break;
 

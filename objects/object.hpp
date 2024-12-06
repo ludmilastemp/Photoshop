@@ -4,6 +4,7 @@
 #include "../GrLib/GrLibCtx.hpp"
 #include "../GrLib/color.hpp"
 #include "../vectors/vectorDec.hpp"
+#include <iostream>
 
 class Object
 {
@@ -77,10 +78,10 @@ class Scene
 {
 private:
     bool isDraw;
-    std::vector <Object*> objects;
-    std::vector <Scene*>  scenes;
+    std::vector <Scene*> scenes;
 
 public:
+    std::vector <Object*> objects;
     Scene () : isDraw(1) {}
 
     void addObject (Object& object)
@@ -130,7 +131,7 @@ public:
         setIsDraw (true);
     }
 
-    void deActivate ()
+    void deactivate ()
     {
         setIsDraw (false);
     }
