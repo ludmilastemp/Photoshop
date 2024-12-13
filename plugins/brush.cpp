@@ -42,9 +42,9 @@ struct ParamSize : PsSPI_Parameter
     virtual void activate() override;
 };
 
-void loadPlugin ()
+void loadPlugin (PsSPI* psspi_)
 {
-    psspi = getPsSPI ();
+    psspi = psspi_;
 
     ToolTest*   tool  = new ToolTest   { "img/brush.png",           "brush" };
     ParamColor* color = new ParamColor { "img/colorwheel_icon.png", "color", *tool };

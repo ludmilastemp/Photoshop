@@ -7,8 +7,7 @@ extern "C"
     struct PsSPI_Tool;
     struct PsSPI_Color;
     struct PsSPI_Event;
-    PsSPI* getPsSPI ();
-    void loadPlugin ();
+    void loadPlugin (PsSPI* psspi);
 }
 
 using tool_t  = int;

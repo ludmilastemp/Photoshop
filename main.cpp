@@ -1,29 +1,17 @@
 #include <iostream>
 
 #include <SFML/Graphics.hpp>
+#include <dlfcn.h>
 
 #include "MVC/modelPhotoshop.hpp"
 #include "MVC/controllerPhotoshop.hpp"
 #include "MVC/viewPhotoshop.hpp"
-// #include "tools/brush.hpp"
-// #include "tools/eraser.hpp"
-// #include "tools/line.hpp"
-// #include "parameters/color.hpp"
-// #include "parameters/size.hpp"
-// #include "parameters/scale.hpp"
 
 #include "Standard/PsSPI-impl.hpp"
 
-StlPsSPI* tmp_psspi = nullptr;
-
-PsSPI* getPsSPI ()
-{
-    return (PsSPI*)tmp_psspi;
-}
-
 using namespace std;
 
-int main ()
+int main (int argc, char **argv)
 {
     printf ("Start\n");
 
@@ -38,39 +26,31 @@ int main ()
     ModelCanvas&   modelCanvas = modelPhotoshop.modelCanvas;
     ControllerPhotoshop controllerPhotoshop {modelPhotoshop.modelButton};
 
-// /*
-//  * Добавление тулов
-//  */
-//     ToolBrush  brush  (modelCanvas, ctx);
-//     ToolEraser eraser (modelCanvas, ctx);
-//     ToolLine   line   (modelCanvas, ctx);
-
-//     modelPhotoshop.addTool (brush,  "img/brush.png");
-//     modelPhotoshop.addTool (eraser, "img/eraser.png");
-//     modelPhotoshop.addTool (line,   "img/line.png");
-
-// /*
-//  * Добавление параметров
-//  */
-//     ActionColor actionColor (modelCanvas);
-//     ActionSize  actionSize  (modelCanvas);
-//     ActionScale actionScale (modelCanvas);
-
-//     modelPhotoshop.addParameter (actionColor, "img/colorwheel_icon.png");
-//     modelPhotoshop.addParameter (actionSize,  "img/size_icon.png");
-//     modelPhotoshop.addParameter (actionScale, "img/1.png");
-
 /*
  * Начало программы
  */
 
     StlPsSPI psspi {modelPhotoshop, modelCanvas, ctx};
-    tmp_psspi = &psspi;
+
+    std::vector <void*> dll;
+    for (int i = 1; i < argc; i++)
+    {
+        void* ptr = dlopen(argv[i], RTLD_NOW | RTLD_LOCAL);
+        if (!ptr) {
+            fprintf(stderr, "%s\n", dlerror());
+            exit(EXIT_FAILURE);
+        }
+        dll.push_back(ptr);
+
+        void (*func)(PsSPI*) = (void (*)(PsSPI*)) dlsym (ptr, "loadPlugin");
+        (*func)( &psspi );
+    }
+
 
     int i = 0;
     while (IsWindowOpen(ctx))
     {
-        if (i++ == 1000) loadPlugin ();
+        // if (i++ == 1000) loadPlugin ();
         if (ctx.event () == false) continue;
         if (CheckEventCloseWindow (ctx)) break;
 
@@ -81,6 +61,9 @@ int main ()
             modelCanvas (ctx.event);
             viewPhotoshop (ctx);   
     }
+
+    for (void* ptr : dll)
+        dlclose(ptr);
 
     printf ("End\n");
 
