@@ -8,6 +8,16 @@
 class Tool 
 {
 public:
+    // int parameterId = 0;
+    int nParameters = 0;
+    std::vector<int> parametersIndex;
+    Scene parameterButtons;
+
+    Tool ()
+    {
+        parameterButtons.setIsDraw (false);
+    }
+
     virtual ~Tool () = default;
 
     void operator() (Event event)
@@ -20,8 +30,8 @@ public:
     virtual void setSize  (int size)    {}
     virtual Color getColor () { return {1, 1, 1, 1}; }
     virtual int   getSize  () { return 0; }
-    virtual void  activate () {}
-    virtual void  deactivate () {}
+    virtual void  activate () { parameterButtons.setIsDraw (true); }
+    virtual void  deactivate () { parameterButtons.setIsDraw (false); }
 };
 
 #endif /* STL_TOOL */

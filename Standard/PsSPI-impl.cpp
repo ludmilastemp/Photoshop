@@ -8,10 +8,14 @@ void StlPsSPI::addTool (PsSPI_Tool* tool)
 
     modelPhotoshop.addTool (*new_tool, tool->img);
     tool->id = pl_tools.size() - 1;
+
+    modelPhotoshop.main_scene.addScene (new_tool->parameterButtons);
 }
 
 void StlPsSPI::addParameter (tool_t id, PsSPI_Parameter* param)
 {
+    Tool& tool = *modelCanvas.toolbar.objects[id];
+
     VectorDec size = {param->x, param->y};
     const char* png = param->img_act;
     const char* pngIcon = param->img_icon;
@@ -30,12 +34,16 @@ void StlPsSPI::addParameter (tool_t id, PsSPI_Parameter* param)
 
     modelPhotoshop.main_scene.addScene (*sceneParameter);
     modelCanvas.parameterManager.add   (*sceneParameter);
+    tool.parametersIndex.push_back(modelCanvas.parameterManager.objects.size() - 1);
 
-    Button* buttonIcon = new Button {{kWidthIcon, kHeightIcon}, {kWidthParameterManagerCorner, kHeightParameterManagerCorner + (int)modelPhotoshop.nParameters * (kHeightIcon + kOffsetIcon)}, pngIcon};
-    modelPhotoshop.main_scene.addObject (*buttonIcon);
-    modelPhotoshop.nParameters++;
+    Button* buttonIcon = new Button {{kWidthIcon, kHeightIcon}, {kWidthParameterManagerCorner, kHeightParameterManagerCorner + (int)tool.nParameters * (kHeightIcon + kOffsetIcon)}, pngIcon};
+    // modelPhotoshop.main_scene.addObject (*buttonIcon);
+    // modelPhotoshop.nParameters++;
+    tool.parameterButtons.addObject (*buttonIcon);
+    tool.nParameters++;
 
-    param->id = modelCanvas.parameterManager.objects.size() - 1;
+    // param->id = modelCanvas.parameterManager.objects.size() - 1;
+    param->id = tool.nParameters - 1; //modelCanvas.parameterManager.objects.size() - 1;
     param->layer = id_layer;
 }
 
@@ -53,9 +61,13 @@ layer_t StlPsSPI::createLayer ()
 
 layer_t StlPsSPI::createParamLayer (tool_t id, param_t param_id)
 {
-    Button& b = *(Button*)modelCanvas.parameterManager.objects[param_id]->objects[0];
+    param_t param_id_abs = modelCanvas.toolbar.objects[id]->parametersIndex[param_id];
+    Button& b = *(Button*)modelCanvas.parameterManager.objects[param_id_abs]->objects[0];
+    // Button& b = *(Button*)modelCanvas.parameterManager.objects[param_id]->objects[0];
     layer_t l = modelCanvas.createPluginParamPicture(b.size, b.corner);
-    modelCanvas.parameterManager.objects[param_id]->addObject (*modelCanvas.pluginParamLayers[l - 300]);
+    
+    modelCanvas.parameterManager.objects[param_id_abs]->addObject (*modelCanvas.pluginParamLayers[l - 300]);
+    // modelCanvas.parameterManager.objects[param_id]->addObject (*modelCanvas.pluginParamLayers[l - 300]);
     return l;
 }
 

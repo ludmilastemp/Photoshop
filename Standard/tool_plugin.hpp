@@ -30,14 +30,16 @@ public:
 
     virtual void activate () override
     {
-        if (tool)
-            tool->activate();
+        if (!tool) return;
+        parameterButtons.setIsDraw (true);
+        tool->activate();
     }
 
     virtual void deactivate () override
     {
-        if (tool)
-            tool->deactivate();
+        if (!tool) return;
+        parameterButtons.setIsDraw (false);
+        tool->deactivate();
     }
 };
 

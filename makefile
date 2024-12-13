@@ -3,12 +3,12 @@ default: test
 OPTIMIZE_LEVEL = #-O0
 
 CXX = g++
-CXX_FLAGS = $(OPTIMIZE_LEVEL)
+CXX_FLAGS = -g $(OPTIMIZE_LEVEL)
 SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system 
 BUILD_DIR = ./build
 BIN = photoshop
 
-CPP_SRC=$(wildcard *.cpp) $(wildcard */*.cpp) $(wildcard */*/*.cpp)
+CPP_SRC=main.cpp $(wildcard *.cpp) $(wildcard */*.cpp) $(wildcard */*/*.cpp)
 OBJ = $(CPP_SRC:%.cpp=$(BUILD_DIR)/%.o) 
 DEPFILES = $(OBJ:%.o=%.d)
 

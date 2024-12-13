@@ -65,6 +65,8 @@ public:
             }
             else
             {
+                Tool& tool = *modelCanvas.toolbar.objects[modelCanvas.toolbar.activeObject];
+                object = tool.parametersIndex[object];
                 modelCanvas.parameterManager.activate (object);
             }
         }

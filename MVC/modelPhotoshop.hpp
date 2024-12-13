@@ -59,5 +59,4 @@ public:
     }
 };
 
-
 #endif /* STL_MODEL_PHOTOSHOP */
