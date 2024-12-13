@@ -39,6 +39,7 @@ public:
     {
         if (!tool) return;
         parameterButtons.setIsDraw (false);
+        modelCanvas.parameterManager.deactivate();
         tool->deactivate();
     }
 };

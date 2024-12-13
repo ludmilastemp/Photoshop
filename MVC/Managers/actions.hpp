@@ -59,14 +59,17 @@ public:
             y % (kHeightIcon + kOffsetIcon) <= kHeightIcon)
         {
             int object = y / (kHeightIcon + kOffsetIcon);
+            printf ("object %d\n", object);
+            printf ("active tool %d\n", modelCanvas.toolbar.activeObject);
+            if (object >= 0)
+                object = modelCanvas.toolbar.objects[modelCanvas.toolbar.activeObject]->parametersIndex[object];
+            printf ("object %d\n", object);
             if (modelCanvas.parameterManager.activeObject == object)
             {
                 modelCanvas.parameterManager.deactivate ();
             }
             else
             {
-                Tool& tool = *modelCanvas.toolbar.objects[modelCanvas.toolbar.activeObject];
-                object = tool.parametersIndex[object];
                 modelCanvas.parameterManager.activate (object);
             }
         }

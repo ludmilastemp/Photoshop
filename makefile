@@ -38,7 +38,7 @@ $(BUILD_DIR)/$(BIN) : $(OBJ) $(SO)
 	$(CXX) $^ $(CXX_FLAGS) $(SFML_FLAGS) -o $@
 
 test: $(BUILD_DIR)/$(BIN)
-	$(BUILD_DIR)/$(BIN) ./so/brush.so
+	$(BUILD_DIR)/$(BIN) ./so/brush.so ./so/eraser.so
 
 clean:
 	rm -rf .depend build
