@@ -36,6 +36,7 @@ public:
     void   setActiveTool (int tool);
     void   setPixel  (VectorDec coord, Color color, int size = 1, int layer = kLaterActive);
     Color  getPixel  (VectorDec coord, int layer = kLaterActive);
+    void   overlayLayer (int foreground, int background = kLaterActive);
     void   cleanLayer  (int layer = kLaterActive);
     void   updateLayer (int layer = kLaterActive);
     Color  getColor  ();   
@@ -55,11 +56,12 @@ public:
     {
         Picture* p = nullptr;
         if (png)
-            p = new Picture ({600, 400}, {100, 100}, png);
+            p = new Picture ({kWidthCanvas, kHeightCanvas}, {kWidthCanvasCorner, kHeightCanvasCorner}, png);
         else
-            p = new Picture ({600, 400}, {100, 100});
+            p = new Picture ({kWidthCanvas, kHeightCanvas}, {kWidthCanvasCorner, kHeightCanvasCorner});
 
         pluginLayers.push_back (p);
+        systemState.pictures.push_back(p);
         return 100 + pluginLayers.size() - 1;
     }
 
@@ -73,6 +75,7 @@ public:
         
         p->setIsDraw (false);
         std::cout << p << "\n";
+        printf ("x = %d y = %d\n", corner.x, corner.y);
         pluginParamLayers.push_back (p);
         return 300 + pluginParamLayers.size() - 1;
     }

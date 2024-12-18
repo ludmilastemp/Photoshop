@@ -4,9 +4,6 @@
 extern "C"
 {
     struct PsSPI;
-    struct PsSPI_Tool;
-    struct PsSPI_Color;
-    struct PsSPI_Event;
     void loadPlugin (PsSPI* psspi);
 }
 

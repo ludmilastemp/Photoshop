@@ -78,14 +78,12 @@ void StlPsSPI::cleanLayer (layer_t layer)
 
 void StlPsSPI::overlayLayer (layer_t foreground) 
 {
-    if (foreground == kLaterTmp)
-        modelCanvas.UpdateImage ();
+    modelCanvas.overlayLayer (foreground);
 }
 
 void StlPsSPI::overlayLayer (layer_t foreground, layer_t background) 
 {
-    if (foreground == kLaterTmp && background == kLaterActive)
-        modelCanvas.UpdateImage ();
+    modelCanvas.overlayLayer (foreground, background);
 }
 
 PsSPI_Color StlPsSPI::getPixel (int x, int y)

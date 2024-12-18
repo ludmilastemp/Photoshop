@@ -10,9 +10,12 @@ struct ToolTest : PsSPI_Tool
     ToolTest(const char* img, const char* name) 
         : PsSPI_Tool(img, name)
     {}
-
-    PsSPI_Color color = {0, 255, 255, 255};
-    int size = 15;
+    
+    layer_t layerTmp;
+    PsSPI_Color color = {200, 25, 255, 255};
+    int size = 10;
+    int x_start;
+    int y_start;
 
     virtual void apply()      override;
     virtual void activate()   override;
@@ -46,7 +49,7 @@ void loadPlugin (PsSPI* psspi_)
 {
     psspi = psspi_;
 
-    ToolTest*   tool  = new ToolTest   { "img/tools/brush.png",           "brush" };
+    ToolTest*   tool  = new ToolTest   { "img/tools/line.png",      "line" };
     ParamColor* color = new ParamColor { "img/colorwheel_icon.png", "color", *tool };
     color->x = 150; 
     color->y = 150;
@@ -56,6 +59,8 @@ void loadPlugin (PsSPI* psspi_)
     size->x = 150; 
     size->y = 200;
     size->img_act = "img/size.png";
+
+    tool->layerTmp = psspi->createLayer();
 
     psspi->addTool (tool);
     psspi->addParameter (tool->id, color);
@@ -68,12 +73,110 @@ void ToolTest::apply ()
     PsSPI_Event event = psspi->getEvent();
 
     if (!event.mousePressed)
+    {
+        x_start = -1;
+        y_start = -1;
+        psspi->overlayLayer (layerTmp);
+        psspi->cleanLayer (layerTmp);
         return;
+    }
 
     int x = event.mouseCoordX;
     int y = event.mouseCoordY;
 
-    psspi->setPixel (x, y, color, size);
+    if (x_start == -1 && y_start == -1)
+    {
+        x_start = x;
+        y_start = y;
+        return;
+    }
+
+    psspi->cleanLayer(layerTmp);
+
+    int x_draw = x_start;
+    int y_draw = y_start;
+
+    if (abs(x - x_start) < abs(y - y_start))
+    {
+        int A = 2 * abs(x - x_start);
+        int B = A - 2 * abs(y - y_start);
+        int P = A - abs(y - y_start);
+
+        for (y_draw = y_start; y_draw <= y; y_draw++)
+        {
+            if (P < 0)
+            {
+                P += A;
+            }
+            else if (P >= 0)
+            {
+                if (x - x_start > 0)
+                    x_draw++;
+                else 
+                    x_draw--;
+                P += B;
+            }
+            psspi->setPixel (layerTmp, x_draw, y_draw, color, size);
+        }
+        x_draw = x;
+        for (y_draw = y; y_draw <= y_start; y_draw++)
+        {
+            if (P < 0)
+            {
+                P += A;
+            }
+            else if (P >= 0)
+            {
+                if (x - x_start > 0)
+                    x_draw--;
+                else 
+                    x_draw++;
+                P += B;
+            }
+            psspi->setPixel (layerTmp, x_draw, y_draw, color, size);
+        }
+    }
+    else 
+    {
+        int A = 2 * abs(y - y_start);
+        int B = A - 2 * abs(x - x_start);
+        int P = A - abs(x - x_start);
+        for (x_draw = x_start; x_draw <= x; x_draw++)
+        {
+            if (P < 0)
+            {
+                P += A;
+            }
+            else if (P >= 0)
+            {
+                if (y - y_start > 0)
+                    y_draw++;
+                else 
+                    y_draw--;
+                P += B;
+            }
+            psspi->setPixel (layerTmp, x_draw, y_draw, color, size);
+        }
+        y_draw = y;
+        for (x_draw = x; x_draw <= x_start; x_draw++)
+        {
+            if (P < 0)
+            {
+                P += A;
+            }
+            else if (P >= 0)
+            {
+                if (y - y_start > 0)
+                    y_draw--;
+                else 
+                    y_draw++;
+                P += B;
+            }
+            psspi->setPixel (layerTmp, x_draw, y_draw, color, size);
+        }
+    }
+    psspi->updateLayer(layerTmp);
+    return;
 }
 
 void ToolTest::activate ()

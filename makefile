@@ -38,7 +38,7 @@ $(BUILD_DIR)/$(BIN) : $(OBJ) $(SO)
 	$(CXX) $^ $(CXX_FLAGS) $(SFML_FLAGS) -o $@
 
 test: $(BUILD_DIR)/$(BIN)
-	$(BUILD_DIR)/$(BIN) ./so/brush.so ./so/eraser.so
+	$(BUILD_DIR)/$(BIN) ./so/brush.so ./so/eraser.so ./so/line.so ./so/tree.so
 
 clean:
 	rm -rf .depend build
@@ -46,5 +46,3 @@ clean:
 .PHONY: run
 
 sinclude .depend
-
-# g++ -shared plugins/brush.cpp -o so/brush.so -fPIC

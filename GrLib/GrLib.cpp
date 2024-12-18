@@ -48,6 +48,6 @@ void DisplayWindow (GraphicsCtx& ctx)
 
 void CleanWindow (GraphicsCtx& ctx)
 {
-    ctx.window.clear();
+    ctx.window.clear({71, 71, 71});
 }
 

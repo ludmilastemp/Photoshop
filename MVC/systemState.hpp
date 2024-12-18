@@ -9,11 +9,13 @@ public:
     Picture background;
     Picture base;
     Picture tmp;
+    std::vector <Picture*> pictures;
 
     SystemState (Scene& main_scene)
         : 
         background ({kWidthCanvas,       kHeightCanvas}, 
-                    {kWidthCanvasCorner, kHeightCanvasCorner}, "img/cat.png"),
+                    {kWidthCanvasCorner, kHeightCanvasCorner}, "img/paper.jpg"),
+                    // {kWidthCanvasCorner, kHeightCanvasCorner}, "img/cat.png"),
         base       ({kWidthCanvas,       kHeightCanvas}, 
                     {kWidthCanvasCorner, kHeightCanvasCorner}),
         tmp        ({kWidthCanvas,       kHeightCanvas}, 

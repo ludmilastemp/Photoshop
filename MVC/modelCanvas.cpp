@@ -50,23 +50,12 @@ static VectorDec getCoordLayer (ModelCanvas& modelCanvas, int layer, VectorDec c
     return coord; 
 }
 
-void ModelCanvas::cleanLayer (int layer)
-{
-    std::cout << "cleanLayer " << layer << "\n";
-    Picture& p = getLayer (*this, layer);
-    p.clean ();
-}
-
-void ModelCanvas::updateLayer (int layer)
-{
-    std::cout << "updateLayer " << layer << "\n";
-    Picture& p = getLayer (*this, layer);
-    p.update ();
-}
-
 void ModelCanvas::setPixel (VectorDec coord, Color color, int size, int layer)
 {
     Picture& p = getLayer (*this, layer);
+
+    // printf ("set %p\n", &p);
+    // printf ("color %lf %lf\n", color.g, color.a);
 
     for (int r_x = -size + 1; r_x < size; r_x++)
     {
@@ -92,6 +81,26 @@ Color ModelCanvas::getPixel (VectorDec coord, int layer)
         return p.getPixel (coord.x, coord.y);
     }
     return {0, 0, 0, 1};
+}
+
+void ModelCanvas::cleanLayer (int layer)
+{
+    Picture& p = getLayer (*this, layer);
+    p.clean ();
+}
+
+void ModelCanvas::updateLayer (int layer)
+{
+    Picture& p = getLayer (*this, layer);
+    p.update ();
+}
+
+void ModelCanvas::overlayLayer (int foreground, int background)
+{
+    Picture& pf = getLayer (*this, foreground);
+    Picture& pb = getLayer (*this, background);
+
+    pb.overlay (pf);
 }
 
 Color ModelCanvas::getColor ()

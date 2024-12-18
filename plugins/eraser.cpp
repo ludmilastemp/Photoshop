@@ -35,7 +35,7 @@ void loadPlugin (PsSPI* psspi_)
 {
     psspi = psspi_;
 
-    ToolTest*  tool = new ToolTest  { "img/eraser.png",    "eraser" };
+    ToolTest*  tool = new ToolTest  { "img/tools/eraser.png", "eraser" };
     ParamSize* size = new ParamSize { "img/size_icon.png", "size", *tool };
     size->x = 150; 
     size->y = 200;
