@@ -9,7 +9,6 @@
 #include "../GrLib/color.hpp"
 
 const int kLaterActive = -1;
-const int kLaterTmp = 0;
 
 class ModelCanvas
 {
@@ -50,8 +49,6 @@ public:
     double getScale  ();
     void   setScale  (double scale);
 
-    void UpdateImage ();
-
     int createPluginPicture (const char* png = nullptr)
     {
         Picture* p = nullptr;
@@ -74,8 +71,7 @@ public:
             p = new Picture (size, corner);
         
         p->setIsDraw (false);
-        std::cout << p << "\n";
-        printf ("x = %d y = %d\n", corner.x, corner.y);
+        // std::cout << p << "\n";
         pluginParamLayers.push_back (p);
         return 300 + pluginParamLayers.size() - 1;
     }

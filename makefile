@@ -9,8 +9,7 @@ BUILD_DIR = ./build
 BIN = photoshop
 
 CPP_SRC= main.cpp GrLib/color.cpp GrLib/GrLib.cpp MVC/controllerPhotoshop.cpp MVC/modelCanvas.cpp MVC/viewPhotoshop.cpp MVC/Controller/modelButton.cpp MVC/Managers/toolbar.cpp objects/button.cpp objects/picture.cpp Standard/PsSPI-impl.cpp vectors/vectorDec.cpp
-SO_SRC= plugins/brush.cpp
-# $(wildcard *.cpp) $(wildcard */*.cpp) $(wildcard */*/*.cpp)
+SO_SRC= $(wildcard plugins/*.cpp)
 OBJ = $(CPP_SRC:%.cpp=$(BUILD_DIR)/%.o) 
 SO  = $(SO_SRC:%.cpp=$(BUILD_DIR)/%.so) 
 DEPFILES = $(OBJ:%.o=%.d) $(SO:%.so=%.d)
@@ -38,7 +37,7 @@ $(BUILD_DIR)/$(BIN) : $(OBJ) $(SO)
 	$(CXX) $^ $(CXX_FLAGS) $(SFML_FLAGS) -o $@
 
 test: $(BUILD_DIR)/$(BIN)
-	$(BUILD_DIR)/$(BIN) ./so/brush.so ./so/eraser.so ./so/line.so ./so/tree.so
+	$(BUILD_DIR)/$(BIN) ./$(SO)
 
 clean:
 	rm -rf .depend build

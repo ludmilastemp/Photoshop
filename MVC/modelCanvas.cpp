@@ -23,22 +23,19 @@ void ModelCanvas::addTool (Tool& tool)
 
 static Picture& getLayer (ModelCanvas& modelCanvas, int layer)
 {
-    if (layer == kLaterTmp) 
-        return modelCanvas.systemState.tmp;
     if (layer == kLaterActive) 
         return modelCanvas.systemState.base; 
     if (layer >= 100 && layer - 100 < modelCanvas.pluginLayers.size())
         return *modelCanvas.pluginLayers[layer - 100];
     if (layer >= 300 && layer - 300 < modelCanvas.pluginParamLayers.size())
         return *modelCanvas.pluginParamLayers[layer - 300];
-    return modelCanvas.systemState.tmp;
+    return modelCanvas.systemState.base;
 }
 
 static VectorDec getCoordLayer (ModelCanvas& modelCanvas, int layer, VectorDec coord)
 {
     // std::cout << coord.x << " " << coord.y << "\n";
-    if (layer == kLaterTmp ||
-        layer == kLaterActive) 
+    if (layer == kLaterActive) 
     {
         coord.x /= modelCanvas.scale;
         coord.y /= modelCanvas.scale;
@@ -134,7 +131,6 @@ void ModelCanvas::setShiftX (int shiftX)
 
     systemState.background.setScale (scale, x_canvas, y_canvas);
     systemState.base      .setScale (scale, x_canvas, y_canvas);
-    systemState.tmp       .setScale (scale, x_canvas, y_canvas);
 }
 
 int ModelCanvas::getShiftY ()
@@ -148,7 +144,6 @@ void ModelCanvas::setShiftY (int shiftY)
 
     systemState.background.setScale (scale, x_canvas, y_canvas);
     systemState.base      .setScale (scale, x_canvas, y_canvas);
-    systemState.tmp       .setScale (scale, x_canvas, y_canvas);
 }
 
 double ModelCanvas::getScale ()
@@ -163,13 +158,6 @@ void ModelCanvas::setScale (double new_scale)
 
     systemState.background.setScale (scale, x_canvas, y_canvas);
     systemState.base      .setScale (scale, x_canvas, y_canvas);
-    systemState.tmp       .setScale (scale, x_canvas, y_canvas);
-}
-
-void ModelCanvas::UpdateImage ()
-{
-    systemState.base.overlay(systemState.tmp);
-    systemState.tmp.clean();
 }
 
 /**************************************************************************/
@@ -185,7 +173,6 @@ void ModelCanvas::update (Event& event)
     toolbar(event);
 
     systemState.base.update();
-    systemState.tmp.update();
 }
 
 /**************************************************************************/
