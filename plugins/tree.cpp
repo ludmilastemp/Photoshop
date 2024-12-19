@@ -22,17 +22,6 @@ struct ToolTest : PsSPI_Tool
     virtual void deactivate() override;
 };
 
-struct ParamColor : PsSPI_Parameter
-{
-    ParamColor(const char* img, const char* name, ToolTest& _tool) 
-        : PsSPI_Parameter(img, name), tool(_tool)
-    {}
-
-    ToolTest& tool;
-
-    virtual void activate() override;
-};
-
 struct ParamSize : PsSPI_Parameter
 {
     ParamSize(const char* img, const char* name, ToolTest& _tool) 
@@ -49,21 +38,13 @@ void loadPlugin (PsSPI* psspi_)
 {
     psspi = psspi_;
 
-    ToolTest*   tool  = new ToolTest   { "img/tree.png",            "tree" };
-    ParamColor* color = new ParamColor { "img/colorwheel_icon.png", "color", *tool };
-    color->x = 150; 
-    color->y = 150;
-    color->img_act = "img/colorwheel.png";
-
+    ToolTest*  tool = new ToolTest  { "img/tree.png",      "tree" };
     ParamSize* size = new ParamSize { "img/size_icon.png", "size", *tool };
     size->x = 150; 
     size->y = 200;
     size->img_act = "img/size.png";
 
     psspi->addTool (tool);
-    // psspi->addParameter (tool->id, color);
-    // psspi->addParameter (tool->id, size);
-    // size->layerCur = psspi->createParamLayer (tool->id, size->id);
 }
 
 void ToolTest::apply ()
@@ -179,33 +160,6 @@ void ToolTest::activate ()
 void ToolTest::deactivate ()
 {
     std::cout << "bye" << std::endl;
-}
-
-void ParamColor::activate ()
-{
-    std::cout << "color" << std::endl;
-
-    PsSPI_Event event = psspi->getEvent();
-    if (!event.mousePressed)
-        return;
-
-    int x = event.mouseCoordX;
-    int y = event.mouseCoordY;
-
-    tool.color = psspi->getPixel (layer, x, y);
-
-    for (int r_x = -30; r_x < 30; r_x++)
-    {
-        for (int r_y = -30; r_y < 30; r_y++)
-        {
-            if (r_x * r_x + r_y * r_y <= 30 * 30)
-            {
-                psspi->setPixel (layer, 75 + r_x, 75 + r_y, tool.color);
-            }
-        }
-    }
-    std::cout << layer << std::endl;
-    psspi->updateLayer (layer);
 }
 
 void ParamSize::activate ()
