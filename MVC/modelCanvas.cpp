@@ -1,5 +1,6 @@
 #include "modelCanvas.hpp"
 #include <iostream>
+#include "BaseSettings/color.hpp"
 
 /**************************************************************************/
 
@@ -75,6 +76,8 @@ Color ModelCanvas::getPixel (VectorDec coord, int layer)
     if (0 <= coord.x && coord.x < p.getSize().x && 
         0 <= coord.y && coord.y < p.getSize().y)
     {
+        if (layer == kLaterActive && p.getPixel (coord.x, coord.y).a == 0)
+            return systemState.background.getPixel(coord.x, coord.y);
         return p.getPixel (coord.x, coord.y);
     }
     return {0, 0, 0, 1};
@@ -108,6 +111,8 @@ Color ModelCanvas::getColor ()
 void ModelCanvas::setColor (Color color)
 {
     toolbar.setToolColor (color);
+    ((ActionColor*)parameterManager.color)->setColor (color);
+    parameterManager.update ();
 }
 
 int ModelCanvas::getSize ()

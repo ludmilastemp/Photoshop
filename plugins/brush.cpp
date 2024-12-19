@@ -17,9 +17,6 @@ struct ToolTest : PsSPI_Tool
     virtual void apply()      override;
     virtual void activate()   override;
     virtual void deactivate() override;
-
-    virtual void        setColor (PsSPI_Color new_color) override { color = new_color; }
-    virtual PsSPI_Color getColor ()                      override { return color; }
 };
 
 struct ParamSize : PsSPI_Parameter

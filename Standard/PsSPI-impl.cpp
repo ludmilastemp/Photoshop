@@ -89,6 +89,12 @@ void StlPsSPI::overlayLayer (layer_t foreground, layer_t background)
     modelCanvas.overlayLayer (foreground, background);
 }
 
+void StlPsSPI::setColor (PsSPI_Color color)
+{
+    Color my_color = {(double)color.r, (double)color.g, (double)color.b, (double)color.a};
+    modelCanvas.setColor (my_color / 255);
+}
+
 PsSPI_Color StlPsSPI::getPixel (int x, int y)
 {
     Color my_color = modelCanvas.getPixel ({x, y});

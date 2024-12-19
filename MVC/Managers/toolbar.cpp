@@ -26,7 +26,7 @@ Color Toolbar::getToolColor ()
 {
     if (0 <= activeObject && activeObject < objects.size())
         return (*objects[activeObject]).getColor();
-    return {1, 1, 1, 1};
+    return {0, 1, 1, 1};
 }
 
 int Toolbar::getToolSize ()

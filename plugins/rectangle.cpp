@@ -41,10 +41,10 @@ void loadPlugin (PsSPI* psspi_)
     psspi = psspi_;
 
     ToolTest*   tool  = new ToolTest   { "img/tools/rectangle.png", "rectangle" };
-    ParamFill* fill = new ParamFill { "img/fill_icon.png", "fill", *tool };
+    ParamFill* fill = new ParamFill { "img/parameters/fill_icon.png", "fill", *tool };
     fill->x = 84; 
     fill->y = 45;
-    fill->img_act = "img/fill2.png";
+    fill->img_act = "img/parameters/fill.png";
 
     tool->layerTmp = psspi->createLayer();
 

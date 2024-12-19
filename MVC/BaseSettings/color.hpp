@@ -14,9 +14,7 @@ class ActionColor : public Action
 {
 private:
     ModelCanvas& modelCanvas;
-    Picture* pictureCurrent;
     Picture* pictureBackground;
-    Scene* sceneParameter;
     int size = 30;
     Color colorConst;
     Color colorTmp;
@@ -57,7 +55,7 @@ public:
         Button* button    = new Button  {size, {kCanvasXEnd - size.x, kCanvasYBegin}, *this, png};
         buttons->push_back (button);
 
-        sceneParameter = new Scene {};
+        Scene* sceneParameter = new Scene {};
         sceneParameter->addObject (*button);
         sceneParameter->addObject (*pictureBackground);
         sceneParameter->setIsDraw (false);
@@ -75,6 +73,13 @@ public:
         colorConst = pictureBackground->getPixel (event.getCoord().x, event.getCoord().y);
         colorTmp = colorConst;
         modelCanvas.setColor (colorConst);
+        drawState ();
+    }
+
+    void setColor (Color new_color)
+    {
+        colorConst = new_color;
+        colorTmp = colorConst;
         drawState ();
     }
 };

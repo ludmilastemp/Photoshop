@@ -36,6 +36,7 @@ public:
     virtual void cleanLayer (layer_t layer) override;
     virtual void overlayLayer (layer_t foreground) override;
     virtual void overlayLayer (layer_t foreground, layer_t background) override;
+    virtual void setColor (PsSPI_Color color) override;
     virtual PsSPI_Color getPixel (int x, int y) override;
     virtual PsSPI_Color getPixel (layer_t layer, int x, int y) override;
     virtual void setPixel (int x, int y, PsSPI_Color color, int size = 1) override;

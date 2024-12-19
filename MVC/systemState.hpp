@@ -17,7 +17,7 @@ public:
                     {kWidthCanvasCorner, kHeightCanvasCorner}, "img/paper.jpg"),
                     // {kWidthCanvasCorner, kHeightCanvasCorner}, "img/cat.png"),
         base       ({kWidthCanvas,       kHeightCanvas}, 
-                    {kWidthCanvasCorner, kHeightCanvasCorner}),
+                    {kWidthCanvasCorner, kHeightCanvasCorner}, "img/paper.jpg"),
         tmp        ({kWidthCanvas,       kHeightCanvas}, 
                     {kWidthCanvasCorner, kHeightCanvasCorner})
     {

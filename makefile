@@ -8,7 +8,7 @@ SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 BUILD_DIR = ./build
 BIN = photoshop
 
-CPP_SRC= main.cpp GrLib/color.cpp GrLib/GrLib.cpp MVC/controllerPhotoshop.cpp MVC/modelCanvas.cpp MVC/viewPhotoshop.cpp MVC/Controller/modelButton.cpp MVC/Managers/toolbar.cpp objects/button.cpp objects/picture.cpp Standard/PsSPI-impl.cpp vectors/vectorDec.cpp
+CPP_SRC= main.cpp GrLib/color.cpp GrLib/GrLib.cpp MVC/controllerPhotoshop.cpp MVC/modelCanvas.cpp MVC/viewPhotoshop.cpp MVC/Controller/modelButton.cpp MVC/Managers/toolbar.cpp MVC/BaseSettings/create.cpp objects/button.cpp objects/picture.cpp Standard/PsSPI-impl.cpp vectors/vectorDec.cpp
 SO_SRC= $(wildcard plugins/*.cpp)
 OBJ = $(CPP_SRC:%.cpp=$(BUILD_DIR)/%.o) 
 SO  = $(SO_SRC:%.cpp=$(BUILD_DIR)/%.so) 

@@ -67,6 +67,7 @@ public:
     virtual void cleanLayer (layer_t layer) = 0;
     virtual void overlayLayer (layer_t foreground) = 0;
     virtual void overlayLayer (layer_t foreground, layer_t background) = 0;
+    virtual void setColor (PsSPI_Color color) = 0;
     virtual PsSPI_Color getPixel (int x, int y) = 0;
     virtual PsSPI_Color getPixel (layer_t layer, int x, int y) = 0;
     virtual void setPixel (int x, int y, PsSPI_Color color, int size = 1) = 0;

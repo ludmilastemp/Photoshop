@@ -17,10 +17,24 @@ struct ToolTest : PsSPI_Tool
     int size = 10;
     int x_start;
     int y_start;
+    bool tree = false;
 
     virtual void apply()      override;
     virtual void activate()   override;
     virtual void deactivate() override;
+};
+
+struct ParamTree : PsSPI_Parameter
+{
+    ParamTree (const char* img, const char* name, ToolTest& _tool) 
+        : PsSPI_Parameter(img, name), tool(_tool)
+    {}
+
+    ToolTest& tool;
+    PsSPI_Color color_true  = {0, 0, 0, 255};
+    PsSPI_Color color_false = {71, 71, 71, 255};
+
+    virtual void activate() override;
 };
 
 struct ParamSize : PsSPI_Parameter
@@ -40,15 +54,20 @@ void loadPlugin (PsSPI* psspi_)
     psspi = psspi_;
 
     ToolTest*   tool  = new ToolTest   { "img/tools/line.png",      "line" };
-    
-    ParamSize* size = new ParamSize { "img/size_icon.png", "size", *tool };
-    size->x = 150; 
-    size->y = 200;
-    size->img_act = "img/size.png";
+    ParamTree* tree = new ParamTree { "img/parameters/tree_icon.png", "tree", *tool };
+    tree->x = 95; 
+    tree->y = 45;
+    tree->img_act = "img/parameters/tree.png";
 
     tool->layerTmp = psspi->createLayer();
 
     psspi->addTool (tool);
+    psspi->addParameter (tool->id, tree);
+    
+    // ParamSize* size = new ParamSize { "img/size_icon.png", "size", *tool };
+    // size->x = 150; 
+    // size->y = 200;
+    // size->img_act = "img/size.png";
 }
 
 void ToolTest::apply ()
@@ -74,7 +93,8 @@ void ToolTest::apply ()
         return;
     }
 
-    psspi->cleanLayer(layerTmp);
+    if (!tree)
+        psspi->cleanLayer(layerTmp);
 
     int x_draw = x_start;
     int y_draw = y_start;
@@ -170,6 +190,36 @@ void ToolTest::activate ()
 void ToolTest::deactivate ()
 {
     std::cout << "bye" << std::endl;
+}
+
+void ParamTree::activate ()
+{
+    std::cout << "fill" << std::endl;
+
+    PsSPI_Event event = psspi->getEvent();
+    if (!event.mousePressed)
+        return;
+
+    int x = event.mouseCoordX;
+    int y = event.mouseCoordY;
+    
+    PsSPI_Color color;
+    if (tool.tree)
+    {
+        tool.tree = false;
+        color = color_false;
+    }
+    else
+    {
+        tool.tree = true;
+        color = color_true;
+    }
+
+    for (int x_draw = 0; x_draw < 15; x_draw++)
+        for (int y_draw = 0; y_draw < 15; y_draw++)
+            psspi->setPixel (layer, 65 + x_draw, 14 + y_draw, color, 1);
+
+    psspi->updateLayer (layer);
 }
 
 void ParamSize::activate ()
