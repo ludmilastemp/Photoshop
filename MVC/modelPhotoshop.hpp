@@ -38,6 +38,8 @@ public:
         modelCanvas.addTool (tool);
         Button* button = new Button {{kWidthIcon, kHeightIcon}, {kWidthToolbarCorner, kHeightToolbarCorner + (int)nTool * (kHeightIcon + kOffsetIcon)}, png};
         main_scene.addObject (*button);
+        Button* buttonPng = new Button {{kWidthIcon, kHeightIcon}, {kWidthToolbarCorner, kHeightToolbarCorner - kHeightIcon}, png};
+        tool.parameterButtons.addObject (*buttonPng);
         nTool++;
     }
 

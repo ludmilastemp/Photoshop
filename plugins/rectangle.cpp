@@ -15,6 +15,7 @@ struct ToolTest : PsSPI_Tool
     PsSPI_Color color = {200, 25, 255, 255};
     int x_start;
     int y_start;
+    bool fill = false;
 
     virtual void apply()      override;
     virtual void activate()   override;
@@ -32,6 +33,19 @@ struct ParamColor : PsSPI_Parameter
     virtual void activate() override;
 };
 
+struct ParamFill : PsSPI_Parameter
+{
+    ParamFill(const char* img, const char* name, ToolTest& _tool) 
+        : PsSPI_Parameter(img, name), tool(_tool)
+    {}
+
+    ToolTest& tool;
+    PsSPI_Color color_true  = {0, 0, 0, 255};
+    PsSPI_Color color_false = {255, 255, 255, 255};
+
+    virtual void activate() override;
+};
+
 void loadPlugin (PsSPI* psspi_)
 {
     psspi = psspi_;
@@ -40,12 +54,17 @@ void loadPlugin (PsSPI* psspi_)
     ParamColor* color = new ParamColor { "img/colorwheel_icon.png", "color", *tool };
     color->x = 150; 
     color->y = 150;
-    color->img_act = "img/colorwheel.png";
+    color->img_act = "img/colorwheel.png";    
+    ParamFill* fill = new ParamFill { "img/colorwheel_icon.png", "fill", *tool };
+    fill->x = 95; 
+    fill->y = 30;
+    fill->img_act = "img/fill.png";
 
     tool->layerTmp = psspi->createLayer();
 
     psspi->addTool (tool);
     psspi->addParameter (tool->id, color);
+    psspi->addParameter (tool->id, fill);
 }
 
 void ToolTest::apply ()
@@ -73,13 +92,27 @@ void ToolTest::apply ()
 
     psspi->cleanLayer(layerTmp);
 
-    int x_max  = std::max (x_start, x);
-    int y_max  = std::max (y_start, y);
+    int x_max = std::max (x_start, x);
+    int y_max = std::max (y_start, y);
 
-    int i = 0;
-    for (int x_draw = std::min (x_start, x); x_draw < x_max; x_draw++, i++)
+    if (fill)
+        for (int x_draw = std::min (x_start, x); x_draw < x_max; x_draw++)
+            for (int y_draw = std::min (y_start, y); y_draw < y_max; y_draw++)
+                psspi->setPixel (layerTmp, x_draw, y_draw, color, 1);
+    else
+    {
+        for (int x_draw = std::min (x_start, x); x_draw < x_max; x_draw++)
+        {
+            psspi->setPixel (layerTmp, x_draw, y_start, color, 1);
+            psspi->setPixel (layerTmp, x_draw, y,       color, 1);
+        }
+
         for (int y_draw = std::min (y_start, y); y_draw < y_max; y_draw++)
-            psspi->setPixel (layerTmp, x_draw, y_draw, color, 1);
+        {
+            psspi->setPixel (layerTmp, x_start, y_draw, color, 1);
+            psspi->setPixel (layerTmp, x,       y_draw, color, 1);
+        }
+    }
 
     psspi->updateLayer(layerTmp);
     return;
@@ -93,6 +126,36 @@ void ToolTest::activate ()
 void ToolTest::deactivate ()
 {
     std::cout << "bye" << std::endl;
+}
+
+void ParamFill::activate ()
+{
+    std::cout << "fill" << std::endl;
+
+    PsSPI_Event event = psspi->getEvent();
+    if (!event.mousePressed)
+        return;
+
+    int x = event.mouseCoordX;
+    int y = event.mouseCoordY;
+    
+    PsSPI_Color color;
+    if (tool.fill)
+    {
+        tool.fill = false;
+        color = color_false;
+    }
+    else
+    {
+        tool.fill = true;
+        color = color_true;
+    }
+
+    for (int x_draw = 65; x_draw < 80; x_draw++)
+        for (int y_draw = 8; y_draw < 23; y_draw++)
+            psspi->setPixel (layer, x_draw, y_draw, color, 1);
+
+    psspi->updateLayer (layer);
 }
 
 void ParamColor::activate ()
