@@ -4,7 +4,7 @@
 #include <vector>
 #include "../plugins/PsSPI.hpp"
 #include "../Standard/tool_plugin.hpp"
-#include "../tools/tool.hpp"
+#include "../objects/tool.hpp"
 #include "../MVC/modelPhotoshop.hpp"
 #include "../MVC/modelCanvas.hpp"
 

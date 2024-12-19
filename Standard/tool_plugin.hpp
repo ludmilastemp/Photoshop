@@ -1,7 +1,7 @@
 #ifndef STL_TOOL_PLUGIN
 #define STL_TOOL_PLUGIN
 
-#include "../tools/tool.hpp"
+#include "../objects/tool.hpp"
 #include "../MVC/modelCanvas.hpp"
 #include "../plugins/PsSPI.hpp"
 #include "../objects/actionClass.hpp"
