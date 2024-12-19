@@ -13,7 +13,7 @@ void ModelCanvas::setActiveTool (int tool)
 {
     toolbar.activate (tool);
 
-    parameterManager.reActivate();
+    parameterManager.update ();
 }
 
 void ModelCanvas::addTool (Tool& tool)

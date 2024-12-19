@@ -39,8 +39,27 @@ public:
     {
         if (!tool) return;
         parameterButtons.setIsDraw (false);
-        modelCanvas.parameterManager.deactivate();
+        // modelCanvas.parameterManager.deactivate();
         tool->deactivate();
+    }
+
+    virtual void setColor (Color& color) override
+    {
+        if (!tool) return;
+        tool->setColor({(uint8_t)(color.r * 255), 
+                        (uint8_t)(color.g * 255), 
+                        (uint8_t)(color.b * 255), 
+                        (uint8_t)(color.a * 255)});
+    }
+
+    virtual Color getColor () override
+    {
+        if (!tool) return {0, 0, 0, 0};
+        PsSPI_Color c = tool->getColor();
+        return {(double)c.r / 255, 
+                (double)c.g / 255, 
+                (double)c.b / 255, 
+                (double)c.a / 255};
     }
 };
 

@@ -11,18 +11,26 @@ using tool_t  = int;
 using param_t = int;
 using layer_t = int;
 
+struct PsSPI_Color
+{
+    unsigned char r, g, b, a;
+};
+
 struct PsSPI_Tool
 {
     PsSPI_Tool(const char* init_img, const char* init_name) 
         : img(init_img), name(init_name) 
     {}
 
+    PsSPI_Color color = {0, 0, 0, 255};
     tool_t id = -1;
     const char* img;
     const char* name;
     virtual void apply()      {};
     virtual void activate()   {};
     virtual void deactivate() {};
+    virtual void        setColor (PsSPI_Color new_color) { color = new_color; }
+    virtual PsSPI_Color getColor ()                      { return color; }
 };
 
 struct PsSPI_Parameter
@@ -38,11 +46,6 @@ struct PsSPI_Parameter
     const char* img_act;
     int x; int y;
     virtual void activate() {};
-};
-
-struct PsSPI_Color
-{
-    unsigned char r, g, b, a;
 };
 
 struct PsSPI_Event

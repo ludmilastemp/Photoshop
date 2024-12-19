@@ -8,7 +8,7 @@ class Manager
 {
 public:
     std::vector <T*> objects; 
-    int activeObject;
+    int activeObject = -1;
 
     Manager () 
         :activeObject (-1)
@@ -23,9 +23,10 @@ public:
     
     void activate (int object)
     {
+        printf ("activate %d %d\n", activeObject, object);
         deactivate ();
 
-        if (-1 <= object && object < objects.size())
+        if (0 <= object && object < objects.size())
         {
             activeObject = object;
             objects[object]->activate ();
@@ -34,6 +35,7 @@ public:
 
     void deactivate ()
     {
+        printf ("deactivate %d\n", activeObject);
         if (0 <= activeObject && activeObject < objects.size())
         {
             objects[activeObject]->deactivate ();
@@ -43,10 +45,10 @@ public:
 
     void reActivate ()
     {
+        printf ("reActivate %d\n", activeObject);
         if (0 <= activeObject && activeObject < objects.size())
         {
             int object = activeObject;
-            deactivate ();
             activate (object);
         }
     }

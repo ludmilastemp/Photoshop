@@ -5,6 +5,7 @@
 #include "modelCanvas.hpp"
 #include "controllerPhotoshop.hpp"
 #include "Managers/actions.hpp"
+#include "Managers/color.hpp"
 
 class ModelPhotoshop
 {
@@ -31,6 +32,27 @@ public:
         ActionParameterManager* actionParameterManager = new ActionParameterManager {modelCanvas, {kWidthParameterManagerCorner, kHeightParameterManagerCorner}};
         Button* buttonParameterManager = new Button {{kWidthParameterManager, kHeightParameterManager}, {kWidthParameterManagerCorner, kHeightParameterManagerCorner}, *actionParameterManager};
         modelButton.addButton (*buttonParameterManager);
+
+        /*
+        * Создание кнопки для color
+        */
+        ActionColor* actionColor = new ActionColor {modelCanvas};
+        std::vector<void*> buttons;
+        Scene* sceneParameter = actionColor->create (&buttons);
+
+        for (int i = 0; i < buttons.size(); i++)
+            modelButton.addButton (*(Button*)buttons[i]);
+
+        main_scene.addScene (*sceneParameter);
+
+        ActionColorIcon* actionColorIcon = new ActionColorIcon {modelCanvas.parameterManager};
+        Button* buttonIcon = new Button {{kWidthColor, kHeightColor},  {kWidthColorCorner, kHeightColorCorner}, *actionColorIcon, "img/color_icon.png"};
+        modelButton.addButton (*buttonIcon);
+        main_scene.addObject (*buttonIcon);
+
+        modelCanvas.parameterManager.color = actionColor;
+        printf ("parameterManager %lu color\n", modelCanvas.parameterManager.objects.size());
+        modelCanvas.parameterManager.add (*sceneParameter);
     }
 
     void addTool (Tool& tool, const char* png)
@@ -45,19 +67,19 @@ public:
 
     void addParameter (Action& action, const char* pngIcon)
     {
-        std::vector<void*> buttons;
-        Scene* sceneParameter = action.create (&buttons);
+        // std::vector<void*> buttons;
+        // Scene* sceneParameter = action.create (&buttons);
 
-        for (int i = 0; i < buttons.size(); i++)
-            modelButton.addButton (*(Button*)buttons[i]);
+        // for (int i = 0; i < buttons.size(); i++)
+        //     modelButton.addButton (*(Button*)buttons[i]);
 
-        main_scene.addScene (*sceneParameter);
-        modelCanvas.parameterManager.add (*sceneParameter);
+        // main_scene.addScene (*sceneParameter);
+        // modelCanvas.parameterManager.add (*sceneParameter);
 
-        Button* buttonIcon = new Button {{kWidthIcon, kHeightIcon}, {kWidthParameterManagerCorner, kHeightParameterManagerCorner + (int)nParameters * (kHeightIcon + kOffsetIcon)}, pngIcon};
-        main_scene.addObject (*buttonIcon);
+        // Button* buttonIcon = new Button {{kWidthIcon, kHeightIcon}, {kWidthParameterManagerCorner, kHeightParameterManagerCorner + (int)nParameters * (kHeightIcon + kOffsetIcon)}, pngIcon};
+        // main_scene.addObject (*buttonIcon);
 
-        nParameters++;
+        // nParameters++;
     }
 };
 

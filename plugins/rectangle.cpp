@@ -9,10 +9,11 @@ struct ToolTest : PsSPI_Tool
 {
     ToolTest(const char* img, const char* name) 
         : PsSPI_Tool(img, name)
-    {}
+    {
+        color = {200, 25, 255, 255};
+    }
     
     layer_t layerTmp;
-    PsSPI_Color color = {200, 25, 255, 255};
     int x_start;
     int y_start;
     bool fill = false;
@@ -41,7 +42,7 @@ struct ParamFill : PsSPI_Parameter
 
     ToolTest& tool;
     PsSPI_Color color_true  = {0, 0, 0, 255};
-    PsSPI_Color color_false = {255, 255, 255, 255};
+    PsSPI_Color color_false = {71, 71, 71, 255};
 
     virtual void activate() override;
 };
@@ -55,15 +56,15 @@ void loadPlugin (PsSPI* psspi_)
     color->x = 150; 
     color->y = 150;
     color->img_act = "img/colorwheel.png";    
-    ParamFill* fill = new ParamFill { "img/colorwheel_icon.png", "fill", *tool };
-    fill->x = 95; 
-    fill->y = 30;
-    fill->img_act = "img/fill.png";
+    ParamFill* fill = new ParamFill { "img/fill_icon.png", "fill", *tool };
+    fill->x = 84; 
+    fill->y = 45;
+    fill->img_act = "img/fill2.png";
 
     tool->layerTmp = psspi->createLayer();
 
     psspi->addTool (tool);
-    psspi->addParameter (tool->id, color);
+    // psspi->addParameter (tool->id, color);
     psspi->addParameter (tool->id, fill);
 }
 
@@ -151,9 +152,9 @@ void ParamFill::activate ()
         color = color_true;
     }
 
-    for (int x_draw = 65; x_draw < 80; x_draw++)
-        for (int y_draw = 8; y_draw < 23; y_draw++)
-            psspi->setPixel (layer, x_draw, y_draw, color, 1);
+    for (int x_draw = 0; x_draw < 15; x_draw++)
+        for (int y_draw = 0; y_draw < 15; y_draw++)
+            psspi->setPixel (layer, 52 + x_draw, 14 + y_draw, color, 1);
 
     psspi->updateLayer (layer);
 }

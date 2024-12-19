@@ -12,24 +12,33 @@ const int kHeightCanvas = 400;
 const int kWidthCanvasCorner  = 57;
 const int kHeightCanvasCorner = 95;
 
+const int kWidthColor  = 53;
+const int kHeightColor = 53;
+const int kWidthColorCorner  = 2;
+const int kHeightColorCorner = 450; //861;
+
 const int kCanvasXBegin = kWidthCanvasCorner;
 const int kCanvasXEnd   = kWidthCanvasCorner + kWidthCanvas;
 const int kCanvasYBegin = kHeightCanvasCorner;
 const int kCanvasYEnd   = kWidthCanvasCorner + kHeightCanvas;
 
 const int kWidthToolbar  = 57;
-const int kHeightToolbar = 400;
+const int kHeightToolbar = 300;
 const int kWidthToolbarCorner  = 6;
 const int kHeightToolbarCorner = 95;
 
-const int kWidthParameterManager  = 50;
-const int kHeightParameterManager = 400;
-const int kWidthParameterManagerCorner  = 725;
-const int kHeightParameterManagerCorner = 100;
+const int kWidthParameterManagerCorner  = 66;
+const int kHeightParameterManagerCorner = 50;
+const int kWidthParameterManager  = kWidthWindow - kWidthParameterManagerCorner;
+const int kHeightParameterManager = 45;
 
 const int kWidthIcon  = 47;
 const int kHeightIcon = 47;
 const int kOffsetIcon = 0;
+
+const int kWidthParam  = 60;
+const int kHeightParam = 45;
+const int kOffsetParam = 0;
 
 #endif /* CONFIGPHOTOSHOP */
 

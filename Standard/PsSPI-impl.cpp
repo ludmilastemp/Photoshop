@@ -16,15 +16,18 @@ void StlPsSPI::addParameter (tool_t id, PsSPI_Parameter* param)
 {
     Tool& tool = *modelCanvas.toolbar.objects[id];
 
+    const char* pngIcon = param->img_icon;
+    Button* buttonIcon = new Button {{kWidthParam, kHeightParam}, {kWidthParameterManagerCorner + (int)tool.nParameters * (kHeightParam + kOffsetParam), kHeightParameterManagerCorner}, pngIcon};
+    tool.parameterButtons.addObject (*buttonIcon);
+
     VectorDec size = {param->x, param->y};
     const char* png = param->img_act;
-    const char* pngIcon = param->img_icon;
 
     ToolParameter* action = new ToolParameter {modelCanvas, ctx};
     action->param = param;
 
-    int id_layer = modelCanvas.createPluginParamPicture (size, {kCanvasXEnd - size.x, kCanvasYBegin}, png);
-    Button* button = new Button {size, {kCanvasXEnd - size.x, kCanvasYBegin}, *action, png};
+    int id_layer = modelCanvas.createPluginParamPicture (size, {kWidthParameterManagerCorner + (int)tool.nParameters * (kHeightParam + kOffsetParam), kCanvasYBegin}, png);
+    Button* button = new Button {size, {kWidthParameterManagerCorner + (int)tool.nParameters * (kHeightParam + kOffsetParam), kCanvasYBegin}, *action, png};
     modelPhotoshop.modelButton.addButton (*button);
 
     Scene* sceneParameter = new Scene {};
@@ -32,12 +35,12 @@ void StlPsSPI::addParameter (tool_t id, PsSPI_Parameter* param)
     sceneParameter->addObject (*modelCanvas.pluginParamLayers[id_layer - 300]);
     sceneParameter->setIsDraw (false);
 
-    modelPhotoshop.main_scene.addScene (*sceneParameter);
+    modelPhotoshop.main_scene.addScene (*sceneParameter);        
+    
+    printf ("parameterManager %lu fill\n", modelCanvas.parameterManager.objects.size());
+
     modelCanvas.parameterManager.add   (*sceneParameter);
     tool.parametersIndex.push_back(modelCanvas.parameterManager.objects.size() - 1);
-
-    Button* buttonIcon = new Button {{kWidthIcon, kHeightIcon}, {kWidthParameterManagerCorner, kHeightParameterManagerCorner + (int)tool.nParameters * (kHeightIcon + kOffsetIcon)}, pngIcon};
-    tool.parameterButtons.addObject (*buttonIcon);
 
     param->id = tool.nParameters; 
     param->layer = id_layer;

@@ -36,6 +36,7 @@ public:
             {
                 modelCanvas.setActiveTool (object);
             }
+
         }
     }
 };
@@ -53,12 +54,14 @@ public:
 
     virtual void call (Event event) override
     {
-        int y = event.getCoord().y;
+        int x = event.getCoord().x;
 
-        if (y / (kHeightIcon + kOffsetIcon) < modelCanvas.parameterManager.getSize() && 
-            y % (kHeightIcon + kOffsetIcon) <= kHeightIcon)
+// 1 - постоянные параметры (color)
+
+        if (x / (kWidthParam + kOffsetParam) < modelCanvas.parameterManager.getSize() - 1 && 
+            x % (kWidthParam + kOffsetParam) <= kWidthParam)
         {
-            int object = y / (kHeightIcon + kOffsetIcon);
+            int object = x / (kWidthParam + kOffsetParam);
             printf ("object %d\n", object);
             printf ("active tool %d\n", modelCanvas.toolbar.activeObject);
             if (object >= 0)
@@ -73,6 +76,24 @@ public:
                 modelCanvas.parameterManager.activate (object);
             }
         }
+    }
+};
+
+class ActionColorIcon : public Action
+{
+public: 
+    ParameterManager& parameterManager;
+
+    ActionColorIcon (ParameterManager& init_parameterManager)
+        : parameterManager (init_parameterManager)
+    {}
+
+    virtual void call (Event event) override
+    {
+        if (parameterManager.activeObject == 0)
+            parameterManager.deactivate ();
+        else
+            parameterManager.activate (0);
     }
 };
 

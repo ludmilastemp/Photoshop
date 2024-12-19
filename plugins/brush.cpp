@@ -9,14 +9,17 @@ struct ToolTest : PsSPI_Tool
 {
     ToolTest(const char* img, const char* name) 
         : PsSPI_Tool(img, name)
-    {}
+    {
+         color = {0, 255, 255, 255};
+    }
 
-    PsSPI_Color color = {0, 255, 255, 255};
     int size = 15;
-
     virtual void apply()      override;
     virtual void activate()   override;
     virtual void deactivate() override;
+
+    virtual void        setColor (PsSPI_Color new_color) override { color = new_color; }
+    virtual PsSPI_Color getColor ()                      override { return color; }
 };
 
 struct ParamColor : PsSPI_Parameter
@@ -58,9 +61,9 @@ void loadPlugin (PsSPI* psspi_)
     size->img_act = "img/size.png";
 
     psspi->addTool (tool);
-    psspi->addParameter (tool->id, color);
-    psspi->addParameter (tool->id, size);
-    size->layerCur = psspi->createParamLayer (tool->id, size->id);
+    // psspi->addParameter (tool->id, color);
+    // psspi->addParameter (tool->id, size);
+    // size->layerCur = psspi->createParamLayer (tool->id, size->id);
 }
 
 void ToolTest::apply ()

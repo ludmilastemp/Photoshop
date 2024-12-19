@@ -8,7 +8,6 @@
 class Tool 
 {
 public:
-    // int parameterId = 0;
     int nParameters = 0;
     std::vector<int> parametersIndex;
     Scene parameterButtons;
@@ -28,9 +27,9 @@ public:
     virtual void apply (Event event) = 0;
     virtual void setColor (Color& color) {}
     virtual void setSize  (int size)    {}
-    virtual Color getColor () { return {1, 1, 1, 1}; }
-    virtual int   getSize  () { return 0; }
-    virtual void  activate () { parameterButtons.setIsDraw (true); }
+    virtual Color getColor ()   { return {1, 1, 1, 1}; }
+    virtual int   getSize  ()   { return 0; }
+    virtual void  activate ()   { parameterButtons.setIsDraw (true); }
     virtual void  deactivate () { parameterButtons.setIsDraw (false); }
 };
 

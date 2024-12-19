@@ -9,9 +9,10 @@ struct ToolTest : PsSPI_Tool
 {
     ToolTest(const char* img, const char* name) 
         : PsSPI_Tool(img, name)
-    {}
+    {
+        color = {135, 255, 25, 255};
+    }
 
-    PsSPI_Color color = {135, 255, 25, 255};
     int size = 15;
     int x_start;
     int y_start;
@@ -60,9 +61,9 @@ void loadPlugin (PsSPI* psspi_)
     size->img_act = "img/size.png";
 
     psspi->addTool (tool);
-    psspi->addParameter (tool->id, color);
-    psspi->addParameter (tool->id, size);
-    size->layerCur = psspi->createParamLayer (tool->id, size->id);
+    // psspi->addParameter (tool->id, color);
+    // psspi->addParameter (tool->id, size);
+    // size->layerCur = psspi->createParamLayer (tool->id, size->id);
 }
 
 void ToolTest::apply ()

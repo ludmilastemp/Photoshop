@@ -2,7 +2,24 @@
 #define STL_PARAMETER_MANAGER
 
 #include "manager.hpp"
+#include "../../objects/actionClass.hpp"
 
-using ParameterManager = Manager<Scene>;
+class ParameterManager : public Manager<Scene>
+{
+public:
+    Action* color;
+
+    ParameterManager () 
+        :Manager ()
+    {}
+
+    void update ()
+    {
+        printf ("ParameterManager update\n");
+        if (activeObject > 0)
+            deactivate();
+        color->active();
+    }
+};
 
 #endif /* STL_PARAMETER_MANAGER */
