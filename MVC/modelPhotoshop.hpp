@@ -6,6 +6,9 @@
 #include "controllerPhotoshop.hpp"
 #include "Managers/actions.hpp"
 
+#include <dlfcn.h>
+#include "../plugins/PsSPI.hpp"
+
 class ModelPhotoshop
 {
 public:
@@ -14,6 +17,8 @@ public:
     Scene& main_scene;
     size_t nTool = 0;
     size_t nParameters = 0;
+    std::vector <void*> dll;
+    PsSPI* psspi;
 
     ModelPhotoshop (Scene& init_main_scene)
         : modelCanvas (init_main_scene), main_scene(init_main_scene)
@@ -41,6 +46,30 @@ public:
         Button* buttonPng = new Button {{kWidthIcon, kHeightIcon}, {kWidthToolbarCorner, kHeightToolbarCorner - kHeightIcon}, png};
         tool.parameterButtons.addObject (*buttonPng);
         nTool++;
+    }
+
+    void addPlugin (const char* path)
+    {
+        void* ptr = dlopen(path, RTLD_NOW | RTLD_LOCAL);
+        if (!ptr) {
+            fprintf(stderr, "%s\n", dlerror());
+            return;
+        }
+        dll.push_back(ptr);
+
+        void (*func)(PsSPI*) = (void (*)(PsSPI*)) dlsym (ptr, "loadPlugin");
+        (*func)( psspi );
+    }
+
+    void setPsspi (PsSPI* new_psspi)
+    {
+        psspi = new_psspi;
+    }
+
+    void closePlugins ()
+    {
+        for (void* ptr : dll)
+            dlclose(ptr);
     }
 
     void addParameter (Action& action, const char* pngIcon)

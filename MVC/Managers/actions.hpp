@@ -19,7 +19,7 @@ public:
         : modelCanvas(init_modelPhotoshop), corner (init_corner)
     {}
 
-    virtual void call (Event event) override
+    virtual bool call (Event event) override
     {
         int y = event.getCoord().y;
 
@@ -36,8 +36,9 @@ public:
             {
                 modelCanvas.setActiveTool (object);
             }
-
+            return true;
         }
+        return false;
     }
 };
 
@@ -52,7 +53,7 @@ public:
         : modelCanvas(init_modelPhotoshop), corner (init_corner)
     {}
 
-    virtual void call (Event event) override
+    virtual bool call (Event event) override
     {
         int x = event.getCoord().x;
 
@@ -75,7 +76,9 @@ public:
             {
                 modelCanvas.parameterManager.activate (object);
             }
+            return true;
         }
+        return false;
     }
 };
 
@@ -88,12 +91,32 @@ public:
         : parameterManager (init_parameterManager)
     {}
 
-    virtual void call (Event event) override
+    virtual bool call (Event event) override
     {
         if (parameterManager.activeObject == 0)
             parameterManager.deactivate ();
         else
             parameterManager.activate (0);
+        return true;
+    }
+};
+
+class ActionIcon : public Action
+{
+public:
+    Scene& scene;
+
+    ActionIcon (Scene& init_scene)
+        : scene (init_scene)
+    {}
+
+    virtual bool call (Event event) override
+    {
+        if (scene.getIsDraw())
+            scene.setIsDraw(false);
+        else
+            scene.setIsDraw(true);
+        return true;
     }
 };
 

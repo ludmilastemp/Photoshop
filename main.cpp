@@ -29,28 +29,23 @@ int main (int argc, char **argv)
     CreateBaseSettings (modelPhotoshop);
 
 /*
- * Начало программы
+ * Добавление plugins
  */
     StlPsSPI psspi {modelPhotoshop, modelCanvas, ctx};
+    modelPhotoshop.setPsspi (&psspi);
 
-    std::vector <void*> dll;
     for (int i = 1; i < argc; i++)
     {
-        void* ptr = dlopen(argv[i], RTLD_NOW | RTLD_LOCAL);
-        if (!ptr) {
-            fprintf(stderr, "%s\n", dlerror());
-            exit(EXIT_FAILURE);
-        }
-        dll.push_back(ptr);
-
-        void (*func)(PsSPI*) = (void (*)(PsSPI*)) dlsym (ptr, "loadPlugin");
-        (*func)( &psspi );
+        modelPhotoshop.addPlugin(argv[i]);
     }
 
+/*
+ * Начало программы
+ */
     int i = 0;
     while (IsWindowOpen(ctx))
     {
-        // if (i++ == 1000) loadPlugin ();
+        if (i++ == 100000) {}
         if (ctx.event () == false) continue;
         if (CheckEventCloseWindow (ctx)) break;
 
@@ -62,9 +57,7 @@ int main (int argc, char **argv)
             viewPhotoshop (ctx);   
     }
 
-    for (void* ptr : dll)
-        dlclose(ptr);
-
+    modelPhotoshop.closePlugins ();
     printf ("End\n");
 
     return 0;

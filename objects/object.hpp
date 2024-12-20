@@ -71,6 +71,7 @@ public:
         sprite.setScale (scale, scale);
     }
     void            draw (GraphicsCtx& ctx) const { ctx.window.draw (sprite); }
+    void setPicture (const char* png) { image.loadFromFile (png); texture.update (image); }
 
 };
 

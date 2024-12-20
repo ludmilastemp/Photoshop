@@ -77,12 +77,13 @@ public:
         ctx (init_ctx)
     {}
 
-    void call (Event event)
+    bool call (Event event)
     {
         Button& b = *(Button*)modelCanvas.parameterManager.objects[param->id]->objects[0];
         ctx.event.coord.x = event.coord.x;
         ctx.event.coord.y = event.coord.y;
         param->activate();
+        return true;
     }
 };
 

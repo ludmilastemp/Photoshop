@@ -37,7 +37,7 @@ $(BUILD_DIR)/$(BIN) : $(OBJ) $(SO)
 	$(CXX) $^ $(CXX_FLAGS) $(SFML_FLAGS) -o $@
 
 test: $(BUILD_DIR)/$(BIN)
-	$(BUILD_DIR)/$(BIN) ./$(SO)
+	$(BUILD_DIR)/$(BIN) $(SO)
 
 clean:
 	rm -rf .depend build

@@ -10,20 +10,20 @@ public:
 
     virtual ~Action () = default;
 
-    void operator() ()
+    bool operator() ()
     {
-        call();
+        return call();
     }
 
-    void operator() (Event event)
+    bool operator() (Event event)
     {
-        call(event);
+        return call(event);
     }
 
-    virtual void call() {}
-    virtual void call(Event event) 
+    virtual bool call() { return true; }
+    virtual bool call(Event event) 
     {
-        call ();
+        return call ();
     }
 
     virtual Scene* create (std::vector<void*>* buttons) { return nullptr; }

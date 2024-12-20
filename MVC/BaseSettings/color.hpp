@@ -20,8 +20,8 @@ private:
     Color colorTmp;
 
 public:
-    ActionColor (ModelCanvas& init_modelPhotoshop)
-        : modelCanvas(init_modelPhotoshop)
+    ActionColor (ModelCanvas& init_modelCanvas)
+        : modelCanvas(init_modelCanvas)
     { }
 
     void drawState ()
@@ -68,12 +68,13 @@ public:
         drawState ();
     }
 
-    virtual void call (Event event) override
+    virtual bool call (Event event) override
     {
         colorConst = pictureBackground->getPixel (event.getCoord().x, event.getCoord().y);
         colorTmp = colorConst;
         modelCanvas.setColor (colorConst);
         drawState ();
+        return true;
     }
 
     void setColor (Color new_color)
