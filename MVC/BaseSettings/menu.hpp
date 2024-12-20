@@ -9,7 +9,7 @@
 #include "../modelPhotoshop.hpp"
 #include "../modelCanvas.hpp"
 
-#include "../../filters/blur.hpp"
+// #include "../../filters/filters.hpp"
 
 /**************************************************************************/
 
@@ -25,7 +25,7 @@ public:
 
     virtual Scene* create (std::vector<void*>* buttons) override
     {
-        VectorDec size = {130, 36 * 2 + 1};
+        VectorDec size = {130, 37 * 2};
         const char* png = "img/menu/file-list.png";
 
         Button* button = new Button {size, {0, 40}, *this, png};
@@ -42,7 +42,7 @@ public:
         int x = event.getCoord().x;
         int y = event.getCoord().y;
 
-        if (0 * 36 < y && y < 1 * 36)
+        if (0 * 37 < y && y < 1 * 37)
         {
             printf ("Please enter the path to the image:\n");
             char path[216];
@@ -51,7 +51,7 @@ public:
             modelCanvas.systemState.base.clean();
             return true;
         }
-        if (1 * 36 < y && y < 2 * 36)
+        if (1 * 37 < y && y < 2 * 37)
         {
             printf ("not implemented\n");
             return true;
@@ -63,19 +63,18 @@ public:
 class ActionFilter : public Action
 {
 private:
-    ModelCanvas& modelCanvas;
+    ModelPhotoshop& modelPhotoshop;
 
 public:
-    ActionFilter (ModelCanvas& init_modelCanvas)
-        : modelCanvas(init_modelCanvas)
+    ActionFilter (ModelPhotoshop& init_modelPhotoshop)
+        : modelPhotoshop (init_modelPhotoshop)
     { }
 
     virtual Scene* create (std::vector<void*>* buttons) override
     {
-        VectorDec size = {150, 36 * 6 + 1};
-        const char* png = "img/menu/filter-list.png";
+        VectorDec size = {150, 37 * 10};
 
-        Button* button = new Button {size, {361, 40}, *this, png};
+        Button* button = new Button {size, {361, 40}, *this};
         buttons->push_back (button);
 
         Scene* sceneParameter = new Scene {};
@@ -86,8 +85,19 @@ public:
 
     virtual bool call (Event event) override
     {
-        int x = event.getCoord().x;
         int y = event.getCoord().y;
+
+        int index = y / (kHeightFilterIcon + kFilterOffset);
+        // printf ("AAAAAAAAAAAAAAAAAAAA index %d AAAAAAAAAAAAAAAAa\n", index);
+        if (index < modelPhotoshop.nFilters)
+        {
+            modelPhotoshop.filtres[index]->activate();
+        }
+        return true;
+
+/*
+        // int x = event.getCoord().x;
+        // int y = event.getCoord().y;
 
         if (0 * 36 < y && y < 1 * 36)
         {
@@ -120,6 +130,7 @@ public:
             return true;
         }
         return false;
+*/
     }
 };
 
@@ -135,7 +146,7 @@ public:
 
     virtual Scene* create (std::vector<void*>* buttons) override
     {
-        VectorDec size = {130, 36 + 1};
+        VectorDec size = {130, 37};
         const char* png = "img/menu/window-list.png";
 
         Button* button = new Button {size, {502, 40}, *this, png};
@@ -152,7 +163,7 @@ public:
         int x = event.getCoord().x;
         int y = event.getCoord().y;
 
-        if (0 * 36 < y && y < 1 * 36)
+        if (0 * 37 < y && y < 1 * 37)
         {
             printf ("Please enter the name of the plugin:\n");
             char path[216];

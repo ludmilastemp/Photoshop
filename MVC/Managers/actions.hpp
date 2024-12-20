@@ -3,43 +3,28 @@
 
 #include <cstdlib>
 #include "../../objects/actionClass.hpp"
-
 #include "../modelCanvas.hpp"
+#include "manager.hpp"
 
 /**************************************************************************/
+
+class ModelPhotoshop;
 
 class ActionToolbar : public Action
 {
 private:
+    ModelPhotoshop* modelPhotoshop;
     ModelCanvas& modelCanvas;
     VectorDec corner;
 
 public:
-    ActionToolbar (ModelCanvas& init_modelPhotoshop, VectorDec init_corner)
-        : modelCanvas(init_modelPhotoshop), corner (init_corner)
+    ActionToolbar (ModelPhotoshop* init_modelPhotoshop, ModelCanvas& init_modelCanvas, VectorDec init_corner)
+        : modelPhotoshop(init_modelPhotoshop), 
+          modelCanvas(init_modelCanvas), 
+          corner (init_corner)
     {}
 
-    virtual bool call (Event event) override
-    {
-        int y = event.getCoord().y;
-
-        if (y / (kHeightIcon + kOffsetIcon) < modelCanvas.toolbar.getSize() && 
-            y % (kHeightIcon + kOffsetIcon) <= kHeightIcon)
-        {
-            int object = y / (kHeightIcon + kOffsetIcon);
-            printf ("setActiveTool %d\n", object);
-            if (modelCanvas.toolbar.activeObject == object)
-            {
-                modelCanvas.setActiveTool (-1);
-            }
-            else
-            {
-                modelCanvas.setActiveTool (object);
-            }
-            return true;
-        }
-        return false;
-    }
+    virtual bool call (Event event) override;
 };
 
 class ActionParameterManager : public Action
@@ -49,8 +34,8 @@ private:
     VectorDec corner;
 
 public:
-    ActionParameterManager (ModelCanvas& init_modelPhotoshop, VectorDec init_corner)
-        : modelCanvas(init_modelPhotoshop), corner (init_corner)
+    ActionParameterManager (ModelCanvas& init_modelCanvas, VectorDec init_corner)
+        : modelCanvas(init_modelCanvas), corner (init_corner)
     {}
 
     virtual bool call (Event event) override
@@ -104,20 +89,17 @@ public:
 class ActionIcon : public Action
 {
 public:
-    Scene& scene;
+    ModelPhotoshop* modelPhotoshop;
+    int index;
+    MenuManager& menuManager;
 
-    ActionIcon (Scene& init_scene)
-        : scene (init_scene)
+    ActionIcon (ModelPhotoshop* init_modelPhotoshop, MenuManager& init_menuManager)
+        : modelPhotoshop(init_modelPhotoshop),
+          menuManager (init_menuManager), 
+          index (init_menuManager.objects.size() - 1)
     {}
 
-    virtual bool call (Event event) override
-    {
-        if (scene.getIsDraw())
-            scene.setIsDraw(false);
-        else
-            scene.setIsDraw(true);
-        return true;
-    }
+    virtual bool call (Event event) override;
 };
 
 /**************************************************************************/

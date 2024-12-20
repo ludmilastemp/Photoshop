@@ -7,9 +7,10 @@ extern "C"
     void loadPlugin (PsSPI* psspi);
 }
 
-using tool_t  = int;
-using param_t = int;
-using layer_t = int;
+using tool_t   = int;
+using param_t  = int;
+using filter_t = int;
+using layer_t  = int;
 
 struct PsSPI_Color
 {
@@ -48,6 +49,20 @@ struct PsSPI_Parameter
     virtual void activate() {};
 };
 
+struct PsSPI_Filter
+{
+    PsSPI_Filter(const char* init_img, const char* init_name) 
+        : img(init_img), name(init_name) 
+    {}
+
+    filter_t id = -1;
+    const char* img;
+    const char* name;
+    virtual void apply()      {};
+    virtual void activate()   {};
+    virtual void deactivate() {};
+};
+
 struct PsSPI_Event
 {
     bool mousePressed;
@@ -58,7 +73,8 @@ struct PsSPI_Event
 class PsSPI
 {
 public:
-    virtual void  addTool (PsSPI_Tool* tool) = 0;
+    virtual void addTool (PsSPI_Tool* tool) = 0;
+    virtual void addFilter (PsSPI_Filter* tool) = 0;
     virtual void addParameter (tool_t id, PsSPI_Parameter* param) = 0;
     virtual PsSPI_Event getEvent () = 0;
     virtual layer_t createLayer () = 0;

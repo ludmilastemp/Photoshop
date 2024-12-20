@@ -54,4 +54,6 @@ public:
     }
 };
 
+using MenuManager = Manager<Scene>;
+
 #endif /* STL_MANAGER */

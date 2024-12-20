@@ -2,6 +2,7 @@
 #define STL_TOOL_PLUGIN
 
 #include "../objects/tool.hpp"
+#include "../objects/filter.hpp"
 #include "../MVC/modelCanvas.hpp"
 #include "../plugins/PsSPI.hpp"
 #include "../objects/actionClass.hpp"
@@ -39,7 +40,6 @@ public:
     {
         if (!tool) return;
         parameterButtons.setIsDraw (false);
-        // modelCanvas.parameterManager.deactivate();
         tool->deactivate();
     }
 
@@ -87,5 +87,39 @@ public:
     }
 };
 
+class FilterPlugin : public Filter
+{
+private:
+    ModelCanvas& modelCanvas;
+    GraphicsCtx&    ctx;
+
+public:
+    PsSPI_Filter* filter;
+
+    FilterPlugin (ModelCanvas& init_modelCanvas, GraphicsCtx& init_ctx)
+        :modelCanvas (init_modelCanvas), 
+        ctx (init_ctx)
+    {}
+
+    virtual void apply (Event event) override
+    {
+        if (!filter) return;
+        filter->apply();
+    }
+
+    virtual void activate () override
+    {
+        if (!filter) return;
+        parameterButtons.setIsDraw (true);
+        filter->activate();
+    }
+
+    virtual void deactivate () override
+    {
+        if (!filter) return;
+        parameterButtons.setIsDraw (false);
+        filter->deactivate();
+    }
+};
 
 #endif /* STL_TOOL_PLUGIN */

@@ -33,7 +33,10 @@ public:
         texture.create (size.x, size.y);
         sprite.setTexture (texture);
         sprite.setPosition (corner.x, corner.y);
-        image.loadFromFile (png);
+        if (png)
+            image.loadFromFile (png);
+        else
+            image.create (size.x, size.y, sf::Color (0, 0, 0, 0));
         texture.update (image);
     }
 

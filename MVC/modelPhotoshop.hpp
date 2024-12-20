@@ -2,9 +2,11 @@
 #define STL_MODEL_PHOTOSHOP
 
 #include <vector>
+#include "Managers/manager.hpp"
 #include "modelCanvas.hpp"
 #include "controllerPhotoshop.hpp"
 #include "Managers/actions.hpp"
+#include "../objects/filter.hpp"
 
 #include <dlfcn.h>
 #include "../plugins/PsSPI.hpp"
@@ -16,7 +18,11 @@ public:
     ModelButton modelButton;
     Scene& main_scene;
     size_t nTool = 0;
+    size_t nFilters = 0;
     size_t nParameters = 0;
+    MenuManager menuManager;
+    std::vector<Filter*> filtres;
+    Scene* filtersScene;
     std::vector <void*> dll;
     PsSPI* psspi;
 
@@ -26,7 +32,7 @@ public:
         /*
         * Создание кнопки для tools
         */
-        ActionToolbar* actionToolbar = new ActionToolbar {modelCanvas, {kWidthToolbarCorner, kHeightToolbarCorner}};
+        ActionToolbar* actionToolbar = new ActionToolbar {this, modelCanvas, {kWidthToolbarCorner, kHeightToolbarCorner}};
         Button* buttonToolbar = new Button {{kWidthToolbar, kHeightToolbar}, {kWidthToolbarCorner, kHeightToolbarCorner}, *actionToolbar};
         modelButton.addButton (*buttonToolbar);
 
@@ -48,6 +54,14 @@ public:
         nTool++;
     }
 
+    void addFilter (Filter& filter, const char* png)
+    {
+        Button* button = new Button {{kWidthFilterIcon, kHeightFilterIcon}, {kWidthFilterbarCorner, kHeightFilterbarCorner + (int)nFilters * (kHeightFilterIcon + kFilterOffset)}, png};
+        filtersScene->addObject(*button);
+        filtres.push_back(&filter);
+        nFilters++;
+    }
+
     void addPlugin (const char* path)
     {
         void* ptr = dlopen(path, RTLD_NOW | RTLD_LOCAL);
@@ -60,6 +74,9 @@ public:
         void (*func)(PsSPI*) = (void (*)(PsSPI*)) dlsym (ptr, "loadPlugin");
         (*func)( psspi );
     }
+
+    void activateTool () { printf ("activateTool\n"); menuManager.deactivate(); }
+    void activateMenu () { printf ("activateMenu\n"); modelCanvas.setActiveTool(-1); }
 
     void setPsspi (PsSPI* new_psspi)
     {

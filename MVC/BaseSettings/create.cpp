@@ -39,8 +39,9 @@ void CreateBaseSettings (ModelPhotoshop& modelPhotoshop)
         modelButton.addButton (*(Button*)buttons[i]);
     buttons.clear();
     main_scene.addScene (*sceneParameter);
+    modelPhotoshop.menuManager.add(*sceneParameter);
 
-    ActionIcon* actionFileIcon = new ActionIcon {*sceneParameter};
+    ActionIcon* actionFileIcon = new ActionIcon {&modelPhotoshop, modelPhotoshop.menuManager};
     Button* buttonFile   = new Button {{57, 50},  {0, 0},  *actionFileIcon, "img/menu/file.png"};
     modelButton.addButton (*buttonFile);
     main_scene.addObject (*buttonFile);
@@ -50,14 +51,16 @@ void CreateBaseSettings (ModelPhotoshop& modelPhotoshop)
     Button* buttonLayer  = new Button {{76, 50},  {203, 0}, "img/menu/layer.png"};
     Button* buttonSelect = new Button {{82, 50},  {279, 0}, "img/menu/select.png"};
 
-    ActionFilter* actionFilter = new ActionFilter {modelCanvas};  
+    ActionFilter* actionFilter = new ActionFilter {modelPhotoshop};  
     sceneParameter = actionFilter->create (&buttons);
     for (int i = 0; i < buttons.size(); i++)
         modelButton.addButton (*(Button*)buttons[i]);
     buttons.clear();
     main_scene.addScene (*sceneParameter);
+    modelPhotoshop.menuManager.add(*sceneParameter);
+    modelPhotoshop.filtersScene = sceneParameter;
 
-    ActionIcon* actionFilterIcon = new ActionIcon {*sceneParameter};
+    ActionIcon* actionFilterIcon = new ActionIcon {&modelPhotoshop, modelPhotoshop.menuManager};
     Button* buttonFilter   = new Button {{72, 50},  {361, 0},  *actionFilterIcon, "img/menu/filter.png"};
     modelButton.addButton (*buttonFilter);
     main_scene.addObject (*buttonFilter);
@@ -70,8 +73,9 @@ void CreateBaseSettings (ModelPhotoshop& modelPhotoshop)
         modelButton.addButton (*(Button*)buttons[i]);
     buttons.clear();
     main_scene.addScene (*sceneParameter);
+    modelPhotoshop.menuManager.add(*sceneParameter);
 
-    ActionIcon* actionWindowIcon = new ActionIcon {*sceneParameter};
+    ActionIcon* actionWindowIcon = new ActionIcon {&modelPhotoshop, modelPhotoshop.menuManager};
     Button* buttonWindow   = new Button {{102, 50}, {502, 0},  *actionWindowIcon, "img/menu/window.png"};
     modelButton.addButton (*buttonWindow);
     main_scene.addObject (*buttonWindow);

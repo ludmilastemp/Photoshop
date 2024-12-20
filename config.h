@@ -27,6 +27,12 @@ const int kHeightToolbar = 300;
 const int kWidthToolbarCorner  = 6;
 const int kHeightToolbarCorner = 95;
 
+const int kWidthFilterbarCorner  = 361;
+const int kHeightFilterbarCorner = 40;
+const int kWidthFilterIcon  = 150;
+const int kHeightFilterIcon = 37;
+const int kFilterOffset = 0;
+
 const int kWidthParameterManagerCorner  = 66;
 const int kHeightParameterManagerCorner = 50;
 const int kWidthParameterManager  = kWidthWindow - kWidthParameterManagerCorner;

@@ -5,6 +5,7 @@
 #include "../plugins/PsSPI.hpp"
 #include "../Standard/tool_plugin.hpp"
 #include "../objects/tool.hpp"
+#include "../objects/filter.hpp"
 #include "../MVC/modelPhotoshop.hpp"
 #include "../MVC/modelCanvas.hpp"
 
@@ -15,6 +16,7 @@ private:
     ModelCanvas& modelCanvas;
     GraphicsCtx& ctx;
     std::vector <Tool*> pl_tools;
+    std::vector <Filter*> pl_filters;
 
 public:
 
@@ -28,6 +30,7 @@ public:
 public:
 
     virtual void addTool (PsSPI_Tool* tool) override;
+    virtual void addFilter (PsSPI_Filter* tool) override;
     virtual void addParameter (tool_t id, PsSPI_Parameter* param) override;
     virtual PsSPI_Event getEvent () override;
     virtual layer_t createLayer () override;

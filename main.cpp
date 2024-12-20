@@ -35,9 +35,7 @@ int main (int argc, char **argv)
     modelPhotoshop.setPsspi (&psspi);
 
     for (int i = 1; i < argc; i++)
-    {
         modelPhotoshop.addPlugin(argv[i]);
-    }
 
 /*
  * Начало программы

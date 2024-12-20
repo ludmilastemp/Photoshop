@@ -48,6 +48,18 @@ void StlPsSPI::addParameter (tool_t id, PsSPI_Parameter* param)
     tool.nParameters++;
 }
 
+void StlPsSPI::addFilter (PsSPI_Filter* filter)
+{
+    FilterPlugin* new_filter = new FilterPlugin {modelCanvas, ctx};
+    new_filter->filter = filter;
+    pl_filters.push_back (new_filter);
+
+    modelPhotoshop.addFilter (*new_filter, filter->img);
+    filter->id = pl_filters.size() - 1;
+
+    modelPhotoshop.main_scene.addScene (new_filter->parameterButtons);
+}
+
 PsSPI_Event StlPsSPI::getEvent ()
 {
     return {.mousePressed = ctx.event.getMousePressed(),
