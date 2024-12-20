@@ -1,4 +1,4 @@
-#include "../plugins/PsSPI.hpp"
+#include "plugins/PsSPI.hpp"
 
 #include <cstddef>
 #include <iostream>

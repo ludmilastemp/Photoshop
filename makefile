@@ -1,9 +1,9 @@
 default: test
 
-OPTIMIZE_LEVEL = #-O0
+OPTIMIZE_LEVEL = -O3 #-O0
 
 CXX = g++
-CXX_FLAGS = -g $(OPTIMIZE_LEVEL)
+CXX_FLAGS = -g $(OPTIMIZE_LEVEL) -I .
 SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system 
 BUILD_DIR = ./build
 BIN = photoshop

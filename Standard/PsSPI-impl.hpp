@@ -2,12 +2,12 @@
 #define STL_PsSPIIMPL
 
 #include <vector>
-#include "../plugins/PsSPI.hpp"
-#include "../Standard/tool_plugin.hpp"
-#include "../objects/tool.hpp"
-#include "../objects/filter.hpp"
-#include "../MVC/modelPhotoshop.hpp"
-#include "../MVC/modelCanvas.hpp"
+#include "plugins/PsSPI.hpp"
+#include "Standard/tool_plugin.hpp"
+#include "objects/tool.hpp"
+#include "objects/filter.hpp"
+#include "MVC/modelPhotoshop.hpp"
+#include "MVC/modelCanvas.hpp"
 
 class StlPsSPI : public PsSPI
 {

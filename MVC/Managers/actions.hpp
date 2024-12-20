@@ -2,8 +2,8 @@
 #define STL_ACTIONS_MANAGERS
 
 #include <cstdlib>
-#include "../../objects/actionClass.hpp"
-#include "../modelCanvas.hpp"
+#include "objects/actionClass.hpp"
+#include "MVC/modelCanvas.hpp"
 #include "manager.hpp"
 
 /**************************************************************************/

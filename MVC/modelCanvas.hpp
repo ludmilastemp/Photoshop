@@ -6,7 +6,7 @@
 #include "systemState.hpp"
 #include "Managers/toolbar.hpp"
 #include "Managers/parameterManager.hpp"
-#include "../GrLib/color.hpp"
+#include "GrLib/color.hpp"
 
 const int kLaterActive = -1;
 

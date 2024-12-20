@@ -1,12 +1,12 @@
 #ifndef STL_TOOL_PLUGIN
 #define STL_TOOL_PLUGIN
 
-#include "../objects/tool.hpp"
-#include "../objects/filter.hpp"
-#include "../MVC/modelCanvas.hpp"
-#include "../plugins/PsSPI.hpp"
-#include "../objects/actionClass.hpp"
-#include "../objects/button.hpp"
+#include "objects/tool.hpp"
+#include "objects/filter.hpp"
+#include "MVC/modelCanvas.hpp"
+#include "plugins/PsSPI.hpp"
+#include "objects/actionClass.hpp"
+#include "objects/button.hpp"
 #include <iostream>
 
 class ToolPlugin : public Tool

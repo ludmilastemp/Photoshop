@@ -1,9 +1,9 @@
 #ifndef STL_OBJECT
 #define STL_OBJECT
 
-#include "../GrLib/GrLibCtx.hpp"
-#include "../GrLib/color.hpp"
-#include "../vectors/vectorDec.hpp"
+#include "GrLib/GrLibCtx.hpp"
+#include "GrLib/color.hpp"
+#include "vectors/vectorDec.hpp"
 #include <iostream>
 
 class Object

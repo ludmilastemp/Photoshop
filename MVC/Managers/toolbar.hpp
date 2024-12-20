@@ -2,7 +2,7 @@
 #define STL_TOOLBAR
 
 #include "manager.hpp"
-#include "../../objects/tool.hpp"
+#include "objects/tool.hpp"
 
 class Toolbar : public Manager<Tool>
 {

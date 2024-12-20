@@ -3,13 +3,13 @@
 
 #include <cstdlib>
 #include <cmath>
-#include "../../objects/actionClass.hpp"
-#include "../../objects/button.hpp"
+#include "objects/actionClass.hpp"
+#include "objects/button.hpp"
 
-#include "../modelPhotoshop.hpp"
-#include "../modelCanvas.hpp"
+#include "MVC/modelPhotoshop.hpp"
+#include "MVC/modelCanvas.hpp"
 
-// #include "../../filters/filters.hpp"
+// #include "filters/filters.hpp"
 
 /**************************************************************************/
 

@@ -1,9 +1,9 @@
 #ifndef STL_TOOL
 #define STL_TOOL
 
-#include "../GrLib/GrLibCtx.hpp"
-#include "../GrLib/color.hpp"
-#include "../objects/object.hpp"
+#include "GrLib/GrLibCtx.hpp"
+#include "GrLib/color.hpp"
+#include "objects/object.hpp"
 
 class Tool 
 {

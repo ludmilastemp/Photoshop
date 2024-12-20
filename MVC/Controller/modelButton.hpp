@@ -1,7 +1,7 @@
 #ifndef STL_MODEL_BUTTON
 #define STL_MODEL_BUTTON
 
-#include "../../objects/button.hpp"
+#include "objects/button.hpp"
 
 class ModelButton
 {

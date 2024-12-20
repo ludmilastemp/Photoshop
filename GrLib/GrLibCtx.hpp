@@ -2,8 +2,8 @@
 #define STL_GrLibCtx
 
 #include <SFML/Graphics.hpp>
-#include "../vectors/vectorDec.hpp"
-#include "../config.h"
+#include "vectors/vectorDec.hpp"
+#include "config.h"
 
 class Event
 {

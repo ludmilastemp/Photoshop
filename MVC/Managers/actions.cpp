@@ -1,5 +1,5 @@
 #include "actions.hpp"
-#include "../modelPhotoshop.hpp"
+#include "MVC/modelPhotoshop.hpp"
 
 bool ActionToolbar::call (Event event)
 {

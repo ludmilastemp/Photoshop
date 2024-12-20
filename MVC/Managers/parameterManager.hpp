@@ -2,7 +2,7 @@
 #define STL_PARAMETER_MANAGER
 
 #include "manager.hpp"
-#include "../../objects/actionClass.hpp"
+#include "objects/actionClass.hpp"
 
 class ParameterManager : public Manager<Scene>
 {

@@ -1,7 +1,7 @@
 #ifndef STL_FILTER_BLUR
 #define STL_FILTER_BLUR
 
-#include "../MVC/modelCanvas.hpp"
+#include "MVC/modelCanvas.hpp"
 #include <iostream>
 #include <memory>
 

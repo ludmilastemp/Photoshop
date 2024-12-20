@@ -1,9 +1,9 @@
 #ifndef STL_FILTER
 #define STL_FILTER
 
-#include "../GrLib/GrLibCtx.hpp"
-#include "../GrLib/color.hpp"
-#include "../objects/object.hpp"
+#include "GrLib/GrLibCtx.hpp"
+#include "GrLib/color.hpp"
+#include "objects/object.hpp"
 
 class Filter
 {

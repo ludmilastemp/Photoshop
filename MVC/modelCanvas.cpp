@@ -1,4 +1,4 @@
-#include "modelCanvas.hpp"
+#include "MVC/modelCanvas.hpp"
 #include <iostream>
 #include "BaseSettings/color.hpp"
 

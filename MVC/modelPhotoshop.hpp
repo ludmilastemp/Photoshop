@@ -6,10 +6,10 @@
 #include "modelCanvas.hpp"
 #include "controllerPhotoshop.hpp"
 #include "Managers/actions.hpp"
-#include "../objects/filter.hpp"
+#include "objects/filter.hpp"
 
 #include <dlfcn.h>
-#include "../plugins/PsSPI.hpp"
+#include "plugins/PsSPI.hpp"
 
 class ModelPhotoshop
 {

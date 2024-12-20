@@ -2,7 +2,7 @@
 #define STL_GrLib
 
 #include "GrLibCtx.hpp"
-#include "../vectors/vectorDec.hpp"
+#include "vectors/vectorDec.hpp"
 
 bool IsWindowOpen          (GraphicsCtx& ctx);
 bool CheckEventCloseWindow (GraphicsCtx& ctx);

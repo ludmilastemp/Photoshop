@@ -1,7 +1,7 @@
 #ifndef STL_CREATE
 #define STL_CREATE
 
-#include "../modelPhotoshop.hpp"
+#include "MVC/modelPhotoshop.hpp"
 
 void CreateBaseSettings (ModelPhotoshop& modelPhotoshop);
 

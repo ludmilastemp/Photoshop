@@ -3,10 +3,10 @@
 
 #include <cstdlib>
 #include <cmath>
-#include "../../objects/actionClass.hpp"
-#include "../../objects/button.hpp"
+#include "objects/actionClass.hpp"
+#include "objects/button.hpp"
 
-#include "../modelCanvas.hpp"
+#include "MVC/modelCanvas.hpp"
 
 /**************************************************************************/
 
