@@ -1,4 +1,5 @@
 #include "PsSPI-impl.hpp"
+#include "PsSPI.hpp"
 
 void StlPsSPI::addTool (PsSPI_Tool* tool)
 {
@@ -57,7 +58,47 @@ void StlPsSPI::addFilter (PsSPI_Filter* filter)
     modelPhotoshop.addFilter (*new_filter, filter->img);
     filter->id = pl_filters.size() - 1;
 
-    modelPhotoshop.main_scene.addScene (new_filter->parameterButtons);
+    modelPhotoshop.main_scene.addScene (new_filter->setting);
+}
+
+void StlPsSPI::addFilterSetting (filter_t id, PsSPI_FilterSetting* setting)
+{
+    // Tool& tool = *modelCanvas.toolbar.objects[id];
+
+    // const char* pngIcon = param->img_icon;
+    // Button* buttonIcon = new Button {{kWidthParam, kHeightParam}, {kCanvasXEnd - size.x, kHeightParameterManagerCorner}, pngIcon};
+    // tool.parameterButtons.addObject (*buttonIcon);
+
+    Filter& filter = *modelPhotoshop.filtres[id];
+
+    VectorDec size = {setting->x, setting->y};
+    const char* png = setting->img_act;
+
+    ActionFilterSetting* action = new ActionFilterSetting {modelPhotoshop, modelCanvas, ctx};
+    action->setting = setting;
+
+    int id_layer = modelCanvas.createPluginParamPicture (size, {kCanvasXEnd - size.x, kCanvasYBegin}, png);
+    Button* button = new Button {size, {kCanvasXEnd - size.x, kCanvasYBegin}, *action, png};
+    modelPhotoshop.modelButton.addButton (*button);
+
+    filter.setting.addObject (*button);
+    filter.setting.addObject (*modelCanvas.pluginParamLayers[id_layer - 300]);
+    
+    // printf ("parameterManager %lu fill\n", modelCanvas.parameterManager.objects.size());
+
+    // modelCanvas.parameterManager.add   (*sceneParameter);
+    // tool.parametersIndex.push_back(modelCanvas.parameterManager.objects.size() - 1);
+
+    // param->id = tool.nParameters; 
+    // param->layer = id_layer;
+    
+    // tool.nParameters++;
+}
+
+void StlPsSPI::closeFilter (filter_t id)
+{    
+    Filter& filter = *modelPhotoshop.filtres[id];
+    filter.deactivate();
 }
 
 PsSPI_Event StlPsSPI::getEvent ()

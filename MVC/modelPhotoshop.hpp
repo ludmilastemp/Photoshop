@@ -9,7 +9,7 @@
 #include "objects/filter.hpp"
 
 #include <dlfcn.h>
-#include "plugins/PsSPI.hpp"
+#include "PsSPI.hpp"
 
 class ModelPhotoshop
 {

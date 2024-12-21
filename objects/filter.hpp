@@ -10,11 +10,11 @@ class Filter
 public:
     int nParameters = 0;
     std::vector<int> parametersIndex;
-    Scene parameterButtons;
+    Scene setting;
 
     Filter ()
     {
-        parameterButtons.setIsDraw (false);
+        setting.setIsDraw (false);
     }
 
     virtual ~Filter () = default;
@@ -25,8 +25,8 @@ public:
     }
 
     virtual void apply (Event event) = 0;
-    virtual void activate ()   { parameterButtons.setIsDraw (true); }
-    virtual void deactivate () { parameterButtons.setIsDraw (false); }
+    virtual void activate ()   { setting.setIsDraw (true); }
+    virtual void deactivate () { setting.setIsDraw (false); }
 };
 
 #endif /* STL_FILTER */

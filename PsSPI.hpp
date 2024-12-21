@@ -63,6 +63,21 @@ struct PsSPI_Filter
     virtual void deactivate() {};
 };
 
+struct PsSPI_FilterSetting
+{
+    PsSPI_FilterSetting(const char* init_img_icon, const char* init_name) 
+        : img_icon(init_img_icon), name(init_name) 
+    {}
+
+    filter_t id = -1;
+    layer_t layer = -1;
+    const char* img_icon;
+    const char* name;
+    const char* img_act;
+    int x; int y;
+    virtual void activate() {};
+};
+
 struct PsSPI_Event
 {
     bool mousePressed;
@@ -76,6 +91,8 @@ public:
     virtual void addTool (PsSPI_Tool* tool) = 0;
     virtual void addFilter (PsSPI_Filter* tool) = 0;
     virtual void addParameter (tool_t id, PsSPI_Parameter* param) = 0;
+    virtual void addFilterSetting (filter_t id, PsSPI_FilterSetting* setting) = 0;
+    virtual void closeFilter (filter_t id) = 0;
     virtual PsSPI_Event getEvent () = 0;
     virtual layer_t createLayer () = 0;
     virtual layer_t createParamLayer (tool_t id, param_t param_id) = 0;

@@ -3,8 +3,9 @@
 
 #include "objects/tool.hpp"
 #include "objects/filter.hpp"
+#include "MVC/modelPhotoshop.hpp"
 #include "MVC/modelCanvas.hpp"
-#include "plugins/PsSPI.hpp"
+#include "PsSPI.hpp"
 #include "objects/actionClass.hpp"
 #include "objects/button.hpp"
 #include <iostream>
@@ -79,7 +80,7 @@ public:
 
     bool call (Event event)
     {
-        Button& b = *(Button*)modelCanvas.parameterManager.objects[param->id]->objects[0];
+        // Button& b = *(Button*)modelCanvas.parameterManager.objects[param->id]->objects[0];
         ctx.event.coord.x = event.coord.x;
         ctx.event.coord.y = event.coord.y;
         param->activate();
@@ -110,15 +111,44 @@ public:
     virtual void activate () override
     {
         if (!filter) return;
-        parameterButtons.setIsDraw (true);
+        setting.setIsDraw (true);
+        setting.activate();
         filter->activate();
     }
 
     virtual void deactivate () override
     {
         if (!filter) return;
-        parameterButtons.setIsDraw (false);
+        setting.setIsDraw (false);
+        setting.deactivate();
         filter->deactivate();
+    }
+};
+
+class ActionFilterSetting : public Action
+{
+private:
+    ModelPhotoshop& modelPhotoshop;
+    ModelCanvas& modelCanvas;
+    GraphicsCtx&    ctx;
+
+public:
+    PsSPI_FilterSetting* setting;
+
+    ActionFilterSetting (ModelPhotoshop& init_modelPhotoshop, ModelCanvas& init_modelCanvas, GraphicsCtx& init_ctx)
+        :modelPhotoshop (init_modelPhotoshop),
+        modelCanvas (init_modelCanvas), 
+        ctx (init_ctx)
+    {}
+
+    bool call (Event event)
+    {
+        // Button& b = *(Button*)modelCanvas.parameterManager.objects[param->id]->objects[0];
+        ctx.event.coord.x = event.coord.x;
+        ctx.event.coord.y = event.coord.y;
+        setting->activate();
+        modelPhotoshop.activateTool();
+        return true;
     }
 };
 

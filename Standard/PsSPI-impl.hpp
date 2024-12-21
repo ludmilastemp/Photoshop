@@ -2,7 +2,7 @@
 #define STL_PsSPIIMPL
 
 #include <vector>
-#include "plugins/PsSPI.hpp"
+#include "PsSPI.hpp"
 #include "Standard/tool_plugin.hpp"
 #include "objects/tool.hpp"
 #include "objects/filter.hpp"
@@ -32,6 +32,8 @@ public:
     virtual void addTool (PsSPI_Tool* tool) override;
     virtual void addFilter (PsSPI_Filter* tool) override;
     virtual void addParameter (tool_t id, PsSPI_Parameter* param) override;
+    virtual void addFilterSetting (filter_t id, PsSPI_FilterSetting* setting) override;
+    virtual void closeFilter (filter_t id) override;
     virtual PsSPI_Event getEvent () override;
     virtual layer_t createLayer () override;
     virtual layer_t createParamLayer (tool_t id, param_t param_id) override;
