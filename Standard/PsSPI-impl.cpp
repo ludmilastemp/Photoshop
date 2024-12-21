@@ -83,16 +83,17 @@ void StlPsSPI::addFilterSetting (filter_t id, PsSPI_FilterSetting* setting)
 
     filter.setting.addObject (*button);
     filter.setting.addObject (*modelCanvas.pluginParamLayers[id_layer - 300]);
+    filter.setting.setIsDraw (false);
     
     // printf ("parameterManager %lu fill\n", modelCanvas.parameterManager.objects.size());
 
     // modelCanvas.parameterManager.add   (*sceneParameter);
     // tool.parametersIndex.push_back(modelCanvas.parameterManager.objects.size() - 1);
 
-    // param->id = tool.nParameters; 
-    // param->layer = id_layer;
+    setting->id = filter.nParameters; 
+    setting->layer = id_layer;
     
-    // tool.nParameters++;
+    filter.nParameters++;
 }
 
 void StlPsSPI::closeFilter (filter_t id)

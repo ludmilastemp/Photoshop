@@ -74,7 +74,6 @@ public:
         colorTmp = colorConst;
         modelCanvas.setColor (colorConst);
         drawState ();
-        return true;
     }
 
     void setColor (Color new_color)
